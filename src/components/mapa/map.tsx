@@ -5,6 +5,7 @@ import { theme } from "../../../config";
 import CardButtonMap from "./card-button";
 import CardFilter from "./card-filter";
 import { GetData } from "../../services/get-data";
+import { useRouter } from "next/router";
 
 const StyleMap = styled.section`
 
@@ -78,7 +79,7 @@ const StyleMap = styled.section`
         font-size:16px;
         font-weight:800;
         position:absolute;
-        top:91%;
+        top:90%;
         z-index:9999;
 
         @media(min-width:800px){
@@ -111,6 +112,7 @@ export default function Map():JSX.Element{
     const mapHook =  useGoogleMaps();
     const [filters, setFilters] = useState<any[]>([]);
     const [menu, setMenu] = useState<boolean>(false);
+    const router = useRouter();
 
     //set up first render 
     mapHook.UseEffectMap;
@@ -127,7 +129,9 @@ export default function Map():JSX.Element{
             //filters map
             data[1].data.forEach((currfilter:any, index:number)=>{
 
-                filters.push({name:currfilter.attributes.name,img:currfilter.attributes.media.data[0].attributes.url})
+                setFilters( currentFilters =>{
+                    return [...currentFilters, {name:currfilter.attributes.name,img:currfilter.attributes.media.data[0].attributes.url} ]
+                } );
 
             })
             
@@ -142,7 +146,9 @@ export default function Map():JSX.Element{
                 mapHook.AddMarker(position,point.attributes.location.nombre,point.attributes.location.icon);
                
             });
-            mapHook.ClusterMarker(mapHook.markers);
+
+            setTimeout(()=>mapHook.ClusterMarker(mapHook.markers),1000);
+            
 
         })
         .catch(err=>console.log(err));
@@ -173,12 +179,12 @@ export default function Map():JSX.Element{
 
         <div className={menu ? "menu show-menu" : "menu hidde-menu"}>
 
-            <CardButtonMap text="Runalotus" img="/uploads/logos_runalotus_2_1c6be0aa11.png?updated_at=2023-03-15T15:03:29.668Z"/>
-            <CardButtonMap text="Buscar destino" img="/uploads/search_ba2ffa87fa.webp?updated_at=2023-03-28T21:36:16.178Z"/>
-            <CardButtonMap text="Categorias" img="/uploads/category_6e81060994.webp?updated_at=2023-03-28T21:36:16.084Z"/>
-            <CardButtonMap text="Rutas turisticas" img="/uploads/route_4078736476.webp?updated_at=2023-03-28T21:36:16.207Z"/>
-            <CardButtonMap text="Paquetes  turisticos" img="/uploads/tourism_6d2e7647ac.webp?updated_at=2023-03-28T21:36:16.192Z"/>
-            <CardButtonMap text="Salir" img="/uploads/log_out_4329905_3599716_a374517b4e.png?updated_at=2023-03-29T17:29:23.209Z"/>
+            <CardButtonMap click={()=>console.log('click')} text="Runalotus" img="/uploads/logos_runalotus_2_1c6be0aa11.png?updated_at=2023-03-15T15:03:29.668Z"/>
+            <CardButtonMap click={()=>console.log('click')} text="Buscar destino" img="/uploads/search_ba2ffa87fa.webp?updated_at=2023-03-28T21:36:16.178Z"/>
+            <CardButtonMap click={()=>console.log('click')} text="Categorias" img="/uploads/category_6e81060994.webp?updated_at=2023-03-28T21:36:16.084Z"/>
+            <CardButtonMap click={()=>console.log('click')} text="Rutas turisticas" img="/uploads/route_4078736476.webp?updated_at=2023-03-28T21:36:16.207Z"/>
+            <CardButtonMap click={()=>console.log('click')} text="Paquetes  turisticos" img="/uploads/tourism_6d2e7647ac.webp?updated_at=2023-03-28T21:36:16.192Z"/>
+            <CardButtonMap click={()=>router.push('/')}  text="Salir" img="/uploads/log_out_4329905_3599716_a374517b4e.png?updated_at=2023-03-29T17:29:23.209Z"/>
             
         </div>
 

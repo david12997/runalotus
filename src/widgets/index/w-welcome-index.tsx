@@ -5,6 +5,7 @@ import Button1 from "../../components/common/button-1";
 import { theme } from "../../../config";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { PropsPage } from "../../pages";
+import { useRouter } from "next/router";
 
 
 
@@ -22,6 +23,7 @@ export const WidgetWelcomeIndex:NextPage<PropsPage> = (props)=>{
         bg:string
     }
     const dataWidget:PropsDataWidget = props.data.attributes.data.inicio.main_banner;
+    const router = useRouter();
 
 
     return<>
@@ -37,6 +39,7 @@ export const WidgetWelcomeIndex:NextPage<PropsPage> = (props)=>{
                     text={dataWidget.text_button}
                     minWidth="96%"
                     minHeight="60px"
+                    click={()=>router.push("/turismo/mapa")}
                 />
             }
             buttonMobile={
@@ -44,6 +47,7 @@ export const WidgetWelcomeIndex:NextPage<PropsPage> = (props)=>{
                     text={dataWidget.text_button}
                     minWidth="96%"
                     minHeight="80px"
+                    click={()=>router.push("/turismo/mapa")}
                 />
             }
             hand={`${theme.data_domain}${dataWidget.hand}`}

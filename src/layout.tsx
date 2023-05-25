@@ -185,7 +185,7 @@ const StyleLayout =  styled.span<PropsStyleLayout>`
 `;
 
 
-const Layout:NextPage<{children:JSX.Element, page:string}> = ({children, page})=>{
+const Layout:NextPage<{children:JSX.Element[], page:string}> = ({children, page})=>{
 
     return<StyleLayout page={page}>
 

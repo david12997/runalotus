@@ -205,9 +205,10 @@ const StyleWelcomeIndex =  styled.div`
                 display:none;
 
                 @media(min-width:800px){
-                   
+                    position:relative;
                     width:50%;
-                    cusor:pointer;
+                    cursor:pointer;
+                    z-index: 999;
                     display:block;
                     margin-top:40px;
                     & > div > div{
@@ -256,6 +257,8 @@ export type PropsWelcomeIndex={
 }
 
 export default function WelcomeIndex(props:PropsWelcomeIndex):JSX.Element{
+
+
 
     return<StyleWelcomeIndex>
         <div className="bg-index">

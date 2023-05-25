@@ -92,10 +92,10 @@ export default function CategoriesIndex(props:PropsCategoriesIndex):JSX.Element{
 
         <div className="title">
             <div className="text">
-                Categorias 
+                {props.title}
             </div>
             <div className="link">
-                ver más
+                {props.link}
             </div>
         </div>
 

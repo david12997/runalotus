@@ -6,12 +6,14 @@ import Welcome from "../../components/turismo/welcome";
 import Button1 from "../../components/common/button-1";
 import SearchRoute from "../../components/turismo/search-route";
 import { PropsPage } from "../../pages";
+import { useRouter } from "next/router";
   
 
 
 export const WidgetWelcomeTourism:NextPage<PropsPage> =(props) =>{
 
     console.log(props);
+    const router = useRouter();
 
     const imgCarrousel: string[] = [
 
@@ -47,6 +49,7 @@ export const WidgetWelcomeTourism:NextPage<PropsPage> =(props) =>{
                     minWidth="210px"
                     minHeight="50px"
                     text="Descubrir mapa"
+                    click={()=>router.push('/turismo/mapa')}
                 />
             }
             searchRouter={

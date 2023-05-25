@@ -42,8 +42,8 @@ const Index: NextPage<PropsPage> = (props) => {
 }
 
 export const  getStaticProps:GetStaticProps<PropsPage> = async(context) =>{
-
-  const data =  await GetData(['https://cms.aipus.co/api/stores/1'],theme.token_cms).then(res=>res);
+  console.log('context',context);
+  const data =  await GetData(['https://cms.aipus.co/api/stores/2'],theme.token_cms).then(res=>res);
 
   return{
 

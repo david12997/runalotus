@@ -4,6 +4,7 @@ import SectionAnimationStore from "../../components/index/store-section";
 import Button1 from "../../components/common/button-1";
 import { theme } from "../../../config";
 import { PropsPage } from "../../pages";
+import { useRouter } from "next/router";
 
 
 export const WidgetStoreIndex:NextPage<PropsPage> = (props)=>{
@@ -16,6 +17,7 @@ export const WidgetStoreIndex:NextPage<PropsPage> = (props)=>{
         animation:string
     }
     const dataWidget:PropsWidget = props.data.attributes.data.inicio.store;
+    const router = useRouter();
 
     return<>
         <SectionAnimationStore
@@ -37,6 +39,7 @@ export const WidgetStoreIndex:NextPage<PropsPage> = (props)=>{
                     text={dataWidget.text_button}
                     minWidth="96%"
                     minHeight="60px"
+                    click={()=>router.push('/tienda')}
                 />
             }
             buttonMobile={                
@@ -44,6 +47,7 @@ export const WidgetStoreIndex:NextPage<PropsPage> = (props)=>{
                     text={dataWidget.text_button}
                     minWidth="98%"
                     minHeight="80px"
+                    click={()=>router.push('/tienda')}
                 />
             }
         />

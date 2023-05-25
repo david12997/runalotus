@@ -7,7 +7,9 @@ import { theme } from "../../../config";
 export interface PropsStyleButton1{
 
     width:string,
-    height:string
+    height:string,
+    bgColor?:string,
+    textColor?:string
 
 }
 
@@ -22,12 +24,12 @@ export const StyleBtn1 = styled.div<PropsStyleButton1>`
         width:${props=>props.width};
         height:${props=>props.height};
         cursor:pointer;
-        background:${theme.colors.primaryA};
+        background:${props=>props.bgColor !== undefined ? props.bgColor : theme.colors.primaryA};
         border-radius:8px;
         display:flex;
         justify-content:center;
         align-items:center;
-        color:${theme.colors.white};
+        color:${props=>props.textColor !== undefined ? props.textColor : theme.colors.white};
         font-weight:700;
         font-size:17px;
 
@@ -53,17 +55,28 @@ export type PropsButton1 ={
 
     text:string,
     minWidth:string,
-    minHeight:string
+    minHeight:string,
+    click?:()=>void
+    icon?:JSX.Element,
+    bgColor?:string,
+    textColor?:string
 
 }
 
 
 export default function Button1(props:PropsButton1):JSX.Element{
 
-    return<StyleBtn1 data-testid="button-1" width={props.minWidth} height={props.minHeight}>
+    return<StyleBtn1 
+            onClick={props.click} 
+            data-testid="button-1" 
+            width={props.minWidth} 
+            height={props.minHeight} 
+            bgColor={props.bgColor}
+            textColor={props.textColor}
+        >
 
         <div className="btn1">
-            {props.text}
+            {props.text} {props.icon !== undefined && props.icon }
         </div>
             
     </StyleBtn1>

@@ -178,6 +178,8 @@ type PropsSectionAnimationStore = {
     buttonMobile:JSX.Element
 }
 export default function SectionAnimationStore(props:PropsSectionAnimationStore):JSX.Element{
+    
+
 
     return<StyleStoreSection>
         <div className="animation-desktop">

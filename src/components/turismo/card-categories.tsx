@@ -66,13 +66,14 @@ type PropsCardCategoires = {
 
     img:string,
     title:string
+    click?:()=>void
 
 }
 
 export default function CardCategories(props:PropsCardCategoires):JSX.Element{
 
 
-    return<StyleCardCategoires>
+    return<StyleCardCategoires onClick={props.click}>
 
         <img src={props.img} />
         <div className="card-title">

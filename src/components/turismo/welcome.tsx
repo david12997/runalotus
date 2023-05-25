@@ -32,7 +32,7 @@ const StylesWelcome =  styled.div`
             width:100%;
             height:40%;
             display:flex;
-            justiffy-content:center;
+            justify-content:center;
             align-items:center;
             position:relative;
             

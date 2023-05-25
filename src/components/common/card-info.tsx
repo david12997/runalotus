@@ -60,12 +60,13 @@ type PropsCardInfo = {
     text:string,
     link:string
     icon:JSX.Element,
+    click?:()=>void
 
 };
 
 export default function CardInfo(props:PropsCardInfo):JSX.Element{
 
-    return<StyleCardInfo>
+    return<StyleCardInfo onClick={props.click}>
         <div className="container-icon">
             {props.icon}
         </div>

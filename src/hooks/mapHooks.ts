@@ -22,7 +22,7 @@ export const useGoogleMaps = () =>{
 
     let newMap:google.maps.Map;
     let newMarker:google.maps.Marker;
-    let cluster :MarkerClusterer
+    let cluster :MarkerClusterer;
 
     const UseEffectMap = useEffect(()=>{
 
@@ -91,12 +91,12 @@ export const useGoogleMaps = () =>{
                 map:newMap,
                 label:{
                     text:" 1",
-                    fontSize:"14px",
+                    fontSize:"20px",
                     fontWeight:"900"
                 } ,
                 icon:{
                     url:`${theme.data_domain+icon}`,
-                    scaledSize:new google.maps.Size(54,54)
+                    scaledSize:new google.maps.Size(70,70)
                 }
             });
 
@@ -117,16 +117,16 @@ export const useGoogleMaps = () =>{
             markers:markers,
             renderer:{
                 render:({ count, position }) =>
-                new google.maps.Marker({
-                  label: { text: String(count)+' ', color: "white", fontSize: "23px", fontWeight:"900" },
-                  position,
-                  // adjust zIndex to be above other markers
-                  zIndex: Number(google.maps.Marker.MAX_ZINDEX) + count,
-                  icon:{
-                    url:theme.data_domain+'/uploads/place_icon_c0c5c92329.webp?updated_at=2023-03-29T23:06:48.319Z',
-                    scaledSize:new google.maps.Size(150,150)
-                }
-        
+                    new google.maps.Marker({
+                    label: { text: String(count)+' ', color: "white", fontSize: "26px", fontWeight:"900" },
+                    position,
+                    // adjust zIndex to be above other markers
+                    zIndex: Number(google.maps.Marker.MAX_ZINDEX) + count,
+                    icon:{
+                        url:theme.data_domain+'/uploads/place_icon_c0c5c92329.webp?updated_at=2023-03-29T23:06:48.319Z',
+                        scaledSize:new google.maps.Size(169,169)
+                    },
+                    
                 })
             }
         });

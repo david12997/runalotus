@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 const StoreAppCategoryPage:NextPage<PropsAppStore> = (props) =>{
 
     const router = useRouter();
+    
     if(router.isFallback){
         return <div>Loading...</div>
     }
@@ -49,7 +50,7 @@ export const getStaticPaths:GetStaticPaths = async () =>{
                 params:{category:'bolsos'}
             },
         ],
-        fallback:'blocking'
+        fallback:false
     }
 }
 

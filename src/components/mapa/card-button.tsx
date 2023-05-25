@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { theme } from "../../../config";
-import { type } from "os";
 
 
 const StyleCardButtonMap = styled.div`
@@ -47,7 +46,7 @@ const StyleCardButtonMap = styled.div`
         @media(min-width:330px){
             font-size:15px;
         }
-        @media(min-width:800px)´{
+        @media(min-width:800px){
             font-size:18px; 
         }
 
@@ -58,12 +57,14 @@ const StyleCardButtonMap = styled.div`
 type PropsCardButtonMap ={
 
     img:string,
-    text:string
+    text:string,
+    click?:()=>void
 }
 
 export default function CardButtonMap(props:PropsCardButtonMap):JSX.Element{
 
-    return<StyleCardButtonMap>
+
+    return<StyleCardButtonMap onClick={props.click}>
 
         <img src={theme.data_domain+props.img} />
         <div className="text">

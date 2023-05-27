@@ -15,7 +15,7 @@ const StyleLanguageCurrency = styled.div`
         width: 100vw;
         height: 100vh;
         background: rgba(0,0,0,0.3);
-        display:flex;
+        display:none;
         justify-content:center;
         align-items: center;
 

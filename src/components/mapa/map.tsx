@@ -7,6 +7,7 @@ import CardFilter from "./card-filter";
 import { GetData } from "../../services/get-data";
 import { useRouter } from "next/router";
 
+
 const StyleMap = styled.section`
 
 
@@ -143,7 +144,12 @@ export default function Map():JSX.Element{
                     lng:point.attributes.location.longitud
                 }
                
+             
+                
                 mapHook.AddMarker(position,point.attributes.location.nombre,point.attributes.location.icon);
+                
+              
+                
                
             });
 

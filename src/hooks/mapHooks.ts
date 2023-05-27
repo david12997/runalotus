@@ -1,5 +1,4 @@
 import {  useRef, useEffect, useState } from "react";
-import { Loader } from '@googlemaps/js-api-loader';
 import { theme } from "../../config";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 
@@ -14,11 +13,6 @@ export const useGoogleMaps = () =>{
     const [marker, setMarker] = useState<google.maps.Marker | null>(null);
     const [markers, setMarkers] = useState< google.maps.Marker[]>([]);
 
-    const loader = new Loader({
-        apiKey:'AIzaSyAQTFLoIOi62NEyIdBaeIvDemaj3WhZzqA',
-        version:"weekly",
-        libraries:["places"]
-    });
 
     let newMap:google.maps.Map;
     let newMarker:google.maps.Marker;
@@ -53,13 +47,19 @@ export const useGoogleMaps = () =>{
                 lng:location.coords.longitude
             }
 
-            RenderMap(options);
-            AddMarker(markerPosition,'Invitado','/uploads/user_3e6cd965b6.webp?updated_at=2023-03-29T19:54:22.718Z');
+
+                RenderMap(options);
+                AddMarker(markerPosition,'Invitado','/uploads/user_3e6cd965b6.webp?updated_at=2023-03-29T19:54:22.718Z');
+
+
 
             
+        },
+        (error:GeolocationPositionError)=>{
+           console.info('error',error);
         })
 
-    },[mapElem]);
+    },[]);
     
 
 
@@ -68,45 +68,32 @@ export const useGoogleMaps = () =>{
 
     const RenderMap = (options:any):void =>{
 
-
-        loader.load()
-        .then((google)=>{
-
-            mapElem.current !== null && (newMap = new google.maps.Map(mapElem.current,options));
-            setMap(newMap);
-            
-        
-        })
-        .catch((error)=>console.log(error));
+        mapElem.current !== null && (newMap = new google.maps.Map(mapElem.current,options));
+        setMap(newMap);
 
     }
 
     const AddMarker = (position:{lat:number,lng:number}, label:string, icon:string):void =>{
 
-        loader.load()
-        .then((google)=>{
+        newMarker = new google.maps.Marker({
+            position:position,
+            map:newMap,
+            label:{
+                text:" 1",
+                fontSize:"20px",
+                fontWeight:"900"
+            } ,
+            icon:{
+                url:`${theme.data_domain+icon}`,
+                scaledSize:new google.maps.Size(70,70)
+            }
+        });
 
-            newMarker = new google.maps.Marker({
-                position:position,
-                map:newMap,
-                label:{
-                    text:" 1",
-                    fontSize:"20px",
-                    fontWeight:"900"
-                } ,
-                icon:{
-                    url:`${theme.data_domain+icon}`,
-                    scaledSize:new google.maps.Size(70,70)
-                }
-            });
-
-            newMarker?.setMap(newMap);
-            newMarker !== null && markers.push(newMarker);
-            setMarker(newMarker);
+        newMarker?.setMap(newMap);
+        newMarker !== null && markers.push(newMarker);
+        setMarker(newMarker);
 
 
-        })
-        .catch((error)=>console.log(error))
     };
 
 
@@ -137,7 +124,6 @@ export const useGoogleMaps = () =>{
 
 
     return{
-        loader,
         location,
         map,
         marker,

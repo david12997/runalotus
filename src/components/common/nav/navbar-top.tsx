@@ -38,6 +38,7 @@ const StyleNavbarTop = styled.div`
         font-weight:700;
         color:${theme.colors.white};
         position:relative;
+        cursor:pointer;
 
         p{
             display:flex;
@@ -253,13 +254,12 @@ type PropsNavbarTop = {
     },
     iconLinks:JSX.Element[],
     linkRefDesktop:React.MutableRefObject<(HTMLDivElement | null)[]>,
-    cartToggle:(reference:React.RefObject<HTMLDivElement>,displayShow:string)=>void,
-    menuToggle:(reference:React.RefObject<HTMLDivElement>,displayShow:string)=>void,
     FocusLinkDesktop:(element:HTMLDivElement)=>void,
     referenceCart:React.RefObject<HTMLDivElement>
     referenceMenu:React.RefObject<HTMLDivElement>
     referenceLanguage:React.RefObject<HTMLDivElement>
-    languageToggle:(reference:React.RefObject<HTMLDivElement>,displayShow:string)=>void
+    referenceLocation:React.RefObject<HTMLDivElement>
+    elementToggle:(reference:React.RefObject<HTMLDivElement>,displayShow:string)=>void,
 
 }
 
@@ -269,7 +269,7 @@ export default function NavbarTop(props:PropsNavbarTop):JSX.Element{
         <div style={{display:props.toggleNav}} className="nav__container1">
 
             <div className="mobile">
-                <div className="mobile__location">
+                <div className="mobile__location" onClick={()=>props.elementToggle(props.referenceLocation,'flex')}>
 
                     <p>{props.icons.location } Ubicación</p>
                     <div className="mobile__enviar">
@@ -277,17 +277,17 @@ export default function NavbarTop(props:PropsNavbarTop):JSX.Element{
                     </div>
 
                 </div>
-                <div className="mobile__options" onClick={()=>props.languageToggle(props.referenceLanguage,'flex')}>
+                <div className="mobile__options" onClick={()=>props.elementToggle(props.referenceLanguage,'flex')}>
                     <p>{props.icons.language}  ES</p>
                     <p>{props.icons.dollar} COP</p>   
                 </div>
                 <div className="mobile__buttons">
-                <div onClick={()=>props.cartToggle(props.referenceCart,'block')} className="carrito">
+                <div onClick={()=>props.elementToggle(props.referenceCart,'block')} className="carrito">
                         {props.icons.cart}
                         <div className="number">+9</div>
 
                 </div>
-                <div className="bars" onClick={()=>props.menuToggle(props.referenceMenu,'block')}>
+                <div className="bars" onClick={()=>props.elementToggle(props.referenceMenu,'block')}>
                         {props.icons.bars}
                 </div>
                 </div>

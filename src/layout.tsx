@@ -56,10 +56,10 @@ const StyleLayout =  styled.span<PropsStyleLayout>`
                 grid-template-rows:95px 750px 850px 650px 780px  760px 650px   1100px;
 
                 @media(min-width:500px){
-                    grid-template-rows:95px 750px 850px 650px 800px  760px 650px   1100px;
+                    grid-template-rows:95px 750px 850px 650px 900px  760px 650px   1100px;
                 }
                 @media(min-width:800px){
-                    grid-template-rows:95px 640px 530px 800px 650px  490px 900px   500px;
+                    grid-template-rows:95px 640px 530px 800px 650px  530px 900px   500px;
                 }
                 @media(min-width:1470px){
                     grid-template-rows:95px 740px 730px 800px 650px 560px 1000px 700px 960px   500px;

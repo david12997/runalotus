@@ -8,6 +8,7 @@ import NavigationMobile from "./nav/navigation-mobile";
 import NavbarTop from "./nav/navbar-top";
 import NavbarBottom from "./nav/navbar.bottom";
 import LanguageCurrency from "./nav/lang-currency";
+import LocationNav from "./nav/location";
 
 
 export interface PropsNavStyle{
@@ -55,10 +56,11 @@ export default function Nav(props:PropsNav):JSX.Element{
 
     const router:NextRouter = useRouter();
     const [toggleNav, setToggleNav] = useState<string>('block');
+
     const menuRef = useRef<HTMLDivElement>(null);
     const cartRef = useRef<HTMLDivElement>(null);
     const languageRef = useRef<HTMLDivElement>(null);
-
+    const locationRef = useRef<HTMLDivElement>(null);
     const linkRefDesktop = useRef<Array<HTMLDivElement | null>>(new Array<HTMLDivElement>(props.pages.length));
     const linkRefMobile = useRef<Array<HTMLDivElement | null>>(new Array<HTMLDivElement>(props.pages.length));
 
@@ -88,6 +90,7 @@ export default function Nav(props:PropsNav):JSX.Element{
         menuRef.current?.style.setProperty('display','none');
         cartRef.current?.style.setProperty('display','none');
         languageRef.current?.style.setProperty('display','none');
+        locationRef.current?.style.setProperty('display','none');
        
         // set toggle navbar when scroll
         let maxScroll:number = 0;
@@ -170,6 +173,11 @@ export default function Nav(props:PropsNav):JSX.Element{
             linkRefMobile={linkRefMobile} 
             menuToggle={ElementToggle}
         />
+        
+        <LocationNav
+            reference={locationRef}
+            locationToggle={ElementToggle}
+        />
 
        {/* those components below are tow bars that create Nav component */}
         <NavbarTop
@@ -184,13 +192,12 @@ export default function Nav(props:PropsNav):JSX.Element{
             }}
             iconLinks={iconLinks}
             linkRefDesktop={linkRefDesktop}
-            cartToggle={ElementToggle}
-            menuToggle={ElementToggle}
-            languageToggle={ElementToggle}
+            elementToggle={ElementToggle}
             FocusLinkDesktop={FocusLinkDesktop}
             referenceCart={cartRef}
             referenceMenu={menuRef}
             referenceLanguage={languageRef}
+            referenceLocation={locationRef}
         />
 
         <NavbarBottom
@@ -203,10 +210,10 @@ export default function Nav(props:PropsNav):JSX.Element{
             logo={props.logo}
             search={props.search}
             name={props.name}
-            cartToggle={ElementToggle}
-            languageToggle={ElementToggle}
             referenceCart={cartRef}
             referenceLanguage={languageRef}
+            referenceLocation={locationRef}
+            elementToggle={ElementToggle}
         />
       
        

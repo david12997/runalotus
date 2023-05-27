@@ -245,10 +245,10 @@ type PropsNavbarBottom = {
         dollar:JSX.Element,
         cart:JSX.Element
     },
-    cartToggle:(reference:React.RefObject<HTMLDivElement>,displayShow:string)=>void,
-    languageToggle:(reference:React.RefObject<HTMLDivElement>, displayShow:string)=>void,
+    elementToggle:(reference:React.RefObject<HTMLDivElement>,display:string)=>void,
     referenceCart:React.RefObject<HTMLDivElement>
     referenceLanguage:React.RefObject<HTMLDivElement>
+    referenceLocation:React.RefObject<HTMLDivElement>
 }
 
 export default function NavbarBottom(props:PropsNavbarBottom):JSX.Element{
@@ -263,7 +263,7 @@ export default function NavbarBottom(props:PropsNavbarBottom):JSX.Element{
                 <p onClick={()=>router.push('/')}>{props.name}</p>
                 
                 <div className="options-desktop">
-                    <div className="desktop__location">
+                    <div className="desktop__location" onClick={()=>props.elementToggle(props.referenceLocation,'flex')}>
 
                         <p>{props.icons.location } Ubicación</p>
                         <div className="desktop__enviar">
@@ -271,7 +271,7 @@ export default function NavbarBottom(props:PropsNavbarBottom):JSX.Element{
                         </div>
 
                     </div>
-                    <div className="desktop__options" onClick={()=>props.languageToggle(props.referenceLanguage,'flex')}>
+                    <div className="desktop__options" onClick={()=>props.elementToggle(props.referenceLanguage,'flex')}>
                         <p>{props.icons.language}  ES</p>
                         <p>{props.icons.dollar} COP</p>   
                     </div>
@@ -284,7 +284,7 @@ export default function NavbarBottom(props:PropsNavbarBottom):JSX.Element{
 
             </div>
 
-            <div onClick={()=>props.cartToggle(props.referenceCart,'block')} className="carrito">
+            <div onClick={()=>props.elementToggle(props.referenceCart,'block')} className="carrito">
                 {props.icons.cart}
                 <div className="number">+9</div>
 

@@ -16,6 +16,7 @@ const StylesCart = styled.div`
         position:fixed;
         background: ${theme.colors.white};
         box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
+        display: none;
 
         @media(min-width:800px){
             width: 40vw;

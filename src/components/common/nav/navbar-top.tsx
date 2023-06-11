@@ -4,6 +4,9 @@ import styled from "styled-components";
 import { theme } from "../../../../config";
 import Link from "next/link";
 
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
+
 const StyleNavbarTop = styled.div`
 
     & > .nav__container1{
@@ -48,6 +51,12 @@ const StyleNavbarTop = styled.div`
             position:relative;
             margin:0px;
             padding:0px;
+            & > span{
+                max-width: 69px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
 
         }
 
@@ -56,7 +65,7 @@ const StyleNavbarTop = styled.div`
             background:${theme.colors.secondaryA};
             position:absolute;
             top:0%;
-            left:43%;
+            left:28%;
             font-size:12px;
             font-weight:600;
             padding:3px;
@@ -245,6 +254,7 @@ type PropsNavbarTop = {
 
     toggleNav:string,
     pages:string[],
+    links:string[],
     icons:{
         location:JSX.Element,
         language:JSX.Element,
@@ -260,10 +270,19 @@ type PropsNavbarTop = {
     referenceLanguage:React.RefObject<HTMLDivElement>
     referenceLocation:React.RefObject<HTMLDivElement>
     elementToggle:(reference:React.RefObject<HTMLDivElement>,displayShow:string)=>void,
+    locale:string,
+    location:{
+        label:string,
+        address:string,
+    }
 
 }
 
 export default function NavbarTop(props:PropsNavbarTop):JSX.Element{
+
+    const locationUser = useSelector((state:RootState)=>state.location);
+    const currencyUser = useSelector((state:RootState)=>state.lang_currency.currency);
+
 
     return<StyleNavbarTop>
         <div style={{display:props.toggleNav}} className="nav__container1">
@@ -271,15 +290,19 @@ export default function NavbarTop(props:PropsNavbarTop):JSX.Element{
             <div className="mobile">
                 <div className="mobile__location" onClick={()=>props.elementToggle(props.referenceLocation,'flex')}>
 
-                    <p>{props.icons.location } Ubicación</p>
+                    <p>{props.icons.location } 
+                        <span>
+                            {(locationUser.location.value === "") ? props.location.label :locationUser.location.value }
+                        </span>
+                    </p>
                     <div className="mobile__enviar">
-                        Enviar a
+                        {props.location.address}
                     </div>
 
                 </div>
                 <div className="mobile__options" onClick={()=>props.elementToggle(props.referenceLanguage,'flex')}>
-                    <p>{props.icons.language}  ES</p>
-                    <p>{props.icons.dollar} COP</p>   
+                    <p>{props.icons.language}  { props.locale === 'en' ? 'EN' :'ES' }</p>
+                    <p>{props.icons.dollar} {currencyUser}</p>   
                 </div>
                 <div className="mobile__buttons">
                 <div onClick={()=>props.elementToggle(props.referenceCart,'block')} className="carrito">
@@ -304,7 +327,7 @@ export default function NavbarTop(props:PropsNavbarTop):JSX.Element{
                                     onClick={()=>{props.FocusLinkDesktop(props.linkRefDesktop.current[index] as HTMLDivElement)}}
                                 >
                                 
-                                <Link href={ element === 'Inicio' ? '/' : '/'+element.toLocaleLowerCase()}>
+                                <Link href={props.links[index]}>
                                     <p>  {element} {props.iconLinks[index]}</p>
                                 </Link>
 

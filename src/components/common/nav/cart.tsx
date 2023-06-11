@@ -17,6 +17,9 @@ const StylesCart = styled.div`
         background: ${theme.colors.white};
         box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
         display: none;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        padding-bottom:30px;
 
         @media(min-width:800px){
             width: 40vw;
@@ -71,7 +74,12 @@ const StylesCart = styled.div`
 type PropsCart = {
 
     reference:React.RefObject<HTMLDivElement>
-    cartToggle:(reference:React.RefObject<HTMLDivElement>,displayShow:string)=>void
+    cartToggle:(reference:React.RefObject<HTMLDivElement>,displayShow:string)=>void,
+    title:string,
+    cart_empty:{
+        message:string,
+        btn_text:string
+    }
 }
 
 export default function (props:PropsCart):JSX.Element{
@@ -79,7 +87,7 @@ export default function (props:PropsCart):JSX.Element{
     return<StylesCart>
         <div ref={props.reference} className="cart">
             <div className="cart_title">
-                <p>Carrito (5)</p> 
+                <p>{props.title} (5)</p> 
                 <div className="icon-exit" onClick={()=>props.cartToggle(props.reference,'block')}>
                     <IconAngleNext width="24" height="24" fill={theme.colors.primaryA}/>
                 </div>
@@ -94,15 +102,15 @@ export default function (props:PropsCart):JSX.Element{
                         autoplay
                         speed={1}
                     />
-                    <p>Nada por aquí todavía</p>
+                    <p>{props.cart_empty.message}</p>
                     <Button1 
-                        text="Ir de compras"
+                        text={props.cart_empty.btn_text}
                         minWidth="90%"
                         minHeight="60px"
                     />
                 </div>
             </div>
-
+            <br></br>
         </div>
     </StylesCart>
 } 

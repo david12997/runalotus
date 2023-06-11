@@ -4,13 +4,13 @@ import Button1 from "../../components/common/button-1";
 
 import { theme } from "../../../config";
 import { Player } from "@lottiefiles/react-lottie-player";
-import { PropsPage } from "../../pages";
+import { PropsIndexPage } from "../../pages";
 import { useRouter } from "next/router";
 
 
 
 
-export const WidgetWelcomeIndex:NextPage<PropsPage> = (props)=>{
+export const WidgetWelcomeIndex:NextPage<PropsIndexPage> = (props)=>{
 
     type PropsDataWidget = {
         text1:string,
@@ -22,7 +22,7 @@ export const WidgetWelcomeIndex:NextPage<PropsPage> = (props)=>{
         animation:string,
         bg:string
     }
-    const dataWidget:PropsDataWidget = props.data.attributes.data.inicio.main_banner;
+    const dataWidget:PropsDataWidget = props.data.attributes.page.WidgetWelcomeIndex;
     const router = useRouter();
 
 

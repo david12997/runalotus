@@ -4,13 +4,17 @@ import { WidgetWelcomeTourism } from "@/widgets/tourism/w-welcome";
 import { WidgetCategoriesTourism } from "@/widgets/tourism/w-categories";
 import { WidgetAnimationRoutes } from "@/widgets/tourism/w-animation-routes";
 import { WidgetFooter } from "@/widgets/common/w-footer";
-import { PropsPage } from ".";
 import { theme } from "../../config";
 import { GetData } from "../services/get-data";
 import { useRouter } from "next/router";
 
+export type PropsTourismPage = {
 
-const TourismPage: NextPage<PropsPage> = (props) =>{
+  data:{id:number,attributes:any},
+  context?:any
+}
+
+const TourismPage: NextPage<PropsTourismPage> = (props) =>{
 
   const router = useRouter();
   if(router.isFallback){
@@ -18,23 +22,27 @@ const TourismPage: NextPage<PropsPage> = (props) =>{
   }
 
   return<>
-    <WidgetNav/>
+    <WidgetNav data={[props.data.attributes, props.context]}/>
     <WidgetWelcomeTourism data={props.data} />
-    <WidgetCategoriesTourism/>
-    <WidgetAnimationRoutes/>
+    <WidgetCategoriesTourism data={props.data}/>
+    <WidgetAnimationRoutes data={props.data}/>
     <WidgetFooter/>
   </>
 }
 
 
-export const  getStaticProps:GetStaticProps<PropsPage> = async(context) =>{
+export const  getStaticProps:GetStaticProps<PropsTourismPage> = async(context) =>{
 
-  const data =  await GetData(['https://cms.aipus.co/api/stores/1'],theme.token_cms).then(res=>res);
+  let lang:string; // lang 3 and 4 are tourism page in cms
+  context.locale === 'es' ? lang = '3' : lang = '4';
+
+  const data =  await GetData([`https://cms.aipus.co/api/pages/${lang}?populate[0]=components`],theme.token_cms as string).then(res=>res);
 
   return{
 
     props:{
-      data: data[0].data
+      data: data[0].data,
+      context:context
     }
   }
 

@@ -1,11 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { useGoogleMaps } from "../../hooks/mapHooks";
+import { typeReduxMapHook, useGoogleMaps } from "../../hooks/mapHooks";
 import { theme } from "../../../config";
 import CardButtonMap from "./card-button";
 import CardFilter from "./card-filter";
 import { GetData } from "../../services/get-data";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store";
+import { stat } from "fs";
 
 
 const StyleMap = styled.section`
@@ -110,7 +113,13 @@ const StyleMap = styled.section`
 
 export default function Map():JSX.Element{
 
-    const mapHook =  useGoogleMaps();
+    const state:typeReduxMapHook = {
+    
+        dispatch:useDispatch<AppDispatch>()
+        
+    } 
+
+    const mapHook =  useGoogleMaps(state);
     const [filters, setFilters] = useState<any[]>([]);
     const [menu, setMenu] = useState<boolean>(false);
     const router = useRouter();
@@ -125,7 +134,7 @@ export default function Map():JSX.Element{
             'https://cms.aipus.co/api/points?populate=*',
             'https://cms.aipus.co/api/subcategories?populate=*&filters[category][id][$eq]=4'
         
-        ],theme.token_cms).then(data=>{
+        ],theme.token_cms as string).then(data=>{
             
             //filters map
             data[1].data.forEach((currfilter:any, index:number)=>{
@@ -146,8 +155,8 @@ export default function Map():JSX.Element{
                
              
                 
-                mapHook.AddMarker(position,point.attributes.location.nombre,point.attributes.location.icon);
-                
+                mapHook.AddMarker(position,point.attributes.location.nombre,theme.data_domain +point.attributes.location.icon, point.attributes.location.type);
+                mapHook.ServicePlaces();
               
                 
                

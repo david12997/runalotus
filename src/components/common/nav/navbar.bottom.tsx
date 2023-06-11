@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { theme } from "../../../../config";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
 
 const StyleNavbarBottom = styled.div`
 
@@ -188,16 +190,23 @@ const StyleNavbarBottom = styled.div`
                     top:1%;
                     font-size:14px;
                     font-weight:800;
-                    left:46%;
+                    left:36%;
                     color:${theme.colors.secondaryA};
 
                 }
                 
                 p{
-
+                   
                     font-size:16px;
                     font-weight:900;
                     color:${theme.colors.grayB};
+                    & > span{
+                        max-width: 96px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                   
 
                    
 
@@ -220,7 +229,7 @@ const StyleNavbarBottom = styled.div`
 
         & > .nav__container2 > .logo > img{
 
-            margin-top:3px;
+            margin-top:1px;
         }
 
         & > .nav__container2 > .logo > p{
@@ -248,32 +257,48 @@ type PropsNavbarBottom = {
     elementToggle:(reference:React.RefObject<HTMLDivElement>,display:string)=>void,
     referenceCart:React.RefObject<HTMLDivElement>
     referenceLanguage:React.RefObject<HTMLDivElement>
-    referenceLocation:React.RefObject<HTMLDivElement>
+    referenceLocation:React.RefObject<HTMLDivElement>,
+    locale:string,
+    location:{
+        label:string,
+        address:string,
+    }
 }
 
 export default function NavbarBottom(props:PropsNavbarBottom):JSX.Element{
 
     const router = useRouter();
+   
+    const locationUser = useSelector((state:RootState)=>state.location);
+    const currencyUser = useSelector((state:RootState)=>state.lang_currency.currency);
+
+
 
     return<StyleNavbarBottom>
         <div className="nav__container2">
 
             <div className="logo">
-                <Image width={56} height={60} alt="Logo runalotus" onClick={()=>router.push('/')} src={props.logo}/>
+                <Image width={50} height={60} alt="Logo runalotus" onClick={()=>router.push('/')} src={props.logo}/>
                 <p onClick={()=>router.push('/')}>{props.name}</p>
                 
                 <div className="options-desktop">
                     <div className="desktop__location" onClick={()=>props.elementToggle(props.referenceLocation,'flex')}>
 
-                        <p>{props.icons.location } Ubicación</p>
+                        <p>
+                            {props.icons.location } 
+                            <span>
+                                {(locationUser.location.value === "") ? props.location.label :locationUser.location.value }
+                            </span>
+                        </p>
+                        
                         <div className="desktop__enviar">
-                            Enviar a
+                            {props.location.address}
                         </div>
 
                     </div>
                     <div className="desktop__options" onClick={()=>props.elementToggle(props.referenceLanguage,'flex')}>
-                        <p>{props.icons.language}  ES</p>
-                        <p>{props.icons.dollar} COP</p>   
+                        <p>{props.icons.language}  {props.locale === 'en' ? 'EN' : 'ES'}</p>
+                        <p>{props.icons.dollar} {currencyUser}</p>   
                     </div>
                 </div>
             

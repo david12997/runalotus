@@ -1,8 +1,8 @@
 import { WidgetFooter } from "@/widgets/common/w-footer";
 import { WidgetNav } from "@/widgets/common/w-nav";
-import { WidgetCategoriesProductIndex } from "@/widgets/index/w-categories-index";
+import { WidgetCategoriesProductStore } from "@/widgets/tienda/w-categories-store";
 import { WidgetAnimationCash } from "@/widgets/tienda/w-animation-cash";
-import { WidgetAnimationPay } from "@/widgets/tienda/w-animation-pay";
+import { WidgetAnimationPayStore } from "@/widgets/tienda/w-animation-pay";
 import { WidgetSectionAnimationTrack } from "@/widgets/tienda/w-animation-track";
 import { WidgetWishListStore } from "@/widgets/tienda/w-animation-wishlist";
 import { WidgetCardsInfo } from "@/widgets/tienda/w-cards-info";
@@ -31,12 +31,12 @@ const StorePage: NextPage<PropsStorePage> = (props) => {
       <title>Tienda | Joyeria | Artesanias</title>
     </Head>
     
-    <WidgetNav/>
+   
     <WidgetWelcomeStore/>
     <WidgetCardsInfo/>
-    <WidgetCategoriesProductIndex data={props.data}/>
+    <WidgetCategoriesProductStore data={props.data}/>
     <WidgetFeaturedProducts products={props.products}/>
-    <WidgetAnimationPay data={props.data}/>
+    <WidgetAnimationPayStore/>
     <WidgetWishListStore/>
     <WidgetAnimationCash/>
     <WidgetSectionAnimationTrack/>
@@ -49,10 +49,10 @@ export const  getStaticProps:GetStaticProps<PropsStorePage> = async(context) =>{
 
   const response = await GetData([
     
-    'https://cms.aipus.co/api/stores/1',
+    'https://cms.aipus.co/api/pages/1',
     'https://cms.aipus.co/api/products?populate=*&filters[subcategories][id][$eq]=1'
 
-  ],theme.token_cms).then(data=>data)
+  ],theme.token_cms as string).then(data=>data)
 
   return{
 

@@ -1,20 +1,38 @@
 import type { AppProps } from 'next/app'
 import './../styles/globals.css'
-import Layout from '@/layout'
+import Layout from '../layout';
 import { NextRouter, useRouter } from 'next/router'
 import  NextNProgress from 'nextjs-progressbar';
 import { theme } from '../../config';
+import { Provider } from 'react-redux';
+import { persistor, wrapper } from '../store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { createWrapper }  from 'next-redux-wrapper';
 
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, ...rest }: AppProps) {
 
   const router:NextRouter = useRouter();
+  const {store, props} = wrapper.useWrappedStore(rest);
 
-  return <Layout page={router.asPath}>
-    <NextNProgress color={theme.colors.secondaryA} height={6} />
-    <Component {...pageProps} />
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAQTFLoIOi62NEyIdBaeIvDemaj3WhZzqA&libraries=places&v=weekly" defer></script>
+  return<Provider store={store} >
 
-  </Layout>
+    <PersistGate loading={null} persistor={persistor}>
+
+      <Layout page={router.asPath}>
+
+        <NextNProgress color={theme.colors.secondaryA} height={8} />
+        <Component {...props.pageProps} />
+
+      </Layout>
+
+    </PersistGate>
+    
+  </Provider>
+  
+
   
 }
+
+
+export default App;

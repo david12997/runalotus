@@ -6,7 +6,7 @@ const LoginPage:NextPage =() =>{
 
 
     return<>
-        <WidgetNav/>
+       
         <h1>Login</h1>
     </>
 

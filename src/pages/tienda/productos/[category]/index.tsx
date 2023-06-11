@@ -17,7 +17,7 @@ const StoreAppCategoryPage:NextPage<PropsAppStore> = (props) =>{
     }
 
     return<>
-        <WidgetNav/>
+       
         <WidgetProductsApp products={props.products} categories={props.categories} />
         <WidgetFooter/>
         
@@ -73,7 +73,7 @@ export const getStaticProps:GetStaticProps<PropsAppStore> = async (context) =>{
         'https://cms.aipus.co/api/subcategories?filters[category][id][$eq]=5&populate[0]=media', //return categories of runalotus
         'https://cms.aipus.co/api/products?populate=*&filters[subcategories][id][$eq]='+id_category //return products of category
 
-    ],theme.token_cms).then(data=>data);
+    ],theme.token_cms as string).then(data=>data);
     
     return{
         props:{

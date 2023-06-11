@@ -42,7 +42,8 @@ export const theme = {
 
     },
     data_domain:"https://cms.aipus.co",
-    token_cms:"fa2941a3280138ca1cbf624c1ef11879bbea714eab804bdd920d3f8bf83446591febc0ced4b4cd6acf67f96fb033c558458ab68f541a2c59f33ac9f047e7706f4d4dc38b49029cf60d4fba428b7072d27d6109572da048511f1193478677a0aeb9111e0c210f8a1735be2e9d7033cdc6af62d9e67f981fedb9be8f16fe354a78"
+    token_cms:process.env.NEXT_PUBLIC_TOKEN_CMS_AIPUS,
+    key_google_maps:process.env.NEXT_PUBLIC_KEY_GOOGLE_MAPS,
 
 
 }

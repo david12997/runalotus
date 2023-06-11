@@ -28,3 +28,10 @@ body{
   z-index: 9999999 !important;
 
 }
+
+/* styles label marker maphook */
+.label-marker-maphook{
+  background: white;
+  width:470px;
+ 
+}

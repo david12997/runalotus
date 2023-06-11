@@ -76,7 +76,9 @@ const StyleCategoriesTourism = styled.div<PropsStyleCategoriesTourism>`
 type PropsCategoriesTourism = {
 
     cards:JSX.Element[],
-    area:string
+    area:string,
+    tittle:string,
+    link:string
 }
 
 export default function CategoriesTourism(props:PropsCategoriesTourism):JSX.Element{
@@ -85,8 +87,8 @@ export default function CategoriesTourism(props:PropsCategoriesTourism):JSX.Elem
 
         <div className="container-categories">
             <div className="title">
-                <div className="cate">Categorias </div>
-                <div className="link">ver más</div> 
+                <div className="cate">{props.tittle} </div>
+                <div className="link">{props.link}</div> 
             </div>
 
             <div className="categories">

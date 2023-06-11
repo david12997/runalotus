@@ -3,11 +3,11 @@ import { NextPage } from "next";
 import SectionAnimationStore from "../../components/index/store-section";
 import Button1 from "../../components/common/button-1";
 import { theme } from "../../../config";
-import { PropsPage } from "../../pages";
+import { PropsIndexPage } from "../../pages";
 import { useRouter } from "next/router";
 
 
-export const WidgetStoreIndex:NextPage<PropsPage> = (props)=>{
+export const WidgetStoreIndex:NextPage<PropsIndexPage> = (props)=>{
     type PropsWidget = {
         text1:string,
         text2:string,
@@ -16,7 +16,7 @@ export const WidgetStoreIndex:NextPage<PropsPage> = (props)=>{
         store_img:string,
         animation:string
     }
-    const dataWidget:PropsWidget = props.data.attributes.data.inicio.store;
+    const dataWidget:PropsWidget = props.data.attributes.page.WidgetStoreIndex;
     const router = useRouter();
 
     return<>

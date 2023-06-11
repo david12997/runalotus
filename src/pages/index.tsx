@@ -5,21 +5,23 @@ import { WidgetCategoriesTourismIndex } from "@/widgets/index/w-categories-touri
 import { WidgetIndexRoutes } from "@/widgets/index/w-routes-index";
 import { WidgetStoreIndex } from "@/widgets/index/w-store-index";
 import { WidgetWelcomeIndex } from "@/widgets/index/w-welcome-index";
-import { WidgetAnimationPay } from "@/widgets/tienda/w-animation-pay";
+import { WidgetAnimationPayIndex} from "@/widgets/index/w-animation-pay";
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { theme } from "../../config";
 import { GetData } from "../services/get-data";
 import { useRouter } from "next/router";
 
-export type PropsPage = {
+export type PropsIndexPage = {
 
   data:{id:number,attributes:any},
+  context?:any
 }
 
-const Index: NextPage<PropsPage> = (props) => {
+const Index: NextPage<PropsIndexPage> = (props) => {
 
   const router = useRouter();
+
   if(router.isFallback){
     return <div>Loading...</div>
   }
@@ -29,11 +31,12 @@ const Index: NextPage<PropsPage> = (props) => {
       <title>Runalotus Colombia | Turismo | Tienda de artesanias </title>
     </Head>
 
-    <WidgetNav/>
+    <WidgetNav data={[props.data.attributes,props.context]}/>
+
     <WidgetWelcomeIndex data={props.data}/>
     <WidgetStoreIndex data={props.data}/>
     <WidgetCategoriesProductIndex data={props.data}/>
-    <WidgetAnimationPay data={props.data}/>
+    <WidgetAnimationPayIndex data={props.data}/>
     <WidgetIndexRoutes data={props.data}/>
     <WidgetCategoriesTourismIndex data={props.data}/>
     <WidgetFooter/>
@@ -41,14 +44,18 @@ const Index: NextPage<PropsPage> = (props) => {
   </>
 }
 
-export const  getStaticProps:GetStaticProps<PropsPage> = async(context) =>{
-  console.log('context',context);
-  const data =  await GetData(['https://cms.aipus.co/api/stores/2'],theme.token_cms).then(res=>res);
+export const  getStaticProps:GetStaticProps<PropsIndexPage> = async(context) =>{
+
+  let lang:string; // lang 1 and 2 are index page in cms
+  context.locale === 'es' ? lang = '1' : lang = '2';
+
+  const data =  await GetData([`https://cms.aipus.co/api/pages/${lang}?populate[0]=components`],theme.token_cms as string).then(res=>res);
 
   return{
 
     props:{
-      data: data[0].data
+      data: data[0].data,
+      context:context
     }
   }
 

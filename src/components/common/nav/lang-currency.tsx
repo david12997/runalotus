@@ -5,6 +5,10 @@ import { theme } from "../../../../config";
 import { IconTimesClose } from "../../../icons/icons";
 import Select from "react-select";
 import Button1 from "./../button-1";
+import {  useDispatch } from "react-redux";
+import { AppDispatch } from "../../../store";
+import { setLangCurrencyGlobalState } from "../../../store/lang-currency";
+import { useRouter } from "next/router";
 
 
 const StyleLanguageCurrency = styled.div`
@@ -88,7 +92,11 @@ const StyleLanguageCurrency = styled.div`
 
 type PropsLanguageCurrency = {
     reference:React.RefObject<HTMLDivElement>,
-    langToggle:(reference:React.RefObject<HTMLDivElement>,displayShow:string)=>void
+    langToggle:(reference:React.RefObject<HTMLDivElement>,displayShow:string)=>void,
+    locale:string,
+    label_lang:string,
+    label_currency:string,
+    btn_save:string
 }
 
 export default function LanguageCurrency(props:PropsLanguageCurrency):JSX.Element{
@@ -145,6 +153,23 @@ export default function LanguageCurrency(props:PropsLanguageCurrency):JSX.Elemen
 
     ]
 
+    const [stateLocale, setStatelocale] = React.useState(props.locale);
+    const [stateCurrency, setStateCurrency] = React.useState(stateLocale === 'es' ? 'COP' : 'USD');
+
+    const dispatch = useDispatch<AppDispatch>();
+    const router = useRouter();
+    const {pathname, asPath, query} = router; 
+
+    React.useEffect(() => {
+
+        dispatch(setLangCurrencyGlobalState({
+            lang:stateLocale,
+            currency:stateCurrency
+        }));
+
+
+    },[]);
+
     return<StyleLanguageCurrency>
         <div ref={props.reference}  className="Language_change">
 
@@ -157,7 +182,7 @@ export default function LanguageCurrency(props:PropsLanguageCurrency):JSX.Elemen
                 <div className="container_options_language_money">
                   
                   <div className="option_language">
-                        <label>Elige tu idioma:</label>
+                        <label>{props.label_lang}</label>
                         <Select
                                 placeholder="Select language..."
                                 id="select-language"
@@ -168,13 +193,21 @@ export default function LanguageCurrency(props:PropsLanguageCurrency):JSX.Elemen
                                         <img style={{width:"30px", marginRight:'10px',marginLeft:'5px'}} src={e.icon}/> {e.label}
                                     </div>
                                 )}
+                                value={ stateLocale === 'es' ? selectDataLanguage[0] : selectDataLanguage[1]}
+                                onChange={(e)=>{
+                                    stateLocale === 'es' ? setStatelocale('en') : setStatelocale('es');
+                                    dispatch(setLangCurrencyGlobalState({
+                                        lang:e?.value,
+                                        currency:stateCurrency
+                                    }));
+                                }}
                             />
                     </div>
                 
                     <hr style={{borderColor:"rgb(255 255 255 / 32%)"}}/>
 
                     <div className="option_money">
-                        <label>Elige tu moneda:</label>
+                        <label>{props.label_currency}</label>
                         <Select
                             placeholder="Select currency..."
                             menuShouldScrollIntoView={false}//this property is for fix scroll all page and allow to scroll only select
@@ -187,6 +220,19 @@ export default function LanguageCurrency(props:PropsLanguageCurrency):JSX.Elemen
                                     <span style={{marginRight:'10px',marginLeft:'5px'}}>{e.label}</span> {e.country}
                                 </div>
                             )}
+                            value={selectDataMoney.filter((e)=>e.value === stateCurrency)}
+                            onChange={(e)=>{
+
+                                if(e !== null && e.value !== undefined){
+                                    setStateCurrency(e.value);
+                                    dispatch(setLangCurrencyGlobalState({
+                                        lang:stateLocale,
+                                        currency:e.value
+                                    }));
+                                }
+
+                            }}
+                        
                         
                         />
                     </div>
@@ -194,7 +240,11 @@ export default function LanguageCurrency(props:PropsLanguageCurrency):JSX.Elemen
                     <Button1
                         minHeight="60px"
                         minWidth="100%"
-                        text="Guardar" 
+                        text={props.btn_save}
+                        click={()=>{
+                            props.langToggle(props.reference,'flex');
+                            router.push({pathname,query}, asPath,{locale:stateLocale})
+                        }}
                     />
                     
 

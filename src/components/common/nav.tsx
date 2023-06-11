@@ -12,7 +12,8 @@ import LocationNav from "./nav/location";
 
 
 export interface PropsNavStyle{
-    area:string
+    area:string,
+    context?:any
 }
 const NavStyle =  styled.nav<PropsNavStyle>`
 
@@ -31,6 +32,7 @@ export  type PropsNav ={
 
     logo:string,
     pages:string[],
+    links:string[],
     icons:{
         bars:JSX.Element,
         cart:JSX.Element,
@@ -48,7 +50,30 @@ export  type PropsNav ={
     },
     search:JSX.Element,
     name:string,
-    area:string
+    area:string,
+    locale:string,
+    location:{
+        label:string,
+        address:string,
+    },
+    locationMap:{
+        title:string,
+        placeholder:string,
+        textButton:string
+    },
+    cart:{
+        title:string,
+        empty:{
+            message:string,
+            btn_text:string
+        }
+    },
+    lang_currency:{
+        label_lang:string,
+        label_currency:string,
+        btn_save:string,
+    }
+    
 
 }
 
@@ -84,9 +109,8 @@ export default function Nav(props:PropsNav):JSX.Element{
     }
 
     useEffect(()=>{
-        
 
-        // set menu and cart  hidden
+        // set screens  hidden
         menuRef.current?.style.setProperty('display','none');
         cartRef.current?.style.setProperty('display','none');
         languageRef.current?.style.setProperty('display','none');
@@ -113,8 +137,8 @@ export default function Nav(props:PropsNav):JSX.Element{
 
         // set focus link when page is load
         for(let index:number = 0; index < linkRefDesktop.current.length; index++){
-
-            if(router.asPath.includes(props.pages[index].toLowerCase())){
+                console.log(router.asPath,props.links[index])
+            if(router.asPath === props.links[index]){
                 FocusLinkDesktop(linkRefDesktop.current[index] as HTMLDivElement);
                 FocusLinkMobile(linkRefMobile.current[index] as HTMLDivElement, index);
                 break;
@@ -157,18 +181,25 @@ export default function Nav(props:PropsNav):JSX.Element{
         {/* those components are screen that appear when user makes an action */}
         <Cart 
             reference={cartRef} 
-            cartToggle={ElementToggle} 
+            cartToggle={ElementToggle}
+            cart_empty={props.cart.empty}
+            title={props.cart.title}
         />
 
         <LanguageCurrency
             reference={languageRef}
             langToggle={ElementToggle}
+            locale={props.locale}
+            label_lang={props.lang_currency.label_lang}
+            label_currency={props.lang_currency.label_currency}
+            btn_save={props.lang_currency.btn_save}
 
         />
 
         <NavigationMobile 
             reference={menuRef} 
-            pages={props.pages} 
+            pages={props.pages}
+            links={props.links}
             icons={iconLinks} 
             linkRefMobile={linkRefMobile} 
             menuToggle={ElementToggle}
@@ -177,12 +208,16 @@ export default function Nav(props:PropsNav):JSX.Element{
         <LocationNav
             reference={locationRef}
             locationToggle={ElementToggle}
+            title={props.locationMap.title}
+            placeholder={props.locationMap.placeholder}
+            textButton={props.locationMap.textButton}
         />
 
        {/* those components below are tow bars that create Nav component */}
         <NavbarTop
             toggleNav={toggleNav}
             pages={props.pages}
+            links={props.links}
             icons={{
                 location:props.icons.location, 
                 language:props.icons.language, 
@@ -198,6 +233,8 @@ export default function Nav(props:PropsNav):JSX.Element{
             referenceMenu={menuRef}
             referenceLanguage={languageRef}
             referenceLocation={locationRef}
+            locale={props.locale}
+            location={props.location}
         />
 
         <NavbarBottom
@@ -214,6 +251,8 @@ export default function Nav(props:PropsNav):JSX.Element{
             referenceLanguage={languageRef}
             referenceLocation={locationRef}
             elementToggle={ElementToggle}
+            locale={props.locale}
+            location={props.location}
         />
       
        

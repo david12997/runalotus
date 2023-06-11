@@ -45,6 +45,7 @@ type PropsNavigationMobile = {
 
     reference:React.RefObject<HTMLDivElement>,
     pages:string[],
+    links:string[],
     icons:JSX.Element[],
     linkRefMobile: React.MutableRefObject<(HTMLDivElement | null)[]>,
     menuToggle:(reference:React.RefObject<HTMLDivElement>,displayShow:string)=>void
@@ -73,7 +74,7 @@ export default function NavigationMobile(props:PropsNavigationMobile):JSX.Elemen
                                 minHeight="60px" 
                                 icon={<span style={{marginLeft:'5px',display:'flex',justifyContent:'center'}}>{props.icons[index]}</span>}
                                 click={()=>{
-                                    page === 'Inicio' ? router.push('/') : router.push('/'+page.toLocaleLowerCase());
+                                    router.push(props.links[index]);
                                     props.menuToggle(props.reference,'block');
                                 }}
                             />

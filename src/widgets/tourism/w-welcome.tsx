@@ -5,24 +5,16 @@ import Select from "../../components/common/select";
 import Welcome from "../../components/turismo/welcome";
 import Button1 from "../../components/common/button-1";
 import SearchRoute from "../../components/turismo/search-route";
-import { PropsPage } from "../../pages";
 import { useRouter } from "next/router";
+import { PropsTourismPage } from "../../pages/turismo";
   
 
 
-export const WidgetWelcomeTourism:NextPage<PropsPage> =(props) =>{
+export const WidgetWelcomeTourism:NextPage<PropsTourismPage> =(props) =>{
 
-    console.log(props);
     const router = useRouter();
-
-    const imgCarrousel: string[] = [
-
-        'assets/img/turismo/playa-1.png',
-        'assets/img/turismo/cartago.png',
-        'assets/img/turismo/leticia.png',
-        'assets/img/turismo/medallo.png',
-        'assets/img/turismo/santa.png'
-      ];
+    const dataWidget = props.data.attributes.page.WidgetWelcomeTourism;
+   
     
       const iconsSearchRoute: JSX.Element[] = [
     
@@ -33,8 +25,15 @@ export const WidgetWelcomeTourism:NextPage<PropsPage> =(props) =>{
     
       const SelectsSearchRoute: JSX.Element[] = [
     
-        <Select label="Elige un lugar" options={['Cundinamarca', 'Boyacá', 'Meta', 'Amazonas', 'San Andres y Providencia']} message="Elige un departamento" />,
-        <Select label="Elige un clima" options={['Frio', 'Templado', 'Calido', 'Humedo']} message="Elige un clima" />
+        <Select 
+            label={dataWidget.filters.location.label} 
+            options={['Cundinamarca', 'Boyacá', 'Meta', 'Amazonas', 'San Andres y Providencia']} 
+            message={dataWidget.filters.location.desc} />,
+        
+        <Select 
+            label={dataWidget.filters.weather.label}
+            options={['Frio', 'Templado', 'Calido', 'Humedo']} 
+            message={dataWidget.filters.weather.desc} />
     
       ];
     
@@ -42,13 +41,13 @@ export const WidgetWelcomeTourism:NextPage<PropsPage> =(props) =>{
     return<>
     
         <Welcome
-            imgCarrousel={imgCarrousel}
-            title="Los mejores momentos en los mejores lugares"
+            imgCarrousel={dataWidget.carrousel}
+            title={dataWidget.text}
             button={
                 <Button1
                     minWidth="210px"
                     minHeight="50px"
-                    text="Descubrir mapa"
+                    text={dataWidget.button}
                     click={()=>router.push('/turismo/mapa')}
                 />
             }

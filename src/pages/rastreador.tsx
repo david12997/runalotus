@@ -12,7 +12,7 @@ const TrackPage: NextPage = () =>{
     }
 
     return<>
-        <WidgetNav/>
+        
         <WidgetSectionTracker/>
         <WidgetFooter/>
     </>

@@ -16,8 +16,8 @@ const StyleLayout =  styled.span<PropsStyleLayout>`
     grid-gap:3px;
     ${(props)=>{
 
-         //layout for dynamic routes store categories
-         const categories:string[] = ['joyeria','ceramica','piedras','tejidos','jarras','sombreros','bolsos'];
+        //layout for dynamic routes store categories
+        const categories:string[] = ['joyeria','ceramica','piedras','tejidos','jarras','sombreros','bolsos'];
 
         for(let i:number = 0;i < categories.length;i++){
 
@@ -62,7 +62,7 @@ const StyleLayout =  styled.span<PropsStyleLayout>`
                     grid-template-rows:95px 640px 530px 800px 650px  530px 900px   500px;
                 }
                 @media(min-width:1470px){
-                    grid-template-rows:95px 740px 730px 800px 650px 560px 1000px 700px 960px   500px;
+                    grid-template-rows:95px 740px 730px 800px 650px 560px 1000px  500px;
                 }
 
             `;
@@ -171,17 +171,13 @@ const StyleLayout =  styled.span<PropsStyleLayout>`
             
             default: return css`
             
-            `;
-                
+            `;                
         }
-
-       
 
 
     }}
 
 
-   
 `;
 
 

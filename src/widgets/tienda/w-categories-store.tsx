@@ -5,7 +5,7 @@ import { theme } from "../../../config";
 import { PropsIndexPage } from "../../pages";
 import { useRouter } from "next/router";
 
-export const WidgetCategoriesProductIndex:NextPage<PropsIndexPage> = (props) =>{
+export const WidgetCategoriesProductStore:NextPage<PropsIndexPage> = (props) =>{
 
     const router = useRouter();
     const cards:JSX.Element[] = [];

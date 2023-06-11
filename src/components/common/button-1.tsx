@@ -59,7 +59,8 @@ export type PropsButton1 ={
     click?:()=>void
     icon?:JSX.Element,
     bgColor?:string,
-    textColor?:string
+    textColor?:string,
+    reference?:React.RefObject<HTMLDivElement>
 
 }
 
@@ -75,7 +76,7 @@ export default function Button1(props:PropsButton1):JSX.Element{
             textColor={props.textColor}
         >
 
-        <div className="btn1">
+        <div ref={props.reference} className="btn1">
             {props.text} {props.icon !== undefined && props.icon }
         </div>
             

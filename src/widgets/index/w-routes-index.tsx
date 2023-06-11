@@ -3,10 +3,10 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import SectionAnimationRoute from "../../components/turismo/animation-routes";
 import Button1 from "../../components/common/button-1";
 import { theme } from "../../../config";
-import { PropsPage } from "../../pages";
+import { PropsIndexPage } from "../../pages";
 
 
-export const WidgetIndexRoutes:NextPage<PropsPage> = (props)=>{
+export const WidgetIndexRoutes:NextPage<PropsIndexPage> = (props)=>{
 
     type Sectionroutes = {
         text1:string,
@@ -16,7 +16,7 @@ export const WidgetIndexRoutes:NextPage<PropsPage> = (props)=>{
         text_button:string
     }
 
-    const dataWidget:Sectionroutes = props.data.attributes.data.inicio.routes;
+    const dataWidget:Sectionroutes = props.data.attributes.page.WidgetIndexRoutes;
 
 
     return<>

@@ -4,6 +4,11 @@ import { useLocation } from "../../../hooks/location";
 import { theme } from "../../../../config";
 import { IconTimesClose } from "../../../icons/icons";
 import Input1 from "../input-1";
+import Button1 from "../button-1";
+
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../store";
+
 
 const StyleLocationNav = styled.div`
     width: 100%;
@@ -11,7 +16,7 @@ const StyleLocationNav = styled.div`
     background-color:rgba(0,0,0,0.5);
     z-index: 99999;
     position:fixed;
-    display:one;
+    display:none;
     justify-content: center;
     align-items: center;
 
@@ -63,19 +68,38 @@ const StyleLocationNav = styled.div`
 
      & > .containerMap > .container-input{
 
-            position: absolute;
-            z-index: 999999;
-        }
+        position: absolute;
+        z-index: 99999;
+    }
+
+    & > .containerMap > .btn-select-map{
+
+        position: absolute;
+        z-index:99999;
+        width:100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top:300px;
+
+    }
+
 `;
 
 type PropsLocationNav = {
-    reference:React.RefObject<HTMLDivElement>;
-    locationToggle:(reference:React.RefObject<HTMLDivElement>,displayShow:string)=>void;
+    reference:React.RefObject<HTMLDivElement>,
+    locationToggle:(reference:React.RefObject<HTMLDivElement>,displayShow:string)=>void,
+    title:string,
+    placeholder:string,
+    textButton:string
 }
 
 export default function LocationNav(props:PropsLocationNav):JSX.Element{
 
-    const LocationHook = useLocation();
+    const dispatch:AppDispatch = useDispatch();
+    const locationUser = useSelector((state:RootState)=>state.location);
+
+    const LocationHook = useLocation(dispatch, locationUser);
 
     useEffect(()=>{
       
@@ -91,12 +115,24 @@ export default function LocationNav(props:PropsLocationNav):JSX.Element{
             </div>
             <div className="container-input">
                 <Input1
-                    label="Enviar mis pedidos a"
-                    placeholder=" Escribe tu dirección"
+                    label={props.title}
+                    placeholder={props.placeholder}
                     id="input-autocomplete"
                     reference={LocationHook.inputAutoComplete}
                 />
             </div>
+
+            <div className="btn-select-map">
+                <Button1
+                    reference={LocationHook.buttonSaveLocation}
+                    text={props.textButton}
+                    minHeight="45px"
+                    minWidth="200px"
+                    bgColor={theme.colors.grayC}
+                    textColor={theme.colors.grayA}
+                />
+            </div>
+
             <div ref={LocationHook.mapElem} id="map"></div>
             <div ref={LocationHook.modalUnsupportGeolocation} id="errorMap"></div>
 

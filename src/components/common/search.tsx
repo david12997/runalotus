@@ -33,12 +33,14 @@ const StyleSeacrh = styled.span`
     }
     
 `;
-
-export default function Search():JSX.Element{
+type PropsSearch ={
+    placeholder?:string
+}
+export default function Search(props:PropsSearch):JSX.Element{
 
     return<StyleSeacrh>
 
-        <input type="text" placeholder=" Buscar ..."></input>
+        <input type="text" placeholder={ props.placeholder !== undefined ? ` ${props.placeholder}` : ' Buscar ...'}></input>
         <div className="icon">
             {<IconSearch width="20" height="20" fill={theme.colors.grayB}/>}
         </div>

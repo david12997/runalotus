@@ -51,20 +51,17 @@ const StylesWelcome =  styled.div`
 
                 @media(min-width:600px){
                     width:70%;
-                    margin-left:15%;
                     font-size:34px;
                 }
 
                 @media(min-width:800px){
                     width:50%;
-                    margin-left:25%;
                     font-size:45px;
                     font-weight:800;
                 }
 
                 @media(min-width:1470px){
                     width:40%;
-                    margin-left:30%;
                     font-size:55px;
                 }
             }
@@ -147,11 +144,11 @@ export default function Welcome(props:PropsWelcome):JSX.Element{
 
     return<StylesWelcome>
 
-       <img src={props.imgCarrousel[bg]}/>
+       <img src={ theme.data_domain+props.imgCarrousel[bg]}/>
         
         <div className="container-welcome">
             <div className="title-welcome">
-                <p>LOS MEJORES MOMENTOS EN LOS MEJORES LUGARES</p>
+                <p>{props.title}</p>
 
                 <div className="btn-welcome">
                     {props.button}

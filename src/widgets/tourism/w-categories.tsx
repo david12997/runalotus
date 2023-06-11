@@ -1,23 +1,28 @@
 import { NextPage } from "next";
 import CardCategories from "../../components/turismo/card-categories";
 import CategoriesTourism from "../../components/turismo/categories";
+import { theme } from "../../../config";
+import { PropsTourismPage } from "../../pages/turismo";
 
 
 
-export const WidgetCategoriesTourism:NextPage = ()=>{
+export const WidgetCategoriesTourism:NextPage<PropsTourismPage> = (props)=>{
 
-    const cardsCategoriesTourism = [
-        <CardCategories title="Playa y Mar" img="/assets/img/turismo/categories/playa-y-mar.png"/>,
-        <CardCategories title="Paramos y  Nevados" img="/assets/img/turismo/categories/paramos-y-nevados.png"/>,
-        <CardCategories title="Selvas y Bosques" img="/assets/img/turismo/categories/selvas-bosques.png"/>,
-        <CardCategories title="Paisajes montañosos" img="/assets/img/turismo/categories/paisajes-montañosos.png"/>,
-        <CardCategories title="Rios y Lagunas" img="/assets/img/turismo/categories/rios-y-lagunas.png"/>,
-        <CardCategories title="Desiertos y cañones" img="/assets/img/turismo/categories/desiertos.png"/>
-      ];
-    
+    const dataWidget = Object.entries(props.data.attributes.page.WidgetCategoriesTourism.categories);
+    const cardsCategoriesTourism:JSX.Element[] = [];
+
+    dataWidget.forEach((category:any[], index:number)=>{
+
+        cardsCategoriesTourism.push(
+            <CardCategories img={theme.data_domain+category[1].img}  title={category[1].text}/>
+        )
+
+    });
 
     return<>
         <CategoriesTourism
+            tittle={props.data.attributes.page.WidgetCategoriesTourism.title.text}
+            link={props.data.attributes.page.WidgetCategoriesTourism.title.label}
             cards={cardsCategoriesTourism}
             area="categories"
         />

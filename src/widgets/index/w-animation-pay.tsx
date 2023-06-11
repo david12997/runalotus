@@ -1,25 +1,25 @@
-import { NextPage } from "next";
-import SectionAnimationRoute from "../../components/turismo/animation-routes";
 import { Player } from "@lottiefiles/react-lottie-player";
+import { NextPage } from "next";
+import SectionAnimationCash from "../../components/tienda/section-animation-cash";
 import Button1 from "../../components/common/button-1";
-import { PropsTourismPage } from "../../pages/turismo";
+import { PropsIndexPage } from "../../pages";
 import { theme } from "../../../config";
 
-export const WidgetAnimationRoutes:NextPage<PropsTourismPage> = (props)=>{
+export const WidgetAnimationPayIndex:NextPage<PropsIndexPage> = (props) =>{
 
-    const dataWidget = props.data.attributes.page.WidgetAnimationRoutes;
+    console.log(props);
+    const dataWidget = props.data.attributes.page.WidgetAnimationPayIndex;
 
     return<>
-
-        <SectionAnimationRoute
-
+        <SectionAnimationCash
+            area="pay"
             title={dataWidget.text1}
             description={dataWidget.text2}
             text={dataWidget.description}
-            player={
+            animation={
                 <Player
                     src={theme.data_domain+dataWidget.animation}
-                    className="router-tourism"
+                    className="cash-on-delivery"
                     loop
                     autoplay
                     speed={1}
@@ -33,11 +33,6 @@ export const WidgetAnimationRoutes:NextPage<PropsTourismPage> = (props)=>{
                     text={dataWidget.text_button}
                 />
             }
-
-            area="routes"
-
-        
         />
-
     </>
 }

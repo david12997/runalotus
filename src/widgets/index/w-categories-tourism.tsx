@@ -3,12 +3,12 @@ import CardCategories from "../../components/turismo/card-categories";
 import CategoriesTourism from "../../components/turismo/categories";
 
 import { theme } from "../../../config";
-import { PropsPage } from "../../pages";
+import { PropsIndexPage } from "../../pages";
 
 
-export const WidgetCategoriesTourismIndex:NextPage<PropsPage> = (props)=>{
+export const WidgetCategoriesTourismIndex:NextPage<PropsIndexPage> = (props)=>{
 
-    const dataWidget = Object.entries(props.data.attributes.data.inicio.tourism_categories);
+    const dataWidget = Object.entries(props.data.attributes.page.WidgetCategoriesTourismIndex.categories);
     
     const cardsCategoriesTourism:JSX.Element[] = [];
     
@@ -23,6 +23,8 @@ export const WidgetCategoriesTourismIndex:NextPage<PropsPage> = (props)=>{
 
     return<>
         <CategoriesTourism
+            tittle={props.data.attributes.page.WidgetCategoriesTourismIndex.title.text}
+            link={props.data.attributes.page.WidgetCategoriesTourismIndex.title.label}
             cards={cardsCategoriesTourism}
             area="tourism"
         />

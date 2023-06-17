@@ -12,7 +12,6 @@ type PropsWidgetNav = {
 
 export const WidgetNav:NextPage<PropsWidgetNav> = (props)=>{
 
-  console.log(props.data);
   const logoNav:string = props.data[0].components.data[0].attributes.component.brand.logo;
   const nameNav:string = props.data[0].components.data[0].attributes.component.brand.name;
   const pagesNav:string[] = props.data[0].components.data[0].attributes.component.pages;
@@ -50,7 +49,7 @@ export const WidgetNav:NextPage<PropsWidgetNav> = (props)=>{
     cart: <IconCart width="25" height="25" fill={theme.colors.white} />,
     dollar: <IconDollar width="19" height="19" fill={theme.colors.white} />,
     language: <IconLanguage width="23" height="23" fill={theme.colors.white} />,
-    location: <IconLocation width="16" height="16" fill={theme.colors.white} />,
+    location: <IconLocation width="15" height="15" fill={theme.colors.white} />,
     pay: <IconPay width="20" height="20" fill={theme.colors.white} />,
     store: <IconStore width="20" height="20" fill={theme.colors.white} />,
     tracker: <IconTracker width="20" height="20" fill={theme.colors.white} />,

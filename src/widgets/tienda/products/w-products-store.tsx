@@ -1,9 +1,10 @@
 import { NextPage } from "next";
-import ProductsStore from "../../../components/tienda/app/products-store";
+import ProductsStore from "../../../components/tienda/app/products-app";
 
 type PropsAppStore ={
     categories:{data:any[], meta:any},
-    products:{data:any[], meta:any}
+    products:{data:any[], meta:any},
+    context:any
 }
 
 export const WidgetProductsApp:NextPage<PropsAppStore> = (props) =>{
@@ -13,6 +14,7 @@ export const WidgetProductsApp:NextPage<PropsAppStore> = (props) =>{
         <ProductsStore
             products={props.products}
             categories={props.categories}
+            context={props.context}
         />
 
     </>

@@ -1,6 +1,5 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { WidgetNav } from "../../../../widgets/common/w-nav";
-import { WidgetFooter } from "../../../../widgets/common/w-footer";
 import { GetData } from "../../../../services/get-data";
 import { theme } from "../../../../../config";
 import { PropsAppStore } from "../../productos";
@@ -17,9 +16,9 @@ const StoreAppCategoryPage:NextPage<PropsAppStore> = (props) =>{
     }
 
     return<>
-       
-        <WidgetProductsApp products={props.products} categories={props.categories} />
-        <WidgetFooter/>
+
+        <WidgetNav data={[props.data.attributes,props.context]} />
+        <WidgetProductsApp context={props.context} products={props.products} categories={props.categories} />
         
     </>
 }
@@ -68,17 +67,22 @@ export const getStaticProps:GetStaticProps<PropsAppStore> = async (context) =>{
     : params?.category === 'bolsos' ? (id_category = 15) 
     : (id_category = 1);
     
+    let lang:string; // lang 5 and 6 are store page in cms
+    context.locale === 'es' ? lang = '5' : lang = '6';
     
     const response = await GetData([
         'https://cms.aipus.co/api/subcategories?filters[category][id][$eq]=5&populate[0]=media', //return categories of runalotus
-        'https://cms.aipus.co/api/products?populate=*&filters[subcategories][id][$eq]='+id_category //return products of category
+        'https://cms.aipus.co/api/products?populate=*&filters[subcategories][id][$eq]='+id_category, //return products of category
+        `https://cms.aipus.co/api/pages/${lang}?populate[0]=components` //return components of store page
 
     ],theme.token_cms as string).then(data=>data);
     
     return{
         props:{
             products:response[1],
-            categories:response[0]
+            categories:response[0],
+            context:context,
+            data:response[2].data
             
         }
     }

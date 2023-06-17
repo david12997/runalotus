@@ -56,11 +56,13 @@ const StyleCardInfo = styled.div`
 `;
 type PropsCardInfo = {
 
+    key?:number,
     title:string,
     text:string,
     link:string
     icon:JSX.Element,
     click?:()=>void
+
 
 };
 

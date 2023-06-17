@@ -10,13 +10,14 @@ import { WidgetFeaturedProducts } from "@/widgets/tienda/w-featured-products";
 import { WidgetWelcomeStore } from "@/widgets/tienda/w-welcome-store";
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import { theme } from "../../config";
-import { GetData } from "../services/get-data";
+import { theme } from "../../../config";
+import { GetData } from "../../services/get-data";
 import { useRouter } from "next/router";
 
-type PropsStorePage = {
+export type PropsStorePage = {
   data:{id:number,attributes:any}
-  products:any[]
+  products:any[],
+  context?:any
 }
 
 const StorePage: NextPage<PropsStorePage> = (props) => {
@@ -31,15 +32,15 @@ const StorePage: NextPage<PropsStorePage> = (props) => {
       <title>Tienda | Joyeria | Artesanias</title>
     </Head>
     
-   
-    <WidgetWelcomeStore/>
-    <WidgetCardsInfo/>
+    <WidgetNav data={[props.data.attributes, props.context]}/>
+    <WidgetWelcomeStore data={props.data}/>
+    <WidgetCardsInfo data={props.data}/>
     <WidgetCategoriesProductStore data={props.data}/>
     <WidgetFeaturedProducts products={props.products}/>
-    <WidgetAnimationPayStore/>
-    <WidgetWishListStore/>
-    <WidgetAnimationCash/>
-    <WidgetSectionAnimationTrack/>
+    <WidgetAnimationPayStore data={props.data}/>
+    <WidgetWishListStore data={props.data} />
+    <WidgetAnimationCash data={props.data} />
+    <WidgetSectionAnimationTrack data={props.data} />
     <WidgetFooter/>
 
   </>
@@ -47,9 +48,12 @@ const StorePage: NextPage<PropsStorePage> = (props) => {
 
 export const  getStaticProps:GetStaticProps<PropsStorePage> = async(context) =>{
 
+  let lang:string; // lang 5 and 6 are store page in cms
+  context.locale === 'es' ? lang = '5' : lang = '6';
+
   const response = await GetData([
     
-    'https://cms.aipus.co/api/pages/1',
+    `https://cms.aipus.co/api/pages/${lang}?populate[0]=components`,
     'https://cms.aipus.co/api/products?populate=*&filters[subcategories][id][$eq]=1'
 
   ],theme.token_cms as string).then(data=>data)
@@ -58,6 +62,7 @@ export const  getStaticProps:GetStaticProps<PropsStorePage> = async(context) =>{
 
     props:{
       data: response[0].data,
+      context:context,
       products:response[1].data
     }
   }

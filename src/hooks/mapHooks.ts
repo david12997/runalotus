@@ -31,59 +31,101 @@ export const useGoogleMaps = (state:typeReduxMapHook) => {
 
         // check  if the browser support geolocation api 
         navigator.geolocation
-            &&
-            navigator.geolocation.getCurrentPosition((location: GeolocationPosition) => {
+        &&
+        navigator.geolocation.getCurrentPosition((location: GeolocationPosition) => {
 
-                setLocation(location);
+            setLocation(location);
 
-                const options = {
+            const options = {
 
-                    center: {
-                        lat: location.coords.latitude,
-                        lng: location.coords.longitude
-                    },
-                    zoom: 11,
-                    mapTypeControl: false,
-                    fullscreenControl: false,
-                    panControl: false
+                center: {
+                    lat: 4.648444872577107, 
+                    lng: -74.11874117495658
+                },
+                zoom: 7,
+                mapTypeControl: false,
+                fullscreenControl: false,
+                panControl: false
 
-                }
+            }
 
-                const markerPosition: { lat: number, lng: number } = {
-
-                    lat: location.coords.latitude,
-                    lng: location.coords.longitude
-                }
+            RenderMap(options);
 
 
-                RenderMap(options);
-                AddMarker(markerPosition, 'Invitado', theme.data_domain +'/uploads/user_3e6cd965b6.webp?updated_at=2023-03-29T19:54:22.718Z', "Your location :");
+        },
 
+        (error: GeolocationPositionError) => {
+        
+            console.info('error', error);
+        
+        });
 
+        return () => {
+                
+            
+            setMap(null);
+            setMarker(null);
+            setMarkers([]);
 
-
-            },
-                (error: GeolocationPositionError) => {
-                    console.info('error', error);
-                })
+        }
 
     }, []);
 
 
 
-    const elementDivWindow =(props:string):string =>{
+    const elementDivWindow =(props:any):string =>{
+
+        console.log(props);
+        const img = theme.data_domain + props.media.data[0].attributes.url;
 
         return`
 
+        <style>
+            .label-marker-maphook{
+               
+            }
+
+            .label-marker-maphook >  .window-title{
+
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                width:100%;
+                font-weight:900;
+            }
+
+            .label-marker-maphook >  .window-img > img{
+
+                width:100%;
+                height: 280px;
+                object-fit:cover;
+                border-radius:6px;
+            }
+
+            .label-marker-maphook >  .window-description{
+
+                font-size:16px;
+                font-weight:400;
+                color:${theme.colors.grayA};
+            }
+        
+        </style>
+        <br/>
         <div  class="label-marker-maphook">
+            
             <div class="window-title">
-                <h3>Runalotus</h3>
-                gtjdrfiiiiiig
-                gjifdjgfdjgfdkgjkfdfgfgfdgfdg
-                dfjgfdgjkfdjgkffdgfdgfdgfdgfdg
-                fgkofdgkfdgldfdffgfdgf
-                <div style="width:300px;height:300px;">fgdfhgdfsg</div>
+                <h2>${props.name}</h2>
+            </div>   
+
+            <div class="window-img">
+                <img src="${img}" alt="${props.name}" />
             </div>
+
+            <div class="window-description">
+                <p>${props.location.descripcion}</p>
+            </div>
+    
+           
         </div>
         `;
     }
@@ -106,7 +148,7 @@ export const useGoogleMaps = (state:typeReduxMapHook) => {
 
     }
 
-    const AddMarker = (position: { lat: number, lng: number }, label: string, icon: string, text: string): void => {
+    const AddMarker = (position: { lat: number, lng: number }, label: string, icon: string, data_point: any): void => {
 
         loader
             .load()
@@ -125,7 +167,7 @@ export const useGoogleMaps = (state:typeReduxMapHook) => {
                 newMarker !== null && markers.push(newMarker);
                 setMarker(newMarker);
 
-                InfoWindow(newMarker, elementDivWindow(text));
+                InfoWindow(newMarker, elementDivWindow(data_point));
 
 
 
@@ -162,7 +204,7 @@ export const useGoogleMaps = (state:typeReduxMapHook) => {
 
                 const infowindowMap = new google.maps.InfoWindow({
                     content: element,
-                    maxWidth: 500,
+                    maxWidth: 320
 
                 });
 

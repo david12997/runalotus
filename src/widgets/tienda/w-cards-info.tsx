@@ -5,38 +5,42 @@ import { theme } from "../../../config";
 import CardsStore from "../../components/tienda/cards-store";
 
 
+type PropsWidgetCardsInfo = {
+    data:{
+        id:number,
+        attributes:any
+    }
+}
 
-export const WidgetCardsInfo:NextPage = ()=>{
+export const WidgetCardsInfo:NextPage<PropsWidgetCardsInfo> = (props)=>{
 
-    const Cards:JSX.Element[] = [
-        <CardInfo 
-            icon={<IconHandBill width="112" height="112"  />} 
-            title="Pago contra entrega" 
-            text="En Runalotus solo pagas cuando reciber tu compra" 
-            link="Ver más" 
-        />
-        ,
-        <CardInfo 
-            icon={<IconTruckBox width="112" height="112" fill={theme.colors.white}/>} 
-            title="Envíos a toda Colombia" 
-            text="De la mano de las mejores transportadoras del país" 
-            link="Ver más" 
-        />
-        ,
-        <CardInfo 
-            icon={<IconEscudoCheck width="112" height="112"  />} 
-            title="Garantia en tus compras" 
-            text="Todas tus compras cuentan con garantia de 14 días" 
-            link="Ver más" 
-        />
-        ,
-        <CardInfo 
-            icon={<IconCreditCardCheck width="112" height="112" fill={theme.colors.white}/>} 
-            title="Multiples métodos de pago" 
-            text="Realiza todos tus pagos desde tu banco favorito" 
-            link="Ver más" 
-        />
+    const dataWidget = props.data.attributes.page.WidgetCardsInfo;
+
+    const IconsCardInfo:JSX.Element[] = [
+
+        <IconHandBill width="112" height="112"  />,
+        <IconTruckBox width="112" height="112" fill={theme.colors.white}/>,
+        <IconEscudoCheck width="112" height="112"  />,
+        <IconCreditCardCheck width="112" height="112" fill={theme.colors.white}/>
+    
     ];
+
+    const Cards:JSX.Element[] = [];
+
+
+    dataWidget.forEach((card:any,index:number) => {
+            
+        Cards.push(
+
+            <CardInfo
+                key={index}
+                icon={IconsCardInfo[index]}
+                title={card.title}
+                text={card.text}
+                link={card.text_link}
+            />
+        )
+    });
 
     return<>
         <CardsStore

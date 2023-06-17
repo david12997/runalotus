@@ -2,26 +2,28 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import { NextPage } from "next";
 import SectionAnimationCash from "../../components/tienda/section-animation-cash";
 import Button1 from "../../components/common/button-1";
+import { theme } from "../../../config";
 
+export type PropsWidgetAnimationPayStore = {
+    data:{
+        id:number,
+        attributes:any
+    }
+}
 
-export const WidgetAnimationPayStore:NextPage = () =>{
+export const WidgetAnimationPayStore:NextPage<PropsWidgetAnimationPayStore> = (props) =>{
 
-
-
+    const dataWidget = props.data.attributes.page.WidgetAnimationPayStore;
+   
     return<>
         <SectionAnimationCash
             area="pay"
-            title="Paga online en runalotus"
-            description="Es facil y ahorras tiempo"
-            text="
-            Protegemos y procesmos tus pagos usando las mejores tecnologias disponibles en
-            el mercado, tus pagos siempre están garantizados.
-            Como partners oficiales de mercadopago ofrecemos experiencias de pago seguras y
-            eficientes
-            "
+            title={dataWidget.title}
+            description={dataWidget.description}
+            text={dataWidget.text}
             animation={
                 <Player
-                    src='/assets/animations/pay.json'
+                    src={theme.data_domain+dataWidget.animation}
                     className="cash-on-delivery"
                     loop
                     autoplay
@@ -33,7 +35,7 @@ export const WidgetAnimationPayStore:NextPage = () =>{
                 <Button1
                     minHeight="65px"
                     minWidth="250px"
-                    text="Ver métodos de pago"
+                    text={dataWidget.btn_text}
                 />
             }
         />

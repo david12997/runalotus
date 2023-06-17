@@ -2,34 +2,41 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import { NextPage } from "next";
 import SectionAnimationTrack from "../../components/tienda/section-animation-track";
 import Button1 from "../../components/common/button-1";
+import { theme } from "../../../config";
 
-export const WidgetSectionAnimationTrack:NextPage = ()=>{
+type PropsWidgetAnimationTrack = {
+
+    data:{
+        id:number,
+        attributes:any
+    }
+}
+
+export const WidgetSectionAnimationTrack:NextPage<PropsWidgetAnimationTrack> = (props)=>{
+
+    const dataWidget = props.data.attributes.page.WidgetSectionAnimationTrack;
 
     return<>
         <SectionAnimationTrack
 
             area="track"
-            title="Rastrea todas tus compras en tiempo real"
-            description="Siempre informado del estado de tus compras"
+            title={dataWidget.title}
+            description={dataWidget.description}
             animation={
                 <Player
-                    src='/assets/animations/tracker.json'
+                    src={theme.data_domain+dataWidget.animation}
                     className="track"
                     loop
                     autoplay
                     speed={1}
                 />
             }
-            text="
-                Cuando rastreas una compra puedes obtener informacion del estado en que esta se encuentra,
-                la ubicación de tu compra y cualquier novedad de la misma, para
-                rastrear una compra debe susar el ID de rastreo que aparece en la factura de tu compra
-            "
+            text={dataWidget.text}
             button={
                 <Button1
                     minHeight="65px"
                     minWidth="250px"
-                    text="Ver descuentos"
+                    text={dataWidget.btn_text}
                 />
             }       
         />

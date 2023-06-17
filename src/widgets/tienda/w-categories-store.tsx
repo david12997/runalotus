@@ -2,15 +2,18 @@ import { NextPage } from "next";
 import CardCategories from "../../components/turismo/card-categories";
 import CategoriesIndex from "../../components/index/categories-index";
 import { theme } from "../../../config";
-import { PropsIndexPage } from "../../pages";
 import { useRouter } from "next/router";
 
-export const WidgetCategoriesProductStore:NextPage<PropsIndexPage> = (props) =>{
+type PropsWidgetCategoriesProductStore = {
+    data:{id:number,attributes:any}
+}
+
+export const WidgetCategoriesProductStore:NextPage<PropsWidgetCategoriesProductStore> = (props) =>{
 
     const router = useRouter();
     const cards:JSX.Element[] = [];
-    const dataCategory = Object.entries(props.data.attributes.page.WidgetCategoriesProductIndex.data);
-    const dataWidget = props.data.attributes.page.WidgetCategoriesProductIndex;
+    const dataCategory = Object.entries(props.data.attributes.page.WidgetCategoriesProductStore.data);
+    const dataWidget = props.data.attributes.page.WidgetCategoriesProductStore;
     
     dataCategory.forEach((category:any, index:number)=>{
 

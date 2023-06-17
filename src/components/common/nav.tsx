@@ -137,7 +137,7 @@ export default function Nav(props:PropsNav):JSX.Element{
 
         // set focus link when page is load
         for(let index:number = 0; index < linkRefDesktop.current.length; index++){
-                console.log(router.asPath,props.links[index])
+              
             if(router.asPath === props.links[index]){
                 FocusLinkDesktop(linkRefDesktop.current[index] as HTMLDivElement);
                 FocusLinkMobile(linkRefMobile.current[index] as HTMLDivElement, index);

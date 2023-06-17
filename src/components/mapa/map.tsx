@@ -152,21 +152,20 @@ export default function Map():JSX.Element{
                     lat:point.attributes.location.latitud,
                     lng:point.attributes.location.longitud
                 }
-               
-             
                 
-                mapHook.AddMarker(position,point.attributes.location.nombre,theme.data_domain +point.attributes.location.icon, point.attributes.location.type);
-                mapHook.ServicePlaces();
-              
-                
+                mapHook.AddMarker(position,point.attributes.location.nombre,theme.data_domain +point.attributes.location.icon, point.attributes);
                
             });
-
+            mapHook.ServicePlaces();
             setTimeout(()=>mapHook.ClusterMarker(mapHook.markers),1000);
             
 
         })
         .catch(err=>console.log(err));
+
+        return ()=>{
+
+        }
         
         
     },[]);
@@ -195,10 +194,10 @@ export default function Map():JSX.Element{
         <div className={menu ? "menu show-menu" : "menu hidde-menu"}>
 
             <CardButtonMap click={()=>console.log('click')} text="Runalotus" img="/uploads/logos_runalotus_2_1c6be0aa11.png?updated_at=2023-03-15T15:03:29.668Z"/>
-            <CardButtonMap click={()=>console.log('click')} text="Buscar destino" img="/uploads/search_ba2ffa87fa.webp?updated_at=2023-03-28T21:36:16.178Z"/>
             <CardButtonMap click={()=>console.log('click')} text="Categorias" img="/uploads/category_6e81060994.webp?updated_at=2023-03-28T21:36:16.084Z"/>
             <CardButtonMap click={()=>console.log('click')} text="Rutas turisticas" img="/uploads/route_4078736476.webp?updated_at=2023-03-28T21:36:16.207Z"/>
             <CardButtonMap click={()=>console.log('click')} text="Paquetes  turisticos" img="/uploads/tourism_6d2e7647ac.webp?updated_at=2023-03-28T21:36:16.192Z"/>
+            <CardButtonMap click={()=>console.log('click')} text="Buscar destino" img="/uploads/search_ba2ffa87fa.webp?updated_at=2023-03-28T21:36:16.178Z"/>
             <CardButtonMap click={()=>router.push('/')}  text="Salir" img="/uploads/log_out_4329905_3599716_a374517b4e.png?updated_at=2023-03-29T17:29:23.209Z"/>
             
         </div>

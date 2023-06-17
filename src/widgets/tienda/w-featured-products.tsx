@@ -3,6 +3,7 @@ import CardProduct from "../../components/tienda/card-product";
 import { IconCartPlus, IconTruck } from "../../icons/icons";
 import { theme } from "../../../config";
 import FeaturedProducts from "../../components/tienda/cards-product-store";
+import FormatCurrency from "../../services/format-currency";
 
 type PropsWidgetFeaturedProducts = {
 
@@ -14,7 +15,7 @@ export const WidgetFeaturedProducts:NextPage<PropsWidgetFeaturedProducts> = (pro
     const Cards1:JSX.Element [] = [];
     const Cards2:JSX.Element [] = [];
 
-    console.log(props.products)
+    //console.log(props.products)
     props.products.forEach((product:any, index:number)=>{
     
         
@@ -23,8 +24,8 @@ export const WidgetFeaturedProducts:NextPage<PropsWidgetFeaturedProducts> = (pro
             name={product.attributes.name}
             img={product.attributes.links_marketplace.img_ml}
             alt={product.attributes.name}
-            price={`$ ${new Intl.NumberFormat('es-CO').format(Math.ceil(parseInt(product.attributes.sale_price)))} COP`}
-            discount={`$ ${new Intl.NumberFormat('es-CO').format(Math.ceil(parseInt(product.attributes.discount_price)))} COP`}
+            price={FormatCurrency(product.attributes.sale_price, 'COP', 'es-CO')}
+            discount={FormatCurrency(product.attributes.sale_price, 'COP', 'es-CO')}
             iconAdd={
                 <IconCartPlus 
                     width="30" 

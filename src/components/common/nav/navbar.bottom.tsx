@@ -12,7 +12,7 @@ const StyleNavbarBottom = styled.div`
      & > .nav__container2{
 
         width:100%;
-        height:51px;
+        height:46px;
         box-shadow:0px 2px 2px rgba(0,0,0,0.2);
 
     }
@@ -125,8 +125,8 @@ const StyleNavbarBottom = styled.div`
             
             width:5%;
             cursor:pointer;
-            height:25px;
-            margin-top:10px;
+            height:22px;
+            margin-top:8px;
             display:flex;
             justify-content:center;
             padding:5px;
@@ -200,6 +200,7 @@ const StyleNavbarBottom = styled.div`
                     font-size:16px;
                     font-weight:900;
                     color:${theme.colors.grayB};
+                    margin-top: 26px;
                     & > span{
                         max-width: 96px;
                         white-space: nowrap;

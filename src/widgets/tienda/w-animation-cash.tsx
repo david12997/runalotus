@@ -2,22 +2,29 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import { NextPage } from "next";
 import SectionAnimationCash from "../../components/tienda/section-animation-cash";
 import Button1 from "../../components/common/button-1";
+import { theme } from "../../../config";
 
-export const WidgetAnimationCash:NextPage = () =>{
+type PropsWidgetAnimationCash = {
+
+    data:{
+        id:number,
+        attributes:any
+    }
+}
+
+export const WidgetAnimationCash:NextPage<PropsWidgetAnimationCash> = (props) =>{
+
+    const dataWidget = props.data.attributes.page.WidgetAnimationCash;
 
     return<>
         <SectionAnimationCash
             area="cash"
-            title="Pago contra entrega en runalotus"
-            description="Pagas en la puerta de tu casa"
-            text="
-                Compra en runalotus y pagas solo cuando recibes tu producto,
-                con el pago contra entrega estas seguro de recibir lo que pediste,
-                pide ahora y paga enla puerta de tu casa
-            "
+            title={dataWidget.title}
+            description={dataWidget.description}
+            text={dataWidget.text}
             animation={
                 <Player
-                    src='/assets/animations/cash-on-delivery.json'
+                    src={theme.data_domain+dataWidget.animation}
                     className="cash-on-delivery"
                     loop
                     autoplay
@@ -29,7 +36,7 @@ export const WidgetAnimationCash:NextPage = () =>{
                 <Button1
                     minHeight="65px"
                     minWidth="250px"
-                    text="Ver descuentos"
+                    text={dataWidget.btn_text}
                 />
             }
         />

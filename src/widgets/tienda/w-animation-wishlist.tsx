@@ -2,22 +2,28 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import { NextPage } from "next";
 import SectionAnimationRoute from "../../components/turismo/animation-routes";
 import Button1 from "../../components/common/button-1";
+import { theme } from "../../../config";
 
-export const WidgetWishListStore:NextPage = ()=>{
+type PropsWidgetWishListStore = {
+    data:{
+        id:number,
+        attributes:any
+    }
+}
+
+export const WidgetWishListStore:NextPage<PropsWidgetWishListStore> = (props)=>{
+
+    const dataWidget = props.data.attributes.page.WidgetWishListStore;
 
     return<>
          <SectionAnimationRoute
 
-            title="No te pierdas los descuentos que tenemos para tí"
-            description="Encuentra productos con hasta 50% OFF"
-            text=" 
-                Tenemos sorpresas y regalos semanales para nuestros usuarios activos
-                así como descuentos y promociones especiales que te estan esperando,
-                no pierdas tiempo ve y descubre todo lo que tenemos preparado para ti.
-            "
+            title={dataWidget.title}
+            description={dataWidget.description}
+            text={dataWidget.text}
             player={
                 <Player
-                    src='/assets/animations/wish-list-store.json'
+                    src={theme.data_domain+dataWidget.animation}
                     className="router-tourism"
                     loop
                     autoplay
@@ -29,7 +35,7 @@ export const WidgetWishListStore:NextPage = ()=>{
                 <Button1
                     minHeight="65px"
                     minWidth="250px"
-                    text="Ver descuentos"
+                    text={dataWidget.btn_text}
                 />
             }
 

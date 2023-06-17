@@ -12,7 +12,7 @@ const StyleNavbarTop = styled.div`
     & > .nav__container1{
 
         width:100%;
-        height:44px;
+        height:34px;
 
     }
 
@@ -37,7 +37,7 @@ const StyleNavbarTop = styled.div`
         margin:0px;
         padding:0px;
         border-right:1px solid white;
-        font-size:14px;
+        font-size:13px;
         font-weight:700;
         color:${theme.colors.white};
         position:relative;
@@ -47,7 +47,7 @@ const StyleNavbarTop = styled.div`
             display:flex;
             justify-content:center;
             align-items:center;
-            top:22px;
+            top:15px;
             position:relative;
             margin:0px;
             padding:0px;
@@ -69,7 +69,10 @@ const StyleNavbarTop = styled.div`
             font-size:12px;
             font-weight:600;
             padding:3px;
-            height:15px;
+            height:10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
 
@@ -106,6 +109,8 @@ const StyleNavbarTop = styled.div`
 
     & > .nav__container1 > .mobile > .mobile__buttons{
         width:29%;
+        height: 90%;
+        margin-top: 1.5%;
         display:flex;
         justify-content:space-around;
         align-items:center;
@@ -116,7 +121,7 @@ const StyleNavbarTop = styled.div`
 
             .number{
                 position:absolute;
-                top: -16%;
+                top: -6%;
                 left: 66%;
                 background:${theme.colors.secondaryA};
                 font-size:13px;

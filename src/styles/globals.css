@@ -31,7 +31,74 @@ body{
 
 /* styles label marker maphook */
 .label-marker-maphook{
-  background: white;
-  width:470px;
+
  
+}
+
+.gm-style-iw, .gm-style-iw-c{
+
+  max-width:270px !important;
+  max-height:310px !important;
+  width: 270px !important;
+  height: 310px !important;
+  padding: 6px !important;
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+
+}
+
+.gm-style-iw-d{ 
+  max-height: fit-content !important; 
+  overflow-x: hidden !important; 
+  overflow-y: scroll !important; 
+}
+
+
+.gm-ui-hover-effect{
+  width: 45px !important;
+  height: 45px !important;
+  right: 6px !important;
+}
+
+.gm-ui-hover-effect > span{
+
+  width: 45px !important;
+  height: 45px !important;
+  right: 9px !important;
+}
+
+@media(min-width:305px){
+  .gm-style-iw, .gm-style-iw-c{
+
+    max-width:290px !important;
+    max-height:340px !important;
+    width: 290px !important;
+    height: 340px !important;
+
+  
+  }
+  
+}
+
+@media (min-width: 800px) {
+
+  .gm-style-iw, .gm-style-iw-c{
+
+    max-width: 600px !important;
+    max-height: 440px !important;
+    width: 600px !important;
+    height: 440px !important;
+  }
+}
+
+@media(min-width: 1400px){
+
+  .gm-style-iw, .gm-style-iw-c{
+
+    max-width: 800px !important;
+    max-height: 580px !important;
+    width: 800px !important;
+    height: 580px !important;
+  }
+  
 }

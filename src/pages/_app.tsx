@@ -1,13 +1,13 @@
 import type { AppProps } from 'next/app'
 import './../styles/globals.css'
-import Layout from '../layout';
-import { NextRouter, useRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router';
 import  NextNProgress from 'nextjs-progressbar';
 import { theme } from '../../config';
 import { Provider } from 'react-redux';
 import { persistor, wrapper } from '../store';
 import { PersistGate } from 'redux-persist/integration/react';
-import { createWrapper }  from 'next-redux-wrapper';
+import Layout from '../layout';
+
 
 
 function App({ Component, ...rest }: AppProps) {

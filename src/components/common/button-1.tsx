@@ -31,7 +31,7 @@ export const StyleBtn1 = styled.div<PropsStyleButton1>`
         align-items:center;
         color:${props=>props.textColor !== undefined ? props.textColor : theme.colors.white};
         font-weight:700;
-        font-size:17px;
+        font-size:16px;
 
         @media(min-width:800px){
             width:calc(${props=>props.width} + 90px); //+90px

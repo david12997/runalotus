@@ -4,8 +4,8 @@ import { WidgetWelcomeTourism } from "@/widgets/tourism/w-welcome";
 import { WidgetCategoriesTourism } from "@/widgets/tourism/w-categories";
 import { WidgetAnimationRoutes } from "@/widgets/tourism/w-animation-routes";
 import { WidgetFooter } from "@/widgets/common/w-footer";
-import { theme } from "../../config";
-import { GetData } from "../services/get-data";
+import { theme } from "../../../config";
+import { GetData } from "../../services/get-data";
 import { useRouter } from "next/router";
 
 export type PropsTourismPage = {

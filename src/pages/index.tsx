@@ -32,7 +32,6 @@ const Index: NextPage<PropsIndexPage> = (props) => {
     </Head>
 
     <WidgetNav data={[props.data.attributes,props.context]}/>
-
     <WidgetWelcomeIndex data={props.data}/>
     <WidgetStoreIndex data={props.data}/>
     <WidgetCategoriesProductIndex data={props.data}/>

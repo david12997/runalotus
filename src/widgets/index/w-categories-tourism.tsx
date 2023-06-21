@@ -3,7 +3,7 @@ import CardCategories from "../../components/turismo/card-categories";
 import CategoriesTourism from "../../components/turismo/categories";
 
 import { theme } from "../../../config";
-import { PropsIndexPage } from "../../pages";
+import { PropsIndexPage } from "../../pages/turismo";
 
 
 export const WidgetCategoriesTourismIndex:NextPage<PropsIndexPage> = (props)=>{

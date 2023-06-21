@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import ProductsStore from "../../../components/tienda/app/products-app";
+import ProductsStore from "../../../components/tienda/app";
 
 type PropsAppStore ={
     categories:{data:any[], meta:any},

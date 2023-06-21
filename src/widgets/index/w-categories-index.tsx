@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import CardCategories from "../../components/turismo/card-categories";
 import CategoriesIndex from "../../components/index/categories-index";
 import { theme } from "../../../config";
-import { PropsIndexPage } from "../../pages";
+import { PropsIndexPage } from "../../pages/turismo";
 import { useRouter } from "next/router";
 
 export const WidgetCategoriesProductIndex:NextPage<PropsIndexPage> = (props) =>{

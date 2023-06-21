@@ -42,7 +42,7 @@ export const getStaticProps:GetStaticProps<PropsAppStore> = async(context) =>{
     const response = await GetData([
     
         'https://cms.aipus.co/api/subcategories?filters[category][id][$eq]=5&populate[0]=media', //return categories of runalotus
-        'https://cms.aipus.co/api/products?populate=*&filters[subcategories][id][$eq]=1', //return products of runalotus
+        'https://cms.aipus.co/api/products?populate=*&filters[subcategories][id][$eq]=1&pagination[page]=1&pagination[pageSize]=4', //return products of runalotus
         `https://cms.aipus.co/api/pages/${lang}?populate[0]=components` //return components of store page
     
     ],theme.token_cms as string).then(data=>data);

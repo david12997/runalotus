@@ -1,14 +1,14 @@
 import { NextRouter, useRouter } from "next/router";
 import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
-import { theme } from "../../../config";
+import { theme } from "../../../../config";
 
-import Cart from "./nav/cart";
-import NavigationMobile from "./nav/navigation-mobile";
-import NavbarTop from "./nav/navbar-top";
-import NavbarBottom from "./nav/navbar.bottom";
-import LanguageCurrency from "./nav/lang-currency";
-import LocationNav from "./nav/location";
+import Cart from "./cart";
+import NavigationMobile from "./navigation-mobile";
+import NavbarTop from "./navbar-top";
+import NavbarBottom from "./navbar.bottom";
+import LanguageCurrency from "./lang-currency";
+import LocationNav from "./location";
 
 
 export interface PropsNavStyle{
@@ -139,10 +139,19 @@ export default function Nav(props:PropsNav):JSX.Element{
         for(let index:number = 0; index < linkRefDesktop.current.length; index++){
               
             if(router.asPath === props.links[index]){
+            
                 FocusLinkDesktop(linkRefDesktop.current[index] as HTMLDivElement);
                 FocusLinkMobile(linkRefMobile.current[index] as HTMLDivElement, index);
                 break;
+            
+            }else if(router.asPath.includes('/tienda/productos')){
+
+                FocusLinkDesktop(linkRefDesktop.current[2] as HTMLDivElement);
+                FocusLinkMobile(linkRefMobile.current[2] as HTMLDivElement, index);
+                break;
+
             }else if(router.asPath === '/'){
+            
                 FocusLinkDesktop(linkRefDesktop.current[0] as HTMLDivElement);
                 FocusLinkMobile(linkRefMobile.current[0] as HTMLDivElement, index);
                 break;

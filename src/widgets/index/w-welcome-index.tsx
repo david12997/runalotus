@@ -4,7 +4,7 @@ import Button1 from "../../components/common/button-1";
 
 import { theme } from "../../../config";
 import { Player } from "@lottiefiles/react-lottie-player";
-import { PropsIndexPage } from "../../pages";
+import { PropsIndexPage } from "../../pages/turismo";
 import { useRouter } from "next/router";
 
 

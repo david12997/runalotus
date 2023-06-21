@@ -2,7 +2,7 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import { NextPage } from "next";
 import SectionAnimationCash from "../../components/tienda/section-animation-cash";
 import Button1 from "../../components/common/button-1";
-import { PropsIndexPage } from "../../pages";
+import { PropsIndexPage } from "../../pages/turismo";
 import { theme } from "../../../config";
 
 export const WidgetAnimationPayIndex:NextPage<PropsIndexPage> = (props) =>{

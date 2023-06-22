@@ -1,74 +1,67 @@
-import { WidgetFooter } from "@/widgets/common/w-footer";
-import { WidgetNav } from "@/widgets/common/w-nav";
-import { WidgetCategoriesProductStore } from "@/widgets/tienda/w-categories-store";
-import { WidgetAnimationCash } from "@/widgets/tienda/w-animation-cash";
-import { WidgetAnimationPayStore } from "@/widgets/tienda/w-animation-pay";
-import { WidgetSectionAnimationTrack } from "@/widgets/tienda/w-animation-track";
-import { WidgetWishListStore } from "@/widgets/tienda/w-animation-wishlist";
-import { WidgetCardsInfo } from "@/widgets/tienda/w-cards-info";
-import { WidgetFeaturedProducts } from "@/widgets/tienda/w-featured-products";
-import { WidgetWelcomeStore } from "@/widgets/tienda/w-welcome-store";
 import { GetStaticProps, NextPage } from "next";
-import Head from "next/head";
-import { theme } from "../../../config";
+import { WidgetNav } from "../../widgets/common/w-nav"; 
+import { WidgetProductsApp } from "../../widgets/tienda/products/w-products-store";
 import { GetData } from "../../services/get-data";
-import { useRouter } from "next/router";
+import { theme } from "../../../config";
 
-export type PropsStorePage = {
-  data:{id:number,attributes:any}
-  products:any[],
-  context?:any
+
+
+
+export type PropsAppStore ={
+    categories:{data:any[], meta:any},
+    products:{data:any[], meta:any},
+    context:any,
+    data:{id:number,attributes:any},
+    id_category:number
+
 }
 
-const StorePage: NextPage<PropsStorePage> = (props) => {
+const  StoreAppPage:NextPage<PropsAppStore> =(props) =>{
 
-  const router = useRouter();
-  if(router.isFallback){
-      return <div>Loading...</div>
-  }
 
-  return <>
-    <Head>
-      <title>Tienda | Joyeria | Artesanias</title>
-    </Head>
-    
-    <WidgetNav data={[props.data.attributes, props.context]}/>
-    <WidgetWelcomeStore data={props.data}/>
-    <WidgetCardsInfo data={props.data}/>
-    <WidgetCategoriesProductStore data={props.data}/>
-    <WidgetFeaturedProducts products={props.products}/>
-    <WidgetAnimationPayStore data={props.data}/>
-    <WidgetWishListStore data={props.data} />
-    <WidgetAnimationCash data={props.data} />
-    <WidgetSectionAnimationTrack data={props.data} />
-    <WidgetFooter/>
 
-  </>
+    return<>
+
+        <WidgetNav data={[props.data.attributes,props.context]} />
+        <WidgetProductsApp 
+            context={props.context} 
+            products={props.products}
+            categories={props.categories} 
+            id_category={props.id_category}
+
+
+            
+        />
+        
+    </>
 }
 
-export const  getStaticProps:GetStaticProps<PropsStorePage> = async(context) =>{
+export const getStaticProps:GetStaticProps<PropsAppStore> = async(context) =>{
 
-  let lang:string; // lang 5 and 6 are store page in cms
-  context.locale === 'es' ? lang = '5' : lang = '6';
+    let lang:string; // lang 5 and 6 are store page in cms
+    context.locale === 'es' ? lang = '5' : lang = '6';
 
-  const response = await GetData([
+    const response = await GetData([
     
-    `https://cms.aipus.co/api/pages/${lang}?populate[0]=components`,
-    'https://cms.aipus.co/api/products?populate=*&filters[subcategories][id][$eq]=1'
+        'https://cms.aipus.co/api/subcategories?filters[category][id][$eq]=5&populate[0]=media', //return categories of runalotus
+        'https://cms.aipus.co/api/products?populate=*&filters[subcategories][id][$eq]=1&pagination[page]=1&pagination[pageSize]=4', //return products of runalotus
+        `https://cms.aipus.co/api/pages/${lang}?populate[0]=components` //return components of store page
+    
+    ],theme.token_cms as string).then(data=>data);
 
-  ],theme.token_cms as string).then(data=>data)
 
-  return{
 
-    props:{
-      data: response[0].data,
-      context:context,
-      products:response[1].data
+    return{
+        props:{
+            categories:response[0],
+            products:response[1],
+            context:context,
+            data:response[2].data,
+            id_category:1
+        },
+        revalidate:1
     }
-  }
-
 }
 
 
-
-export default StorePage;
+export default StoreAppPage;

@@ -3,6 +3,7 @@ import styled, {css} from "styled-components";
 import GridStyleIndex from "./index/grid-index";
 import GridStyleTurismo from "./turismo/grid-turismo";
 import GridStyleTienda from "./tienda/grid-tienda";
+import GridStylePromotions from "./tienda/grid-promos";
 
 
 
@@ -20,11 +21,11 @@ const StyleLayout =  styled.span<PropsStyleLayout>`
     ${(props)=>{
 
         //layout for dynamic routes store categories
-        const categories:string[] = ['joyeria','ceramica','piedras','tejidos','jarras','sombreros','bolsos'];
+        const categories:string[] = [ 'productos','joyeria','ceramica','piedras','tejidos','jarras','sombreros','bolsos'];
 
         for(let i:number = 0;i < categories.length;i++){
 
-            if(props.page === '/tienda/productos/'+categories[i])return css`
+            if(props.page === '/tienda/'+categories[i])return css`
 
                 grid-template-areas:"nav nav nav nav"
                                     "navigation navigation navigation navigation"
@@ -69,25 +70,7 @@ const StyleLayout =  styled.span<PropsStyleLayout>`
                 grid-template-rows:50% 50%;
             `;
 
-            case '/tienda/productos':return css`
-
-                grid-template-areas:"nav nav nav nav"
-                                    "navigation navigation navigation navigation"
-                                    "products products products products"
-                ;
-                grid-template-columns:1fr 1fr 1fr 1fr;
-                grid-template-rows:80px  24px calc(100vh - 112px);
-                @media(min-width:800px){
-
-                    grid-template-rows:80px  30px calc(100vh - 118px);
-                }
-
-
-
-               
-
-
-            `;
+            case '/tienda/promos':return css`${GridStylePromotions()} `;
             
             default: return css`
             

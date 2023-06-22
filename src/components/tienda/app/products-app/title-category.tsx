@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { theme } from "../../../../../config";
 import { IconCategories } from "../../../../icons/icons";
 import Select from "react-select";
+import { useRouter } from "next/router";
 
 const StyleTitleCategory = styled.div`
 
@@ -43,23 +44,44 @@ const StyleTitleCategory = styled.div`
 `;
 
 type PropsTitleCategory = {
-    categories:any
+    categories:any,
+    products:any,
+    setProducts:(currentCategory:number,nameCategory:string,products:any[])=>void,
 }
 
 export default function TitleCategory(props:PropsTitleCategory):JSX.Element {
 
-    const catgeoriesSelect:any[] = [];
+    const router = useRouter();
+    const [categories, setCategories] = useState<any[]>([]);
+  
 
-    props.categories.data.forEach((category:any,index:number)=>{
-        catgeoriesSelect.push({
+    const parseCategories = (categories:any) =>{
 
-            value:category.attributes.name,
-            label:category.attributes.name,
-            icon:theme.data_domain+ category.attributes.media.data[0].attributes.url
+        let catgeoriesSelect:any[] = [];
+        categories.data.forEach((category:any,index:number)=>{
 
-        })
+            catgeoriesSelect.push({
+                
+                id:category.id,
+                value:category.attributes.name.toLowerCase(),
+                label:category.attributes.name,
+                icon:theme.data_domain+ category.attributes.media.data[0].attributes.url
+    
+            })
+    
+        });
 
-    });
+       setCategories(catgeoriesSelect);
+    }
+   
+
+    useEffect(()=>{
+
+        parseCategories(props.categories);
+
+
+        
+    },[])
 
     const customStylesSelect = {
 
@@ -84,13 +106,19 @@ export default function TitleCategory(props:PropsTitleCategory):JSX.Element {
             <Select
                 id="categories-select"
                 placeholder="Categorias"
-                options={catgeoriesSelect}
-                formatOptionLabel={(e)=>(
+                value={categories.filter((e:any)=>e.value.trim() === router.query.category)}
+                options={categories}
+                formatOptionLabel={(e:any)=>(
                     <div style={{display:'flex',alignItems:'center'}}>
                         <img style={{width:"30px", marginRight:'10px',marginLeft:'5px'}} src={e.icon}/> {e.label}
                     </div>
                 )}
                 styles={customStylesSelect}
+                onChange={(e)=>{
+                    
+                    props.setProducts(e.id,e.value,props.products.data);
+                    
+                }}
             />
         </div>
     </StyleTitleCategory>

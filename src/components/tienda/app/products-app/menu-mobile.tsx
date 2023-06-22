@@ -60,7 +60,8 @@ const StyleMenuMobile = styled.div`
 `
 
 type PropsMenuMobile ={
-    categories:any
+    categories:any,
+    fetchMoreProducts?:any,
 }
 
 export default function MenuMobile(props:PropsMenuMobile):JSX.Element {

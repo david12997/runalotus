@@ -1,7 +1,8 @@
-import React from "react";
+import React  from "react";
 import styled from "styled-components";
 import { theme } from "../../../../../config";
 import { IconCategories, IconFilters } from "../../../../icons/icons";
+
 
 
 const StyleMenuDesktop = styled.div`
@@ -77,10 +78,14 @@ const StyleMenuDesktop = styled.div`
 
 
 type PropsMenuDesktop = {
-    categories:any
+    categories:any,
+    products:any,
+    setProducts:(currentCategory:number,nameCategory:string,products:any[])=>void,
 }
 
 export default function MenuDesktop(props:PropsMenuDesktop):JSX.Element {
+
+
 
     return<StyleMenuDesktop>
 
@@ -99,21 +104,28 @@ export default function MenuDesktop(props:PropsMenuDesktop):JSX.Element {
 
             <div className="container-type-menu">
 
-                    {
-                        props.categories.data.map((category:any,index:number)=>{
+                {
+                    props.categories.data.map((category:any,index:number)=>{
 
-                            return<div key={index} className="card-categorie">
+                        return<div key={index} 
+                            className="card-categorie" 
+                            onClick={()=>{  
+                                console.log(props, 'f');
+                                props.setProducts(category.id,category.attributes.name.toLowerCase(),props.products.data);
+                                }
+                            }
+                        >
 
-                                <div className="img">
-                                    <img src={ theme.data_domain+ category.attributes.media.data[0].attributes.url} alt="" />
-                                </div>
-                                <div className="text">
-                                    {props.categories.data[index].attributes.name}
-                                </div>
-                            
+                            <div className="img">
+                                <img src={ theme.data_domain+ category.attributes.media.data[0].attributes.url} alt="" />
                             </div>
-                        })
-                    }
+                            <div className="text">
+                                {category.attributes.name}
+                            </div>
+                        
+                        </div>
+                    })
+                }
 
             </div>
 

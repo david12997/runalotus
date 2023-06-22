@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import SectionAnimationStore from "../../components/index/store-section";
 import Button1 from "../../components/common/button-1";
 import { theme } from "../../../config";
-import { PropsIndexPage } from "../../pages/turismo";
+import { PropsIndexPage } from "../../pages";
 import { useRouter } from "next/router";
 
 

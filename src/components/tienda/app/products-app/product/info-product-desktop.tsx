@@ -4,6 +4,7 @@ import FormatCurrency from "../../../../../services/format-currency";
 import { IconCartPlus, IconWhatsapp } from "../../../../../icons/icons";
 import { theme } from "../../../../../../config";
 import Button1 from "../../../../common/button-1";
+import { useRouter } from "next/router";
 
 const StyleInfoProductDesktop = styled.div`
     
@@ -137,6 +138,8 @@ type PropsInfoProductDesktop = {
 
 export default function InfoProductDesktop(props:PropsInfoProductDesktop ):JSX.Element {
 
+    const router = useRouter();
+
     return<StyleInfoProductDesktop>
         <div className="info-product-desktop">
             
@@ -185,7 +188,15 @@ export default function InfoProductDesktop(props:PropsInfoProductDesktop ):JSX.E
             <hr className="hr-desktop-info-product-d"></hr>
 
 
-            <div className="btn-ver-product-desktop">
+            <div className="btn-ver-product-desktop" onClick={()=>{
+                
+                router.asPath === '/tienda' 
+                ? 
+                router.push(router.asPath+'/productos/'+props.product.id) 
+                : 
+                router.push(router.asPath+'/'+props.product.id)
+
+            }}>
                 <Button1
                     bgColor={theme.colors.primaryA}
                     minWidth="100%"

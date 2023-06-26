@@ -1,7 +1,7 @@
 
 import React from "react";
 import styled from "styled-components";
-import { theme } from "../../../config";
+import { theme } from "@/../config";
 
 
 export interface PropsStyleButton1{
@@ -60,7 +60,9 @@ export type PropsButton1 ={
     icon?:JSX.Element,
     bgColor?:string,
     textColor?:string,
-    reference?:React.RefObject<HTMLDivElement>
+    reference?:React.RefObject<HTMLDivElement>,
+
+
 
 }
 
@@ -69,7 +71,7 @@ export default function Button1(props:PropsButton1):JSX.Element{
 
     return<StyleBtn1 
             onClick={props.click} 
-            data-testid="button-1" 
+            data-testid="button1-component-test" 
             width={props.minWidth} 
             height={props.minHeight} 
             bgColor={props.bgColor}

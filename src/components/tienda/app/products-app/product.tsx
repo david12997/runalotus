@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { theme } from "../../../../../config";
-import FormatCurrency from "../../../../services/format-currency";
-import { IconCartPlus, IconWhatsapp } from "../../../../icons/icons";
-import Button1 from "../../../common/button-1";
+
 import InfoProductMobile from "./product/info-product-mobile";
 import InfoProductDesktop from "./product/info-product-desktop";
+
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+
 
 const StyleProductApp = styled.div`
 
@@ -28,7 +30,7 @@ const StyleProductApp = styled.div`
         @media(min-width:800px){
 
             width: 42%;
-            height: 80vh;
+            height: 70vh;
             left: 25%;
             margin-top: 30px;
             margin-bottom: 30px;
@@ -58,7 +60,9 @@ const StyleProductApp = styled.div`
             display: flex;
             justify-content: center;
 
-            & > img{
+
+
+            &  img{
                 height:82%;
                 width: 82%;
                 margin-top: 12%;
@@ -68,6 +72,12 @@ const StyleProductApp = styled.div`
                     height:100%;
                     margin-top: 0%;
                 }
+            }
+
+            &  div, .slider{
+                height: 100%;
+                position: relative;
+                z-index: 99;
             }
             
         }
@@ -90,14 +100,28 @@ export default function ProductApp(props:ProductAppProps): JSX.Element {
 
         <span className="container-app">
 
-    
+           
             <div className="product">
     
-    
+               
                 <div className="img-product">
-                    <img src={theme.data_domain+ props.product.attributes.media.data[0].attributes.url } alt="" />
+                    <Carousel 
+                        showIndicators={false} 
+                        dynamicHeight={false}  
+                        emulateTouch 
+                        swipeable 
+                        showArrows  
+                        showThumbs={false} 
+                        className="carousel"
+                        
+                    >
+                        <img src={theme.data_domain+ props.product.attributes.media.data[0].attributes.url } alt="" />
+                        <img src={theme.data_domain+ props.product.attributes.media.data[0].attributes.url } alt="" />
+                    </Carousel>
+                    
                 </div>
-    
+
+
             </div>
     
             <InfoProductMobile product={props.product} />

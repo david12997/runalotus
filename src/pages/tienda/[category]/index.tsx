@@ -3,19 +3,18 @@ import { WidgetNav } from "../../../widgets/common/w-nav";
 import { GetData } from "../../../services/get-data";
 import { theme } from "../../../../config";
 import { PropsAppStore } from "..";
-import { WidgetProductsApp } from "../../../widgets/tienda/products/w-products-store";
+import { WidgetProductsApp } from "../../../widgets/tienda/w-products-store";
+import BreadCrumbs from "../../../components/common/breadCrumbs";
 
 
 
 const StoreAppCategoryPage:NextPage<PropsAppStore> = (props) =>{
 
-    
-  
-
 
     return<>
 
         <WidgetNav data={[props.data.attributes,props.context]} />
+        <BreadCrumbs/>
         <WidgetProductsApp
             context={props.context} 
             products={props.products}
@@ -87,7 +86,7 @@ export const getStaticProps:GetStaticProps<PropsAppStore> = async (context) =>{
 
     ],theme.token_cms as string).then(data=>data);
 
-   console.log(id_category,response[1]);
+
     return{
         props:{
             products:response[1],

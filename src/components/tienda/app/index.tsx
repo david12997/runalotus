@@ -10,6 +10,7 @@ const StyleProductsStore = styled.section`
     grid-area:products;
     position:relative;
 
+
     .hr-product{
         width:100%;
         margin-left:0%;
@@ -31,6 +32,8 @@ const StyleProductsStore = styled.section`
         align-items:center;
         justify-content: center;
     }
+
+
 
 `;
 

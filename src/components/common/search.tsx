@@ -1,8 +1,8 @@
 
 import React from "react";
 import styled from "styled-components";
-import { theme } from "../../../config";
-import { IconSearch } from "../../icons/icons";
+import { theme } from "@/../config";
+import { IconSearch } from "@/icons/icons";
 
 
 const StyleSeacrh = styled.span`

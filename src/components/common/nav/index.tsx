@@ -185,9 +185,9 @@ export default function Nav(props:PropsNav):JSX.Element{
     }
 
 
-    return<NavStyle area={props.area}>
+    return<NavStyle area={props.area} data-testid="nav-component-test-id">
         
-        {/* those components are screen that appear when user makes an action */}
+        {/*start those components are screen that appear when user makes an action */}
         <Cart 
             reference={cartRef} 
             cartToggle={ElementToggle}
@@ -222,7 +222,7 @@ export default function Nav(props:PropsNav):JSX.Element{
             textButton={props.locationMap.textButton}
         />
 
-       {/* those components below are tow bars that create Nav component */}
+       {/* end those components below are tow bars that create Nav component */}
         <NavbarTop
             toggleNav={toggleNav}
             pages={props.pages}

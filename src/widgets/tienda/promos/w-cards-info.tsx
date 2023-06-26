@@ -1,8 +1,8 @@
 import { NextPage } from "next";
-import CardInfo from "../../components/common/card-info";
-import { IconCreditCardCheck, IconEscudoCheck, IconHandBill, IconTruckBox } from "../../icons/icons";
-import { theme } from "../../../config";
-import CardsStore from "../../components/tienda/cards-store";
+import CardInfo from "../../../components/common/card-info";
+import { IconCreditCardCheck, IconEscudoCheck, IconHandBill, IconTruckBox } from "../../../icons/icons";
+import { theme } from "../../../../config";
+import CardsStore from "../../../components/tienda/cards-store";
 
 
 type PropsWidgetCardsInfo = {

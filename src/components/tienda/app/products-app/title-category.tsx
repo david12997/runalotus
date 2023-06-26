@@ -15,12 +15,13 @@ const StyleTitleCategory = styled.div`
         display: flex;
         justify-content: flex-start;
         align-items: center;
+      
 
         @media(min-width:800px){
 
             width: 80%;
             margin-left: 20%;
-            margin-top: 20px;
+            margin-top: 0px;
         }
 
         & > #categories-select{

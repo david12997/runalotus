@@ -275,7 +275,7 @@ export default function NavbarBottom(props:PropsNavbarBottom):JSX.Element{
 
 
 
-    return<StyleNavbarBottom>
+    return<StyleNavbarBottom data-testid="navbar-bottom-component-test">
         <div className="nav__container2">
 
             <div className="logo">

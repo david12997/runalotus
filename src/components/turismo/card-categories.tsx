@@ -8,7 +8,7 @@ const StyleCardCategoires = styled.div`
     height:120px;
     background:${theme.colors.white};
     border-radius:5px;
-    box-shadow:0px 0px 5px rgba(0,0,0,0.5);
+    box-shadow:0px 0px 5px rgba(0,0,0,0.3);
     margin:3px;
 
     @media(min-width:320px){

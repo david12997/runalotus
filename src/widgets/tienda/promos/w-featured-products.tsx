@@ -1,9 +1,9 @@
 import { NextPage} from "next";
-import CardProduct from "../../components/tienda/card-product";
-import { IconCartPlus, IconTruck } from "../../icons/icons";
-import { theme } from "../../../config";
-import FeaturedProducts from "../../components/tienda/cards-product-store";
-import FormatCurrency from "../../services/format-currency";
+import CardProduct from "../../../components/tienda/card-product";
+import { IconCartPlus, IconTruck } from "../../../icons/icons";
+import { theme } from "../../../../config";
+import FeaturedProducts from "../../../components/tienda/cards-product-store";
+import FormatCurrency from "../../../services/format-currency";
 
 type PropsWidgetFeaturedProducts = {
 

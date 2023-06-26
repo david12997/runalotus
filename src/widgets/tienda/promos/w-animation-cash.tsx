@@ -1,10 +1,10 @@
 import { Player } from "@lottiefiles/react-lottie-player";
 import { NextPage } from "next";
-import SectionAnimationTrack from "../../components/tienda/section-animation-track";
-import Button1 from "../../components/common/button-1";
-import { theme } from "../../../config";
+import SectionAnimationCash from "../../../components/tienda/section-animation-cash";
+import Button1 from "../../../components/common/button-1";
+import { theme } from "../../../../config";
 
-type PropsWidgetAnimationTrack = {
+type PropsWidgetAnimationCash = {
 
     data:{
         id:number,
@@ -12,33 +12,33 @@ type PropsWidgetAnimationTrack = {
     }
 }
 
-export const WidgetSectionAnimationTrack:NextPage<PropsWidgetAnimationTrack> = (props)=>{
+export const WidgetAnimationCash:NextPage<PropsWidgetAnimationCash> = (props) =>{
 
-    const dataWidget = props.data.attributes.page.WidgetSectionAnimationTrack;
+    const dataWidget = props.data.attributes.page.WidgetAnimationCash;
 
     return<>
-        <SectionAnimationTrack
-
-            area="track"
+        <SectionAnimationCash
+            area="cash"
             title={dataWidget.title}
             description={dataWidget.description}
+            text={dataWidget.text}
             animation={
                 <Player
                     src={theme.data_domain+dataWidget.animation}
-                    className="track"
+                    className="cash-on-delivery"
                     loop
                     autoplay
                     speed={1}
                 />
             }
-            text={dataWidget.text}
+
             button={
                 <Button1
                     minHeight="65px"
                     minWidth="250px"
                     text={dataWidget.btn_text}
                 />
-            }       
+            }
         />
     </>
 }

@@ -1,7 +1,7 @@
 
 import React from "react";
 import styled from "styled-components";
-import { theme } from "../../../config";
+import { theme } from "@/../config";
 
 export interface PropsStyleFooter{
     area:string

@@ -4,6 +4,7 @@ import { IconCartPlus, IconWhatsapp } from "../../../../../icons/icons";
 import { theme } from "../../../../../../config";
 import FormatCurrency from "../../../../../services/format-currency";
 import Button1 from "../../../../common/button-1";
+import { useRouter } from "next/router";
 
 const StyleInfoProductMobile = styled.div`
 
@@ -17,6 +18,7 @@ const StyleInfoProductMobile = styled.div`
         width: 100%;
         height: 100%;
 
+
         &  > .container-price{
             position: relative;
             width:95%;  
@@ -28,6 +30,7 @@ const StyleInfoProductMobile = styled.div`
             border-radius: 9px;
             display: flex;
             justify-content: space-between;
+            z-index:999;
 
             & > .prices{
 
@@ -62,6 +65,7 @@ const StyleInfoProductMobile = styled.div`
                 position: relative;
                 width: 48%;
                 height: 100%;
+                z-index:999;
 
             }
         }
@@ -76,6 +80,7 @@ const StyleInfoProductMobile = styled.div`
             display: flex;
             justify-content: center;
             align-items: center;
+            z-index:999;
 
 
             & > .name{
@@ -102,6 +107,7 @@ const StyleInfoProductMobile = styled.div`
             height: 60%;
             left: calc(96% - 35px);
             top: 30px;
+            z-index:999;
 
             & > div{
                 margin-top: 20px;
@@ -126,6 +132,7 @@ type PropsInfoProductMobile = {
 
 export default function InfoProductMobile(props:PropsInfoProductMobile):JSX.Element {
 
+    const router = useRouter();
 
     return<StyleInfoProductMobile>
 
@@ -140,7 +147,16 @@ export default function InfoProductMobile(props:PropsInfoProductMobile):JSX.Elem
 
                     </div>
 
-                    <div className="button">
+                    <div className="button" onClick={()=>{
+                        
+                      
+                        router.asPath === '/tienda' 
+                        ? 
+                        router.push(router.asPath+'/productos/'+props.product.id) 
+                        : 
+                        router.push(router.asPath+'/'+props.product.id)
+                        
+                    }}>
 
                         <Button1
                             bgColor={theme.colors.primaryA}

@@ -1,6 +1,6 @@
 import { NextPage } from "next";
-import WelcomeStore from "../../components/tienda/welcome-store";
-import { theme } from "../../../config";
+import WelcomeStore from "../../../components/tienda/welcome-store";
+import { theme } from "../../../../config";
 
 type PropsWidgetWelcomeStore = {
     data:{

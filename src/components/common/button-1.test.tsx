@@ -12,9 +12,9 @@ describe('Button1 tests',()=>{
         />
     )
 
-    it('Render text button',()=>{
+    it('Render text button properly',()=>{
 
-       const button =  screen.getByTestId('button-1');
+       const button =  screen.getByTestId('button1-component-test');
        expect(button).toHaveTextContent('Click me button component');
 
     })

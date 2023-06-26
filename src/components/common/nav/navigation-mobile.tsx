@@ -55,7 +55,7 @@ export default function NavigationMobile(props:PropsNavigationMobile):JSX.Elemen
 
     const router = useRouter();
 
-    return<StyleNavigationMobile>
+    return<StyleNavigationMobile data-testid="navigation-mobile-component-test">
 
         <div ref={props.reference} className="navigationMobile">
 

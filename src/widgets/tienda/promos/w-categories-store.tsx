@@ -1,7 +1,7 @@
 import { NextPage } from "next";
-import CardCategories from "../../components/turismo/card-categories";
-import CategoriesIndex from "../../components/index/categories-index";
-import { theme } from "../../../config";
+import CardCategories from "../../../components/turismo/card-categories";
+import CategoriesIndex from "../../../components/index/categories-index";
+import { theme } from "../../../../config";
 import { useRouter } from "next/router";
 
 type PropsWidgetCategoriesProductStore = {
@@ -22,7 +22,7 @@ export const WidgetCategoriesProductStore:NextPage<PropsWidgetCategoriesProductS
             <CardCategories
                 img={ theme.data_domain+category[1].img}
                 title={category[1].text}
-                click={()=>router.push(`/tienda/productos/${category[1].link}`)}
+                click={()=>router.push(`/tienda/${category[1].link}`)}
             />
         );
     })

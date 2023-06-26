@@ -1,8 +1,8 @@
 import { Player } from "@lottiefiles/react-lottie-player";
 import { NextPage } from "next";
-import SectionAnimationRoute from "../../components/turismo/animation-routes";
-import Button1 from "../../components/common/button-1";
-import { theme } from "../../../config";
+import SectionAnimationRoute from "../../../components/turismo/animation-routes";
+import Button1 from "../../../components/common/button-1";
+import { theme } from "../../../../config";
 
 type PropsWidgetWishListStore = {
     data:{

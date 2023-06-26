@@ -12,9 +12,9 @@ const StyleMenuDesktop = styled.div`
         display: none;
         @media(min-width:800px){
 
-            margin-top: 3px;
+            margin-top: 0px;
             display: block;
-            width: 20%;
+            width: 16%;
             height: 85%;
             position: fixed;
             background: ${theme.colors.white};
@@ -44,8 +44,8 @@ const StyleMenuDesktop = styled.div`
                     margin-bottom: 20px;
                     width: 80%;
                     margin-left: 10%;
-                    height: 260px;
-                    border:4px solid ${theme.colors.grayD};
+                    height: 150px;
+                    border:2px solid ${theme.colors.grayD};
 
                     & > .img{
                         display: flex;
@@ -56,8 +56,8 @@ const StyleMenuDesktop = styled.div`
                             margin-left: 2.5%;
                             width: 95%;
                             border-radius: 35px;
-                            max-height: 200px;
-                            max-width:250px;
+                            max-height: 120px;
+                            max-width:120px;
                         }
                     }
 
@@ -109,11 +109,7 @@ export default function MenuDesktop(props:PropsMenuDesktop):JSX.Element {
 
                         return<div key={index} 
                             className="card-categorie" 
-                            onClick={()=>{  
-                                console.log(props, 'f');
-                                props.setProducts(category.id,category.attributes.name.toLowerCase(),props.products.data);
-                                }
-                            }
+                            onClick={()=>props.setProducts(category.id,category.attributes.name.toLowerCase(),props.products.data)}
                         >
 
                             <div className="img">

@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 import { Player } from "@lottiefiles/react-lottie-player";
-import { theme } from "../../../../config";
-import { IconAngleNext } from "../../../icons/icons";
+import { theme } from "../../../../config"; 
+import { IconAngleNext } from "@/icons/icons";
 import Button1 from "../button-1";
 
 const StylesCart = styled.div`

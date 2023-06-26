@@ -289,7 +289,7 @@ export default function NavbarTop(props:PropsNavbarTop):JSX.Element{
     const currencyUser = useSelector((state:RootState)=>state.lang_currency.currency);
 
 
-    return<StyleNavbarTop>
+    return<StyleNavbarTop data-testid="navbar-top-component-test">
         <div style={{display:props.toggleNav}} className="nav__container1">
 
             <div className="mobile">

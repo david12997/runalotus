@@ -1,16 +1,16 @@
 import { NextPage } from "next";
 
-import ProductsStore from "../../../components/tienda/app";
-import MenuMobile from "../../../components/tienda/app/products-app/menu-mobile";
-import MenuDesktop from "../../../components/tienda/app/products-app/menu-desktop";
-import TitleCategory from "../../../components/tienda/app/products-app/title-category";
+import ProductsStore from "../../components/tienda/app";
+import MenuMobile from "../../components/tienda/app/products-app/menu-mobile";
+import MenuDesktop from "../../components/tienda/app/products-app/menu-desktop";
+import TitleCategory from "../../components/tienda/app/products-app/title-category";
 import InfiniteScroll from "react-infinite-scroll-component";
-import ProductApp from "../../../components/tienda/app/products-app/product";
-import Promotions from "../../../components/tienda/app/products-app/promotions";
+import ProductApp from "../../components/tienda/app/products-app/product";
+import Promotions from "../../components/tienda/app/products-app/promotions";
 
-import React, { LegacyRef, useEffect, useState } from "react";
-import { GetData } from "../../../services/get-data";
-import { theme } from "../../../../config";
+import React, {  useEffect, useState } from "react";
+import { GetData } from "../../services/get-data";
+import { theme } from "../../../config";
 import { useRouter } from "next/router";
 
 
@@ -55,7 +55,14 @@ export const WidgetProductsApp:NextPage<WidgetPropsAppStore> = (props) =>{
         
     }
 
-    useEffect(()=>{},[products,page,category])
+    useEffect(()=>{
+
+        setProducts(products);
+        setPage(page);
+        setCategory(category);
+
+
+    },[products,page,category])
 
 
     return<>
@@ -64,8 +71,19 @@ export const WidgetProductsApp:NextPage<WidgetPropsAppStore> = (props) =>{
            
             menuMobile={
                 <MenuMobile 
+                    products={products}
                     categories={props.categories}
-                    fetchMoreProducts={FetchMore}
+                    setProducts={(currentCategory,nameCategory)=>{
+                        
+                        setProducts([]); //clean products to activate infinite scroll 
+                        window.scrollTo({top:0,behavior:'smooth'});
+                        FetchMore(currentCategory,1,true);
+                        router.replace('/tienda/'+nameCategory.toLowerCase(),undefined,{shallow:true});
+                        FetchMore(currentCategory,1,true);
+                      
+                        
+                    }}
+                    
                 />
             }
             menuDesktop={
@@ -78,9 +96,8 @@ export const WidgetProductsApp:NextPage<WidgetPropsAppStore> = (props) =>{
                         setProducts([]); //clean products to activate infinite scroll 
                         window.scrollTo({top:0,behavior:'smooth'});
                         FetchMore(currentCategory,1,true);
-
                         router.replace('/tienda/'+nameCategory.toLowerCase(),undefined,{shallow:true});
-                        
+                        FetchMore(currentCategory,1,true);
                       
                         
                     }}
@@ -97,9 +114,8 @@ export const WidgetProductsApp:NextPage<WidgetPropsAppStore> = (props) =>{
                         setProducts([]); //clean products to activate infinite scroll 
                         window.scrollTo({top:0,behavior:'smooth'});
                         FetchMore(currentCategory,1,true);
-
                         router.replace('/tienda/'+nameCategory.toLowerCase(),undefined,{shallow:true});
-                        
+                        FetchMore(currentCategory,1,true);
                       
                         
                     }}
@@ -115,6 +131,7 @@ export const WidgetProductsApp:NextPage<WidgetPropsAppStore> = (props) =>{
                     hasMore={true}
                     loader={<h4 className="loader-app-products">Loading...</h4>}
                     className="infinite-scroll-container"
+                    style={{marginTop:'-20px'}}
                     
                 >
 

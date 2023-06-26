@@ -107,7 +107,7 @@ export default function LocationNav(props:PropsLocationNav):JSX.Element{
 
     },[]);
 
-    return<StyleLocationNav ref={props.reference}>
+    return<StyleLocationNav data-testid="location-component-test" ref={props.reference}>
 
         <div className="containerMap">
             <div className="closeContainer" onClick={()=>props.locationToggle(props.reference,'none')}>

@@ -61,7 +61,8 @@ const StyleMenuMobile = styled.div`
 
 type PropsMenuMobile ={
     categories:any,
-    fetchMoreProducts?:any,
+    products:any,
+    setProducts:(currentCategory:number,nameCategory:string,products:any[])=>void,
 }
 
 export default function MenuMobile(props:PropsMenuMobile):JSX.Element {
@@ -76,17 +77,19 @@ export default function MenuMobile(props:PropsMenuMobile):JSX.Element {
                     const iconFilter  = category.attributes.media.data[0].attributes.url;
                     const nameCategory = category.attributes.name;
 
-                    return<span key={index}><div className="option-menu">
+                    return<span key={index}>
+                        <div className="option-menu" onClick={()=>props.setProducts(category.id,category.attributes.name.toLowerCase(),props.products.data)}>
                 
-                        <div className="icon">
-                            <img  src={theme.data_domain+iconFilter} alt="" />
-                        </div>
+                            <div className="icon">
+                                <img  src={theme.data_domain+iconFilter} alt="" />
+                            </div>
 
-                        <div className="text">
-                            {nameCategory}
+                            <div className="text">
+                                {nameCategory}
+                            </div>
+                        
                         </div>
-                    
-                    </div></span>
+                    </span>
 
                 })
             }

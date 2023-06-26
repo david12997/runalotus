@@ -170,7 +170,7 @@ export default function LanguageCurrency(props:PropsLanguageCurrency):JSX.Elemen
 
     },[]);
 
-    return<StyleLanguageCurrency>
+    return<StyleLanguageCurrency data-testid="lang-currency-component-test">
         <div ref={props.reference}  className="Language_change">
 
             <div className="container_languages">
@@ -238,6 +238,7 @@ export default function LanguageCurrency(props:PropsLanguageCurrency):JSX.Elemen
                     </div>
 
                     <Button1
+                       
                         minHeight="60px"
                         minWidth="100%"
                         text={props.btn_save}

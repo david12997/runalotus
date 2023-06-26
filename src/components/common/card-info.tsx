@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { theme } from "../../../config";
+import { theme } from "@/../config";
 
 const StyleCardInfo = styled.div`
 
     min-width:260px;
     min-height:330px;
     background:${theme.colors.white};
-    box-shadow:0px 0px 3px rgba(0,0,0,0.4);
+    box-shadow:0px 0px 3px rgba(0,0,0,0.3);
     width:90%;
     margin-top:15px;
     margin-bottom:20px;
@@ -68,11 +68,11 @@ type PropsCardInfo = {
 
 export default function CardInfo(props:PropsCardInfo):JSX.Element{
 
-    return<StyleCardInfo onClick={props.click}>
-        <div className="container-icon">
+    return<StyleCardInfo data-testid="card-info" onClick={props.click}>
+        <div className="container-icon" >
             {props.icon}
         </div>
-        <div className="title">
+        <div role="title-card-info" className="title">
             {props.title}
         </div>
         <div className="text">

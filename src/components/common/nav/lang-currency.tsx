@@ -15,7 +15,7 @@ const StyleLanguageCurrency = styled.div`
 
     & > .Language_change{
         position: fixed;
-        z-index: 9999;
+        z-index: 9999999;
         width: 100vw;
         height: 100vh;
         background: rgba(0,0,0,0.3);
@@ -190,7 +190,7 @@ export default function LanguageCurrency(props:PropsLanguageCurrency):JSX.Elemen
                                 options={selectDataLanguage}
                                 formatOptionLabel={(e)=>(
                                     <div style={{display:'flex',alignItems:'center'}}>
-                                        <img style={{width:"30px", marginRight:'10px',marginLeft:'5px'}} src={e.icon}/> {e.label}
+                                        <img loading="lazy" style={{width:"30px", marginRight:'10px',marginLeft:'5px'}} src={e.icon}/> {e.label}
                                     </div>
                                 )}
                                 value={ stateLocale === 'es' ? selectDataLanguage[0] : selectDataLanguage[1]}

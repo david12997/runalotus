@@ -32,10 +32,16 @@ export const WidgetProductsApp:NextPage<WidgetPropsAppStore> = (props) =>{
 
 
 
+
+
+
+    console.log('products',products);
+
+
     const FetchMore = async (category:number,page:number,shallowRouting:boolean) => {
 
         const response = await GetData (
-            [`https://cms.aipus.co/api/products?populate=*&filters[subcategories][id][$eq]=${category}&pagination[page]=${page}&pagination[pageSize]=4`], 
+            [`https://cms.aipus.co/api/products?populate=*&filters[subcategories][id][$eq]=${category}&pagination[page]=${page}&pagination[pageSize]=6`], 
             theme.token_cms as string
         )
             
@@ -107,6 +113,7 @@ export const WidgetProductsApp:NextPage<WidgetPropsAppStore> = (props) =>{
 
             titleCategory={
                 <TitleCategory
+                    marginTop={router.pathname === '/tienda' ? '25px' : '69px'}
                     categories={props.categories}
                     products={products}
                     setProducts={(currentCategory,nameCategory)=>{

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { theme } from "../../../config";
+import { useRouter } from "next/router";
 
 
 const StyleStoreSection = styled.div`
@@ -10,7 +11,6 @@ const StyleStoreSection = styled.div`
     justify-content:space-around;
     flex-wrap:wrap;
     align-items:center;
-
     border-bottom:1px solid ${theme.colors.grayD};
     @media(min-width:800px){
         padding-top:55px;
@@ -179,14 +179,14 @@ type PropsSectionAnimationStore = {
 }
 export default function SectionAnimationStore(props:PropsSectionAnimationStore):JSX.Element{
     
-
+    const router = useRouter();
 
     return<StyleStoreSection>
         <div className="animation-desktop">
             <div className="bg-store">
-                <img src={props.imgBg} />
+                <img loading="lazy" src={props.imgBg} />
             </div>
-            <div className="animation">
+            <div className="animation" onClick={()=>router.push('/tienda')}>
                 {props.animation}
             </div>
         </div>
@@ -201,9 +201,9 @@ export default function SectionAnimationStore(props:PropsSectionAnimationStore):
 
             <div className="animation-mobile">
                 <div className="bg-store">
-                    <img src={props.imgBg} />
+                    <img loading="lazy" src={props.imgBg} />
                 </div>
-                <div className="animation">
+                <div className="animation" onClick={()=>router.push('/tienda')}>
                     {props.animation}
                 </div>
             </div>

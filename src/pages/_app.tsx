@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { persistor, wrapper } from '../store';
 import { PersistGate } from 'redux-persist/integration/react';
 import Layout from '../layout';
+import PermissionLocation from '../components/common/permission-location';
 
 
 
@@ -20,7 +21,9 @@ function App({ Component, ...rest }: AppProps) {
     <PersistGate loading={null} persistor={persistor}>
 
       <Layout page={router.asPath}>
-
+        <span id='permission-location'>
+          <PermissionLocation locale={router.locale as string} />
+        </span>
         <NextNProgress color={theme.colors.secondaryA} height={8} />
         <Component {...props.pageProps} />
 

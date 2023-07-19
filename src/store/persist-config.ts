@@ -19,7 +19,7 @@ const storage = typeof window !== 'undefined' ? createWebStorage('local') : crea
 export const persistConfig = {
     key:'root',
     storage,
-    whitelist:['location','lang_currency']
+    whitelist:['location','lang_currency',]
    
 
 }

@@ -13,7 +13,7 @@ const StyleNavbarBottom = styled.div`
 
         width:100%;
         height:46px;
-        box-shadow:0px 2px 2px rgba(0,0,0,0.2);
+        box-shadow:0px 1px 1px rgba(0,0,0,0.2);
 
     }
 
@@ -48,7 +48,8 @@ const StyleNavbarBottom = styled.div`
 
             img{
 
-                height:90%;
+                width:43px;
+                height:40px;
                 margin-top:1%;
                 
             }
@@ -279,11 +280,11 @@ export default function NavbarBottom(props:PropsNavbarBottom):JSX.Element{
         <div className="nav__container2">
 
             <div className="logo">
-                <Image width={50} height={60} alt="Logo runalotus" onClick={()=>router.push('/')} src={props.logo}/>
+                <Image loading="lazy" width={50} height={60} alt="Logo runalotus" onClick={()=>router.push('/')} src={props.logo}/>
                 <p onClick={()=>router.push('/')}>{props.name}</p>
                 
                 <div className="options-desktop">
-                    <div className="desktop__location" onClick={()=>props.elementToggle(props.referenceLocation,'flex')}>
+                    <div id="location-desktop-map" className="desktop__location" onClick={()=>props.elementToggle(props.referenceLocation,'flex')}>
 
                         <p>
                             {props.icons.location } 
@@ -292,7 +293,7 @@ export default function NavbarBottom(props:PropsNavbarBottom):JSX.Element{
                             </span>
                         </p>
                         
-                        <div className="desktop__enviar">
+                        <div className="desktop__enviar" >
                             {props.location.address}
                         </div>
 

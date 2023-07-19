@@ -3,6 +3,8 @@ import { theme } from "../../config";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import { loader } from "../services/g-maps-loader";
 import { AppDispatch, RootState } from "../store/index";
+import { GetData } from "../services/get-data";
+import { useSelector } from "react-redux";
 
 
 export type  typeReduxMapHook = {
@@ -20,52 +22,92 @@ export const useGoogleMaps = (state:typeReduxMapHook) => {
     const [map, setMap] = useState<google.maps.Map | null>(null);
     const [marker, setMarker] = useState<google.maps.Marker | null>(null);
     const [markers, setMarkers] = useState<google.maps.Marker[]>([]);
+    const [cluster, setCluster] = useState<MarkerClusterer | null>(null);
+
+    const [zone , setZone] = useState<string>('');
+
+    const stateGmaps = useSelector((state:RootState) => state.permission_gmaps.state);                   
 
 
     let newMap: google.maps.Map;
     let newMarker: google.maps.Marker;
-    let cluster: MarkerClusterer;
+    let newCluster: MarkerClusterer;
 
     const UseEffectMap = useEffect(() => {
 
+        const initialOptions = {
 
-        // check  if the browser support geolocation api 
-        navigator.geolocation
-        &&
-        navigator.geolocation.getCurrentPosition((location: GeolocationPosition) => {
+            center: {
+                lat: 4.648444872577107, 
+                lng: -74.11874117495658
+            },
+            zoom: 6,
+            disableDefaultUI: true,
+            mapTypeControl: false,
+            fullscreenControl: false,
+            panControl: false,
+            streetViewControl:false,
+            zoomControl:false,
+            rotateControl:false,
+            scaleControl:false,
 
-            setLocation(location);
+        }
 
-            const options = {
+        document.getElementById('modal-permission-location')?.addEventListener('click',()=>{
+            // check  if the browser support geolocation api 
+            navigator.geolocation
+            &&
+            navigator.geolocation.getCurrentPosition((location: GeolocationPosition) => {
 
-                center: {
-                    lat: 4.648444872577107, 
-                    lng: -74.11874117495658
-                },
-                zoom: 7,
-                mapTypeControl: false,
-                fullscreenControl: false,
-                panControl: false
-
-            }
-
-            RenderMap(options);
+                setLocation(location);
+                RenderMap(initialOptions);
+                console.log('render map');
 
 
-        },
+            },
 
-        (error: GeolocationPositionError) => {
-        
-            console.info('error', error);
-        
-        });
+            (error: GeolocationPositionError) => {
+            
+                console.info('error', error);
+            
+            });
+
+        });        
+
+        stateGmaps && document.getElementById('map')?.addEventListener('click',()=>{
+            // check  if the browser support geolocation api 
+            navigator.geolocation
+            &&
+            navigator.geolocation.getCurrentPosition((location: GeolocationPosition) => {
+
+                setLocation(location);
+                RenderMap(initialOptions);
+                console.log('render map');
+
+
+            },
+
+            (error: GeolocationPositionError) => {
+            
+                console.info('error', error);
+            
+            })
+        },{once:true});
+    
+
 
         return () => {
                 
-            
+         
+            markers.map((marker: google.maps.Marker) => {
+                marker.setMap(null);
+            });
+
+            markers.splice(0, markers.length);
+            setMarkers(markers);
             setMap(null);
             setMarker(null);
-            setMarkers([]);
+            setLocation(null);
 
         }
 
@@ -73,72 +115,112 @@ export const useGoogleMaps = (state:typeReduxMapHook) => {
 
 
 
-    const elementDivWindow =(props:any):string =>{
+    const elementDivWindow =(props:any,type:string):string =>{
 
-        console.log(props);
-        const img = theme.data_domain + props.media.data[0].attributes.url;
+       //console.log('props', props);
 
-        return`
+       if(type ==='route'){
+        return`<div>${props.name}</div>`;
 
-        <style>
-            .label-marker-maphook{
-               
-            }
+       }else if( type ==='place'){
 
-            .label-marker-maphook >  .window-title{
+        return`<div>Place</div>`;
 
-                display:flex;
-                justify-content:center;
-                align-items:center;
-                width:100%;
-                font-weight:900;
-            }
+       }else if( type ==='point'){
+            const img = theme.data_domain + props.media.data[0].attributes.url;
+            return`
 
-            .label-marker-maphook >  .window-img > img{
+                <style>
+                    .label-marker-maphook{
+                    
+                    }
 
-                width:100%;
-                height: 280px;
-                object-fit:cover;
-                border-radius:6px;
-            }
+                    .label-marker-maphook >  .window-title{
 
-            .label-marker-maphook >  .window-description{
+                        display:flex;
+                        justify-content:center;
+                        align-items:center;
+                        width:100%;
+                        height: 40px;
+                        font-weight:900;
+                        font-size:17px;
+                    }
 
-                font-size:16px;
-                font-weight:400;
-                color:${theme.colors.grayA};
-            }
-        
-        </style>
-        <br/>
-        <div  class="label-marker-maphook">
+                    .label-marker-maphook >  .window-img > img{
+
+                        width:100%;
+                        min-height: 200px;
+                        max-height:0px;
+                        object-fit:cover;
+                        border-radius:6px;
+                    }
+
+                    .label-marker-maphook >  .window-description{
+
+                        font-size:16px;
+                        font-weight:500;
+                        color:${theme.colors.grayA};
+                    }
+                
+                </style>
+                <br/>
+                <div  class="label-marker-maphook">
+
+                    <div class="window-img">
+                        <img loading="lazy" src="${img}" alt="${props.name}" />
+                    </div>
+                    <div class="window-title">
+                        <div>${props.name}</div>
+                    </div>   
+                    <div class="window-description">
+                        <p>${props.location.descripcion}</p>
+                    </div>
             
-            <div class="window-title">
-                <h2>${props.name}</h2>
-            </div>   
+                
+                </div>
+            `;
 
-            <div class="window-img">
-                <img src="${img}" alt="${props.name}" />
-            </div>
+       }else{
+              return`<div>Default</div>`;
+       }
+       
 
-            <div class="window-description">
-                <p>${props.location.descripcion}</p>
-            </div>
-    
-           
-        </div>
-        `;
     }
 
+    const AddZoneGeoJSON = (url:string,map:google.maps.Map, lat:number,lng:number,zoom:number,name:string):void =>{
+
+        GetData([url ],theme.token_cms as string).then((data:any)=>{
+            
+            map.data.forEach((feature) => {
+                map.data.remove(feature);
+            });
+
+            for(let i = 0; i < data.length; i++) {
+
+                map.data.addGeoJson(data[i]);
+            }
+            map.data.setStyle({
+                fillColor: '#025809',
+                strokeWeight: 3,
+                fillOpacity: 0.3,
+                strokeColor: '#025809',
+                strokeOpacity: 0.2
+            });
+
+            map.panTo({lat:lat,lng:lng});
+            map.setZoom(zoom);
+            
+        });
+    }
 
     const RenderMap = (options: any): void => {
 
         loader
             .load()
             .then((google) => {
-
                 mapElem.current !== null && (newMap = new google.maps.Map(mapElem.current, options));
                 setMap(newMap);
+            
             })
             .catch((error) => {
 
@@ -148,26 +230,76 @@ export const useGoogleMaps = (state:typeReduxMapHook) => {
 
     }
 
-    const AddMarker = (position: { lat: number, lng: number }, label: string, icon: string, data_point: any): void => {
+    const AddMarker = (map:google.maps.Map,position: { lat: number, lng: number }, label: string, icon: string, data_point: any,type_point:string,indexElem:number): void => {
+
 
         loader
             .load()
             .then((google) => {
-
+      
                 newMarker = new google.maps.Marker({
                     position: position,
-                    map: newMap,
+                    map: map === null ? newMap : map,
                     icon: {
                         url: `${icon}`,
-                        scaledSize: new google.maps.Size(65, 65)
+                        
+                        scaledSize: new google.maps.Size(50, 50)
+                    },
+                    label:{
+                        text:label,
+                        className:'label-marker-method-addmarker label-addmarker-'+indexElem,
                     }
                 });
-
-                newMarker?.setMap(newMap);
+  
+                newMarker?.setMap(map);
                 newMarker !== null && markers.push(newMarker);
                 setMarker(newMarker);
+                setMarkers(markers);
+                InfoWindow(newMarker, elementDivWindow(data_point,type_point));
+               
+                newMarker.addListener("mousedown", () => {
+                    
+                    const labelMarker = document.querySelector(`.label-addmarker-${indexElem}`) as HTMLDivElement;
+                    labelMarker.style.width = "280px";
+                    labelMarker.style.height = "35px";
+                    labelMarker.style.display = "flex";
+                    labelMarker.style.justifyContent = "center";
+                    labelMarker.style.alignItems = "center";
+  
+                });
 
-                InfoWindow(newMarker, elementDivWindow(data_point));
+                newMarker.addListener("mouseover", () => {
+
+                    const labelMarker = document.querySelector(`.label-addmarker-${indexElem}`) as HTMLDivElement;
+                    labelMarker.style.width = "280px";
+                    labelMarker.style.height = "35px";
+                    labelMarker.style.display = "flex";
+                    labelMarker.style.justifyContent = "center";
+                    labelMarker.style.alignItems = "center";
+
+                });
+
+
+  
+
+                newMarker.addListener("mouseup", () => {
+
+                    const labelMarker = document.querySelector(`.label-addmarker-${indexElem}`) as HTMLDivElement;
+                    labelMarker.style.width = "75px";
+                    labelMarker.style.height = "16px";
+                    labelMarker.style.display = "block";
+
+
+                });
+
+                newMarker.addListener("mouseout", () => {
+
+                    const labelMarker = document.querySelector(`.label-addmarker-${indexElem}`) as HTMLDivElement;
+                    labelMarker.style.width = "75px";
+                    labelMarker.style.height = "16px";
+                    labelMarker.style.display = "block";
+
+                });
 
 
 
@@ -180,18 +312,46 @@ export const useGoogleMaps = (state:typeReduxMapHook) => {
 
     };
 
-    const ServicePlaces = (): void => {
+
+    const ServicePlaces = (type:string, image:string, center:google.maps.LatLng | undefined): void => {
 
         const services = new google.maps.places.PlacesService(newMap);
-        const request = {
-            location: newMap.getCenter(),
-            radius: 500,
-            types: ['restaurant', 'cafe', 'food', 'bar', 'bakery', 'meal_delivery', 'meal_takeaway', 'night_club', 'lodging', 'spa', 'gym', 'park', 'museum', 'art_gallery', 'aquarium', 'zoo', 'shopping_mall', 'movie_theater', 'amusement_park', 'casino', 'church', 'mosque', 'synagogue', 'hindu_temple', 'university', 'school', 'library', 'stadium', 'city_hall', 'embassy', 'courthouse', 'post_office', 'police', 'fire_station', 'hospital', 'pharmacy', 'doctor', 'dentist', 'veterinary_care', 'atm', 'bank', 'gas_station', 'car_repair', 'car_wash', 'parking', 'bus_station', 'train_station', 'subway_station', 'taxi_stand', 'airport', 'travel_agency', 'campground', 'rv_park', 'natural_feature', 'point_of_interest', 'establishment']
+        const request:google.maps.places.PlaceSearchRequest = {
+            location: (center !== undefined)  ? center : newMap.getCenter(),
+            radius: 5000,
+            type: type
 
         }
 
         services.nearbySearch(request, (results, status) => {
-              console.log(results);
+              
+            if(status === google.maps.places.PlacesServiceStatus.OK){
+
+                results?.map((place:any)=>{
+
+                    const position = {
+                        lat: place.geometry?.location.lat() as number,
+                        lng: place.geometry?.location.lng() as number
+                    }
+
+                    newMarker = new google.maps.Marker({
+                        position: position,
+                        map: map === null ? newMap : map,
+                        icon: {
+                            url: theme.data_domain + image ,
+                            scaledSize: new google.maps.Size(50, 50)
+                        }
+                    });
+
+                    newMarker?.setMap(newMap);
+                    newMarker !== null && markers.push(newMarker);
+                    setMarker(newMarker);
+                    setMarkers(markers);
+
+                });
+
+                ClusterMarker(markers,map === null ? newMap : map);
+            }
         });
 
     }
@@ -211,13 +371,18 @@ export const useGoogleMaps = (state:typeReduxMapHook) => {
                 marker.addListener("click", () => {
                     infowindowMap.open({
                         anchor: marker,
-                        map: newMap,
+                        map: map,
                     });
+
+                    infowindowMap.focus();
                 });
 
+                map !== null && map.addListener("click", () => {
+                    infowindowMap.close();
+                });
         
 
-                infowindowMap.focus();
+                
 
             })
             .catch((error) => {
@@ -225,35 +390,91 @@ export const useGoogleMaps = (state:typeReduxMapHook) => {
             });
     }
 
-    const ClusterMarker = (markers: google.maps.Marker[]) => {
+    const ClusterMarker = (markers: google.maps.Marker[], map:google.maps.Map) => {
 
-        cluster = new MarkerClusterer({
-            map: newMap,
+        newCluster = new MarkerClusterer({
+            map: map === null ? newMap : map,
             markers: markers,
-            renderer: {
+            /*renderer: {
                 render: ({ count, position }) =>
                     new google.maps.Marker({
-                        label: { text: String(count) + ' ', color: "white", fontSize: "26px", fontWeight: "900" },
+                        label: { text: String(count) + ' ', color: "white", fontSize: "18px", fontWeight: "700", },
                         position,
                         // adjust zIndex to be above other markers
                         zIndex: Number(google.maps.Marker.MAX_ZINDEX) + count,
                         icon: {
                             url: theme.data_domain + '/uploads/place_icon_c0c5c92329.webp?updated_at=2023-03-29T23:06:48.319Z',
-                            scaledSize: new google.maps.Size(116, 116)
+                            scaledSize: new google.maps.Size(74, 78)
                         },
+                    
 
                     })
-            }
+            },*/
+            
         });
 
-
+        newCluster.setMap(map);
+        setCluster(newCluster);
 
     }
 
+    const CreateRoute = (points:any[]) => {
+
+        loader
+            .load()
+            .then((google) => {
+
+                let options_render ={
+                    markerOptions:{visible:false},
+                    polylineOptions:{strokeColor:theme.colors.secondaryA,zIndex:99999,strokeWeight:4}
+                }
+
+                const directionsService = new google.maps.DirectionsService();
+                const directionsRenderer = new google.maps.DirectionsRenderer(options_render);
+
+                directionsRenderer.setMap(newMap);
+
+                const waypts:any[] = [];
+
+                points.map((point:any)=>{
+                    waypts.push({
+                        location: point,
+                        stopover: true
+                    });
+                }
+
+                );
+
+                directionsService.route(
+                    {
+                        origin: points[0],
+                        destination: points[points.length - 1],
+                        waypoints: waypts,
+                        optimizeWaypoints: true,
+                        travelMode: google.maps.TravelMode.DRIVING,
+                    },
+                    (response, status) => {
+                        if (status === "OK") {
+                            directionsRenderer.setDirections(response);
+                        } else {
+                            window.alert("Directions request failed due to " + status);
+                        }
+                    }
+                );
+
+                
+
+
+            })
+            .catch((error) => {
+                console.info(error);
+            });
+    };
 
     return {
         location,
         map,
+        setMap,
         marker,
         markers,
         mapElem,
@@ -261,7 +482,12 @@ export const useGoogleMaps = (state:typeReduxMapHook) => {
         UseEffectMap,
         AddMarker,
         ClusterMarker,
-        ServicePlaces
+        ServicePlaces,
+        CreateRoute,
+        AddZoneGeoJSON,
+        setMarkers,
+        cluster,
+        setCluster,
     }
 }
 

@@ -12,7 +12,7 @@ const StylesCart = styled.div`
         width:90vw;
         margin-left:10vw;
         height:100vh;
-        z-index:99999;
+        z-index:999999;
         position:fixed;
         background: ${theme.colors.white};
         box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
@@ -82,7 +82,7 @@ type PropsCart = {
     }
 }
 
-export default function (props:PropsCart):JSX.Element{
+export default function Cart(props:PropsCart):JSX.Element{
 
     return<StylesCart>
         <div ref={props.reference} className="cart">

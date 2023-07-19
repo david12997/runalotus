@@ -6,12 +6,15 @@ import { createWrapper } from "next-redux-wrapper";
 //import reducers
 import locationSliceReducer from './location';
 import langCurrencySliceReducer from './lang-currency';
+import permissionGmapsSliceReducer from './permission-gmaps';
 
 //combine reducers
 const reducers = combineReducers({
     
     location:locationSliceReducer,
-    lang_currency:langCurrencySliceReducer
+    lang_currency:langCurrencySliceReducer,
+    permission_gmaps:permissionGmapsSliceReducer
+
 
 });
 

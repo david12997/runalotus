@@ -15,7 +15,7 @@ const StyleMenuMobile = styled.div`
         align-items: center;
         overflow-x: scroll;
         overflow-y: hidden;
-        z-index: 999;
+        z-index: 99;
         @media(min-width:800px){
 
             display: none;
@@ -27,7 +27,7 @@ const StyleMenuMobile = styled.div`
             width:160px;
             height: 43px;
             border-radius: 20px;
-            box-shadow: 0px 0px 3px rgba(0,0,0,0.5);
+            box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
             display: flex;
             justify-content: space-around;
             align-items: center;
@@ -66,13 +66,21 @@ type PropsMenuMobile ={
 }
 
 export default function MenuMobile(props:PropsMenuMobile):JSX.Element {
+    const data = props.categories.data || [];
+    const Sortcategories = [...data];
 
+    const index13 = data.findIndex((item: any) => item.id === 13);
+    if (index13 !== -1) {
+      Sortcategories.splice(index13, 1); // Remove the item with id 13 from the original position
+      Sortcategories.splice(1, 0, data[index13]); // Insert the item with id 13 in the second position
+    }
+    
     return<StyleMenuMobile>
 
         <div className="menu-mobile">
                         
             {
-                props.categories.data.map((category:any,index:number)=>{
+               Sortcategories.map((category:any,index:number)=>{
 
                     const iconFilter  = category.attributes.media.data[0].attributes.url;
                     const nameCategory = category.attributes.name;
@@ -81,7 +89,7 @@ export default function MenuMobile(props:PropsMenuMobile):JSX.Element {
                         <div className="option-menu" onClick={()=>props.setProducts(category.id,category.attributes.name.toLowerCase(),props.products.data)}>
                 
                             <div className="icon">
-                                <img  src={theme.data_domain+iconFilter} alt="" />
+                                <img loading="lazy" src={theme.data_domain+iconFilter} alt="" />
                             </div>
 
                             <div className="text">

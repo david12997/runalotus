@@ -5,7 +5,7 @@ import { theme } from "../../../config";
 export const StyleSearchRoute = styled.div`
 
     width:90%;
-    height:80%;
+    height:94%;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -25,9 +25,11 @@ export const StyleSearchRoute = styled.div`
         display:flex;
         justify-content:center;
         align-items:center;
+        flex-wrap: wrap;
 
         @media(min-width:800px){
             border-radius:15px;
+            flex-wrap: nowrap;
         }
 
         .space{
@@ -87,7 +89,7 @@ export const StyleSearchRoute = styled.div`
         }
 
         .select-climate{
-            display:none;
+            display:block;
 
             @media(min-width:800px){
                 display:block;

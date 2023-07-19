@@ -8,7 +8,7 @@ const StyleCardCategoires = styled.div`
     height:120px;
     background:${theme.colors.white};
     border-radius:5px;
-    box-shadow:0px 0px 5px rgba(0,0,0,0.3);
+    box-shadow:0px 0px 3px rgba(0,0,0,0.3);
     margin:3px;
 
     @media(min-width:320px){
@@ -75,7 +75,7 @@ export default function CardCategories(props:PropsCardCategoires):JSX.Element{
 
     return<StyleCardCategoires onClick={props.click}>
 
-        <img src={props.img} />
+        <img loading="lazy" src={props.img} />
         <div className="card-title">
             {props.title}
         </div>

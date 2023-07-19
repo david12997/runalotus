@@ -50,7 +50,7 @@ const StyleProductApp = styled.div`
         position: relative;
         border-radius: 10px;
         background: ${theme.colors.white};
-        box-shadow: 0px 0px 3px rgba(0,0,0,0.5);
+        box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
 
        
 
@@ -67,6 +67,8 @@ const StyleProductApp = styled.div`
                 width: 82%;
                 margin-top: 12%;
                 object-fit: contain;
+                position: relative;
+                z-index: 9;
                 
                 @media(min-width:800px){
                     height:100%;
@@ -77,7 +79,43 @@ const StyleProductApp = styled.div`
             &  div, .slider{
                 height: 100%;
                 position: relative;
+                z-index: 9;
+            }
+
+            & .control-dots{
                 z-index: 99;
+                top:78%;
+                @media(min-width:310px){
+                    top: 83%;
+                }
+                @media(min-width:800px){
+                    top: 90%;
+                }
+            
+            & .dot{
+                    background: ${theme.colors.grayB};
+                    width: 22px;
+                    height: 22px;
+                    @media(min-width:800px){
+                        
+                        background: ${theme.colors.grayB};
+                    }
+            }
+            }
+
+            & .carousel-status{
+                font-weight: 700;
+                color: ${theme.colors.grayB};
+                text-shadow: none;
+                z-index:99;
+                font-size: 13px;
+                left:82%;
+                top: 4%;
+                border: 0;
+                @media(min-width:800px){
+                    top: 0%;
+                    left: 90%;
+                }
             }
             
         }
@@ -106,7 +144,7 @@ export default function ProductApp(props:ProductAppProps): JSX.Element {
                
                 <div className="img-product">
                     <Carousel 
-                        showIndicators={false} 
+                        showIndicators
                         dynamicHeight={false}  
                         emulateTouch 
                         swipeable 
@@ -115,8 +153,13 @@ export default function ProductApp(props:ProductAppProps): JSX.Element {
                         className="carousel"
                         
                     >
-                        <img src={theme.data_domain+ props.product.attributes.media.data[0].attributes.url } alt="" />
-                        <img src={theme.data_domain+ props.product.attributes.media.data[0].attributes.url } alt="" />
+
+                        {
+                            props.product.attributes.media.data.map((item:any, index:number) => {
+                                return <img loading="lazy" key={index} src={theme.data_domain+ item.attributes.url } alt="" />
+                            })
+                        }
+                        
                     </Carousel>
                     
                 </div>

@@ -24,36 +24,23 @@ const StyleLayout =  styled.span<PropsStyleLayout>`
   
     ${(props)=>{
 
-       
-        //layout for dynamic routes store categories
+        //layout dynamic routes store categories
         const categories:string[] = [ 'productos','joyeria','ceramica','piedras','tejidos','jarras','sombreros','bolsos'];
         for(let i:number = 0;i < categories.length;i++){    
 
             if(props.page === '/tienda/'+categories[i])return css`${GridStyleTienda()}`
+            if(props.page.includes('/tienda/'+categories[i]+'/'))return css`${GridStyleTienda()}`;
         }
 
-       // console.log(props.page)
-        //layout for dynamic routes view product
-        if(props.page.includes('/tienda/productos/'))return css`${GridStyleTienda()}`;
-        
-        switch (props.page) {
+        //layout static routes
+        if(props.page.split('?')[0] === '/')return css `${GridStyleIndex()};`;
+        else if(props.page.split('?')[0] === '/turismo')return css`${GridStyleTurismo()}`;
+        else if(props.page.split('?')[0] === '/tienda')return css`${GridStyleTienda()}`;
+        else if(props.page.split('?')[0] === '/rastreador')return css`${GridRastreador()}`;
 
-            case '/': return css `${GridStyleIndex()};`;
-            
-            case '/turismo': return css`${GridStyleTurismo()}`;
-            case '/turismo/mapa':return css`${GridStyleTurismoMapa()}`;
-
-            case '/tienda': return css`${GridStyleTienda()}`;
-            case '/tienda/promos':return css`${GridStylePromotions()} `;
-
-            case '/rastreador': return css`${GridRastreador()}`;
-
-
-        
-            default: return css`
-            
-            `;                
-        }
+        else if(props.page.split('?')[0] === '/turismo/mapa')return css`${GridStyleTurismoMapa()}`;
+        else if(props.page.split('?')[0] === '/tienda/promos')return css`${GridStylePromotions()}`;
+        else return css``;               
 
 
     }}

@@ -2,8 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { theme } from "../../../config";
 
+interface PropsStyleCardButtonMap{
+    selected:boolean
+}
 
-const StyleCardButtonMap = styled.div`
+const StyleCardButtonMap = styled.div<PropsStyleCardButtonMap>`
 
     width:95%;
     min-width:80px;
@@ -17,6 +20,7 @@ const StyleCardButtonMap = styled.div`
     display:flex;
     justify-content:center;
     align-items:start;
+    border: ${props=>props.selected ? `3px solid ${ theme.colors.secondaryB}` :`3px solid ${ theme.colors.white}` } ;
     cursor:pointer;
     @media(min-width:600px){
         margin-left:5%;    
@@ -47,7 +51,7 @@ const StyleCardButtonMap = styled.div`
             font-size:15px;
         }
         @media(min-width:800px){
-            font-size:18px; 
+            font-size:16px; 
         }
 
     }
@@ -58,15 +62,16 @@ type PropsCardButtonMap ={
 
     img:string,
     text:string,
-    click?:()=>void
+    click?:()=>void,
+    selected:boolean
 }
 
 export default function CardButtonMap(props:PropsCardButtonMap):JSX.Element{
 
 
-    return<StyleCardButtonMap onClick={props.click}>
+    return<StyleCardButtonMap selected={props.selected} onClick={props.click}>
 
-        <img src={theme.data_domain+props.img} />
+        <img loading="lazy" src={theme.data_domain+props.img} />
         <div className="text">
             {props.text}
         </div>

@@ -58,7 +58,8 @@ type PropsInput = {
     label:string,
     placeholder:string,
     id:string,
-
+    onFocus?:()=>void,
+    onBlur?:()=>void
 }
 
 export default function Input1(props:PropsInput):JSX.Element {
@@ -68,7 +69,15 @@ export default function Input1(props:PropsInput):JSX.Element {
     return<StyleInput>
 
         <label htmlFor={props.id}>{props.label}</label>
-        <input  ref={props.reference} type="text" name="input" id={props.id} placeholder={props.placeholder} />
+        <input
+            onBlur={props.onBlur} 
+            onFocus={props.onFocus} 
+            ref={props.reference} 
+            type="text" 
+            name="input" 
+            id={props.id} 
+            placeholder={props.placeholder} 
+        />
     
     </StyleInput>
 }

@@ -119,12 +119,10 @@ export const useLocation = (dispatch:any, locationGlobalState:any) =>{
                     place.geometry.location !== undefined && newMap.setCenter(place.geometry.location);
                     newMap.setZoom(17);
 
-                   //enable button save
-                    btnSave.style.background = theme.colors.secondaryA;
-                    btnSave.style.color = theme.colors.white;
+
 
                     //save location in localstorage using redux dispatch this method just execute once
-                    btnSave.addEventListener('click',()=>{
+                    input.value !== "" && btnSave.addEventListener('click',()=>{
                         
                         //redux dispatch action setLocationGlobalState 
                         place.geometry !== undefined && dispatch(setLocationGlobalState({
@@ -176,7 +174,11 @@ export const useLocation = (dispatch:any, locationGlobalState:any) =>{
                 zoom:11,
                 mapTypeControl:false,
                 fullscreenControl:false,
-                panControl:false
+                panControl:false,
+                streetViewControl:false,
+                zoomControl:false,
+                rotateControl:false,
+                scaleControl:false,
             }
 
         }else{
@@ -189,7 +191,12 @@ export const useLocation = (dispatch:any, locationGlobalState:any) =>{
                 zoom:11,
                 mapTypeControl:false,
                 fullscreenControl:false,
-                panControl:false
+                panControl:false,
+                streetViewControl:false,
+                zoomControl:false,
+                rotateControl:false,
+                scaleControl:false,
+
             }
         }
 
@@ -209,16 +216,33 @@ export const useLocation = (dispatch:any, locationGlobalState:any) =>{
 
     const useEffectLocation = useEffect(()=>{
 
+        document.getElementById('button-modal-permission-location')?.addEventListener('click',()=>{
 
-        if("geolocation" in navigator){
+            if("geolocation" in navigator){
 
-            console.info('soporta geolocation')
-            navigator.geolocation.getCurrentPosition(SuccessGeoPosition,ErrorGeoPosition);
+                console.info('soporta geolocation')
+                navigator.geolocation.getCurrentPosition(SuccessGeoPosition,ErrorGeoPosition);
+    
+    
+            }else{
+                console.info('no soporta geolocation');
+            }
+        });
 
 
-        }else{
-            console.info('no soporta geolocation');
-        }
+        document.getElementById('location-desktop-map')?.addEventListener('click',()=>{
+
+            if("geolocation" in navigator){
+
+                console.info('soporta geolocation')
+                navigator.geolocation.getCurrentPosition(SuccessGeoPosition,ErrorGeoPosition);
+    
+    
+            }else{
+                console.info('no soporta geolocation');
+            }
+        });
+ 
 
     },[]);
 

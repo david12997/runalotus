@@ -7,6 +7,7 @@ const StylesWelcome =  styled.div`
 
     grid-area:moments;
     position:relative;
+    margin-top:-10px;
     
     & > img{
 
@@ -37,6 +38,7 @@ const StylesWelcome =  styled.div`
             position:relative;
             
             p{
+                margin-top: -20px;
                 color:white;
                 text-shadow:0px 0px 4px ${theme.colors.balck};
                 width:90%;
@@ -75,7 +77,7 @@ const StylesWelcome =  styled.div`
                 display:flex;
                 justify-content:center;
                 align-items:center;
-                top:58%;
+                top:53%;
 
                 @media(min-width:600px){
 
@@ -144,7 +146,7 @@ export default function Welcome(props:PropsWelcome):JSX.Element{
 
     return<StylesWelcome>
 
-       <img src={ theme.data_domain+props.imgCarrousel[bg]}/>
+       <img loading="lazy" src={ theme.data_domain+props.imgCarrousel[bg]}/>
         
         <div className="container-welcome">
             <div className="title-welcome">

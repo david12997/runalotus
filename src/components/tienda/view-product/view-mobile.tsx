@@ -4,6 +4,8 @@ import Button1 from "../../common/button-1";
 import { theme } from "../../../../config";
 import Markdown from "markdown-to-jsx";
 import FormatCurrency from "../../../services/format-currency";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const StyleViewMobile = styled.div`
 
@@ -11,7 +13,7 @@ const StyleViewMobile = styled.div`
         margin-left: 2.5%;
         margin-top: 2.5%;
         width:95%;
-        height:95%;
+        height:97%;
         overflow-y: scroll;
         overflow-x: hidden;
         border-radius:10px;
@@ -33,38 +35,70 @@ const StyleViewMobile = styled.div`
                 height:73vh;
             }
 
-            & > img{
-                margin-top: 10%;
-                width:80%;
-                height:83%;
-                object-fit: contain;
+            &  > .img-product{
+                height: 100%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+
+                & > .mybloque{
+                    position: absolute;
+                    width: 100%;
+                    height: 18vh;
+                    background: transparent;
+                    z-index: 997;
+                    top: 57%;
+                }
+
+
+                &  img{
+
+                    width: 94%;
+                    object-fit: contain;
+                    position: relative;
+                    z-index: 9;
+                    height:70vh;
+                    margin-top: 5%;
+                    
+                }
+
+                &  div, .slider{
+                    height: 100%;
+                    position: relative;
+                    z-index: 9;
+                }
+
+                & .control-dots{
+                    z-index: 99;
+                    top: 87%;
+
+                
+                & .dot{
+                        background: ${theme.colors.grayB};
+                        width: 22px;
+                        height: 22px;
+                        margin-top:-140px;
+
+                }
+                }
+
+                & .carousel-status{
+                    font-weight: 700;
+                    color: ${theme.colors.grayB};
+                    text-shadow: none;
+                    z-index:99;
+                    font-size: 13px;
+                    top: 0%;
+                    left: 90%;
+                    border: 0;
+                    @media(min-width:800px){
+
+                    }
+                }
+                
             }
         }
 
-        & > .container-thubmls{
-            margin-left:1%;
-            width:97%;
-            height:40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow-x: scroll;
-            overflow-y: hidden;
-            margin-top: -20px;
-            margin-bottom:10px;
-
-
-            & > div{
-                width:16px;
-                height:16px;
-                border:1px solid ${theme.colors.grayD};
-                margin:10px;
-                background: ${theme.colors.grayC};
-                border-radius: 50%;
-
-
-            }
-        }
 
         & > .container-name{
             position: fixed;
@@ -97,6 +131,7 @@ const StyleViewMobile = styled.div`
             height:80%;
             max-height:400px;
             position: absolute;
+            z-index: 99;
             @media(min-width:310px){
                 left:calc(100% - 70px);
                 width:65px;
@@ -177,8 +212,11 @@ const StyleViewMobile = styled.div`
         & > .container-buy{
             width:90%;
             margin-left:5%;
-            height:200px;
+            height:400px;
             margin-top: 5px;
+            @media(min-width:310px){
+                height:360px;
+            }
 
 
             & > .quantity{
@@ -241,7 +279,7 @@ const StyleViewMobile = styled.div`
 
             & > .btn-buy{
                 width:100%;
-                height:100px;
+              
 
                 & > div{
                     margin-top:20px;
@@ -257,6 +295,10 @@ const StyleViewMobile = styled.div`
 type PropsViewProduct ={
 
     product:{id:number,attributes:any}
+    quantity:number,
+    addQuantity:()=>void,
+    lessQuantity:()=>void,
+    BuyProduct:()=>void
 
 
 }
@@ -318,34 +360,45 @@ export default function ViewMobile(props:PropsViewProduct):JSX.Element{
             </div>
 
             <div className="container-img">
-                <img src={theme.data_domain+ props.product.attributes.media.data[0].attributes.url} alt=""/>
-            </div>
-
-            <div className="container-thubmls">
-                {
-                    props.product.attributes.media.data.map((item:any,index:number)=>{
-                        return <div key={index} className="container-thumb">
-                           
-                        </div>
-                    })
-                }
-
-                <div className="container-thumb">
+                <div className="img-product">
+                    <div className="mybloque"></div>
+                    <Carousel 
+                        showIndicators
+                        dynamicHeight
+                        showArrows  
+                        showThumbs={false}
+                        className="carousel"
                         
-                </div>
-                <div className="container-thumb">
+                    >
+
+                        {
+                            props.product.attributes.media.data.map((item:any, index:number) => {
+                                return <img loading="lazy" key={index} src={theme.data_domain+ item.attributes.url } alt="" />
+                            })
+                        }
+                        <img loading="lazy" src={theme.data_domain+'/uploads/lee_description_runalotus_88aee30265.png' } alt="" />
                         
+                    </Carousel>
+                    
                 </div>
-
-
             </div>
 
             <div className="container-price">
                 <div className="price-discount">
-                    {FormatCurrency(props.product.attributes.discount_price,"COP",props.product.attributes.locale)}
+                    {
+                        props.product.attributes.discount_price !== "0"
+                        &&
+                        FormatCurrency(props.product.attributes.sale_price,'COP','es-CO')
+                    }
                 </div>
                 <div className="price-sale">
-                    {FormatCurrency(props.product.attributes.sale_price,"COP",props.product.attributes.locale)}
+                    {
+                        props.product.attributes.discount_price !== "0"
+                        ?
+                        FormatCurrency(props.product.attributes.discount_price,'COP','es-CO')
+                        :
+                        FormatCurrency(props.product.attributes.sale_price,'COP','es-CO')
+                    }
                 </div>
                
             </div>
@@ -357,23 +410,34 @@ export default function ViewMobile(props:PropsViewProduct):JSX.Element{
                         <small>( Disponibles : {props.product.attributes.stock} )</small>
                     </div>
                     <div className="choose-quantity">
-                        <div className="btn-less">
+                        <div className="btn-less" onClick={props.lessQuantity}>
                             -
                         </div>
                         <div className="input-quantity">
-                            1
+                           {props.quantity}
                         </div>
-                        <div className="btn-more">
+                        <div className="btn-more" onClick={props.addQuantity}>
                             +
                         </div>
                     </div>
                 </div>
                 <div className="btn-buy">
+                    <p style={{color:theme.colors.grayA,fontWeight:'400',fontSize:'16px',}}>
+                        <img style={{position:"absolute"}} width={"30px"} loading="lazy" src={theme.data_domain+'/uploads/icon_mercado_libre_eb4daa11bb.png'} /> 
+                        {`\u00A0 \u00A0 \u00A0 \u00A0 \u00A0Procesamos tus pagos y envios con tu `}<strong style={{color:theme.colors.warningA}}>cuenta de Mercado Libre</strong>
+                    </p>
+                    <p style={{color:theme.colors.grayA,fontWeight:'400',fontSize:'16px',}}>
+                        <img style={{position:"absolute"}} width={"30px"} loading="lazy" src={theme.data_domain+'/uploads/icon_mercadopago_bf1c6deb75.png'} /> 
+                        {`\u00A0 \u00A0 \u00A0 \u00A0 \u00A0Con `} 
+                        <strong style={{color:theme.colors.secondaryA}}>Mercado Pago</strong>
+                        {` puedes comprar usando tu tarjeta de credito`}
+                    </p>
                     <Button1
                         minWidth="100%"
-                        minHeight="60px"
+                        minHeight="70px"
                         text="Comprar ahora"
                         bgColor={theme.colors.secondaryA}
+                        click={props.BuyProduct}
                         
                     />
                 </div>

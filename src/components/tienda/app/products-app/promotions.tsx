@@ -18,13 +18,20 @@ const StylePromotions = styled.div`
        
     }
 
-        & > .promotions > .container-promo-1, & > .promotions > .container-promo-2{
+    & > .promotions > .container-promo-1, & > .promotions > .container-promo-2{
 
         display: flex;
-        justify-content: space-around;
+        justify-content: flex-start;
         align-items: center;
-        flex-wrap: wrap;
         width: 100%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+       
+        @media(min-width:800px){
+            width: 89%;
+            margin-left: 5%;
+        }
+        
 
         & > .pormotion{
             margin-top: 2px;
@@ -32,6 +39,10 @@ const StylePromotions = styled.div`
             position: relative;
             width:300px;
             height: auto;
+            margin-left: 10px;
+            margin-right: 10px;
+            cursor: pointer;
+
             @media(min-width:800px){
                 width: 340px;
                 margin-top: 20px;
@@ -42,9 +53,18 @@ const StylePromotions = styled.div`
                 width: 400px;
             }
             & > img{
-                width: 100%;
+                width: 280px;
                 border-radius: 10px;
-                margin:3px
+                margin:3px;
+                @media(min-width:330px){
+                    width: 300px;
+                }
+                @media(min-width:800px){
+                    width: 350px;
+                }
+                @media(min-width:1500px){
+                    width: 400px;
+                }
             }
         }
     }
@@ -54,12 +74,12 @@ const StylePromotions = styled.div`
         width: 100%;
         height: 36px;
         font-size: 19px;
-        font-weight: 800;
+        font-weight: 500;
         display: flex;
         justify-content: flex-start;
         align-items: center;    
         margin-left: 10px;
-        color: ${theme.colors.balck};
+        color: ${theme.colors.grayB};
         @media(min-width:800px){
             margin-left: 40px;
             font-size: 22px;
@@ -85,22 +105,21 @@ export default function Promotions():JSX.Element {
             <span className="container-promo-1">
 
                 <div className="pormotion">
-                    <img src={theme.data_domain+'/uploads/10_off_tienda_50db21a15a.webp'} alt="" />
+                    <img loading="lazy" src={theme.data_domain+'/uploads/10_off_tienda_50db21a15a.webp'} alt="" />
                 </div>
                 <div className="pormotion">
-                    <img src={theme.data_domain+'/uploads/discount_jarras_139d314b15.webp'} alt="" />
+                    <img loading="lazy" src={theme.data_domain+'/uploads/discount_jarras_139d314b15.webp'} alt="" />
+                </div>
+                <div className="pormotion">
+                    <img loading="lazy" src={theme.data_domain+'/uploads/discount_artesanias_ee50df4512.webp'} alt="" />
+                </div>
+                <div className="pormotion">
+                    <img loading="lazy" src={theme.data_domain+'/uploads/discount_joyeria_659d5be6dd.webp'} alt="" />
                 </div>
 
             </span>
 
-            <span className="container-promo-2">
-                <div className="pormotion">
-                    <img src={theme.data_domain+'/uploads/discount_artesanias_ee50df4512.webp'} alt="" />
-                </div>
-                <div className="pormotion">
-                    <img src={theme.data_domain+'/uploads/discount_joyeria_659d5be6dd.webp'} alt="" />
-                </div>
-            </span>
+
 
 
         </div>

@@ -5,30 +5,32 @@ import { IconCategories } from "../../../../icons/icons";
 import Select from "react-select";
 import { useRouter } from "next/router";
 
-const StyleTitleCategory = styled.div`
+const StyleTitleCategory = styled.div<{marginTop:string}>`
 
    & > .title-category{
         position: relative;
         width: 100%;
         height: 60px;
-        margin-top: 69px;
+        margin-top: ${props=>props.marginTop};
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        z-index: 998;
       
 
         @media(min-width:800px){
 
             width: 80%;
             margin-left: 20%;
-            margin-top: 0px;
+            margin-top: ${props=>props.marginTop === "25px" ? "25px" : "0px"};
+
         }
 
         & > #categories-select{
             width:75%;
             margin-left: 5%;
             @media(min-width:800px){
-                width: 56%;
+                width: 53%;
                 margin-left: 1%;
             }
         }
@@ -48,6 +50,7 @@ type PropsTitleCategory = {
     categories:any,
     products:any,
     setProducts:(currentCategory:number,nameCategory:string,products:any[])=>void,
+    marginTop:string
 }
 
 export default function TitleCategory(props:PropsTitleCategory):JSX.Element {
@@ -96,7 +99,7 @@ export default function TitleCategory(props:PropsTitleCategory):JSX.Element {
     };
       
     
-    return<StyleTitleCategory>
+    return<StyleTitleCategory marginTop={props.marginTop}>
         
         <div className="title-category">
             
@@ -111,7 +114,7 @@ export default function TitleCategory(props:PropsTitleCategory):JSX.Element {
                 options={categories}
                 formatOptionLabel={(e:any)=>(
                     <div style={{display:'flex',alignItems:'center'}}>
-                        <img style={{width:"30px", marginRight:'10px',marginLeft:'5px'}} src={e.icon}/> {e.label}
+                        <img loading="lazy" style={{width:"30px", marginRight:'10px',marginLeft:'5px'}} src={e.icon}/> {e.label}
                     </div>
                 )}
                 styles={customStylesSelect}

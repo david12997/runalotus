@@ -20,7 +20,7 @@ export const WidgetCategoriesProductIndex:NextPage<PropsIndexPage> = (props) =>{
             <CardCategories
                 img={ theme.data_domain+category[1].img}
                 title={category[1].text}
-                click={()=>router.push(`/tienda/productos/${category[1].link}`)}
+                click={()=>router.push(`/tienda/${category[1].link}`)}
             />
         );
     })

@@ -10,7 +10,7 @@ const StyleNavigationMobile = styled.div`
 
     & > .navigationMobile{
         position: absolute;
-        z-index:999;
+        z-index:99999;
         display: none;
         width: 90vw;
         margin-left: 12vw;

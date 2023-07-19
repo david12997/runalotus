@@ -18,6 +18,30 @@ const StyleInfoProductMobile = styled.div`
         width: 100%;
         height: 100%;
 
+        & > .myblock-top{
+            position: absolute;
+            top:15px;
+            z-index: 99;
+            width: 86%;
+            height: 23vh;
+            background: transparent;
+            
+         
+
+        }
+
+        & > .myblock-bottom{
+            position: absolute;
+            top:55%;
+            z-index: 99;
+            width: 90%;
+            height: 23vh;
+            background: transparent;
+           
+         
+
+        }
+
 
         &  > .container-price{
             position: relative;
@@ -30,7 +54,7 @@ const StyleInfoProductMobile = styled.div`
             border-radius: 9px;
             display: flex;
             justify-content: space-between;
-            z-index:999;
+            z-index:99;
 
             & > .prices{
 
@@ -51,7 +75,7 @@ const StyleInfoProductMobile = styled.div`
 
                 & > .price{
                     color: ${theme.colors.white};
-                    font-size: 19px;
+                    font-size: 21px;
                     font-weight: 800;
                     max-width: 99%;
                     white-space: nowrap;
@@ -80,7 +104,7 @@ const StyleInfoProductMobile = styled.div`
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index:999;
+            z-index:99;
 
 
             & > .name{
@@ -107,7 +131,7 @@ const StyleInfoProductMobile = styled.div`
             height: 60%;
             left: calc(96% - 35px);
             top: 30px;
-            z-index:999;
+            z-index:99;
 
             & > div{
                 margin-top: 20px;
@@ -136,60 +160,83 @@ export default function InfoProductMobile(props:PropsInfoProductMobile):JSX.Elem
 
     return<StyleInfoProductMobile>
 
-                <div className="info-product-mobile">
-    
-                <div className="container-price">
+        <div className="info-product-mobile">
 
-                    <div className="prices">
+            <div className="myblock-top"></div>
+            <div className="myblock-bottom"></div>
 
-                        <div className="discount">{FormatCurrency(props.product.attributes.sale_price,'COP','es-CO')}</div>
-                        <div className="price">{FormatCurrency(props.product.attributes.discount_price,'COP','es-CO')}</div>
+            <div className="container-price">
 
+                <div className="prices">
+
+                    <div className="discount">
+                        {
+                            props.product.attributes.discount_price !== "0"
+                            &&
+                            FormatCurrency(props.product.attributes.sale_price,'COP','es-CO')
+                        }    
                     </div>
-
-                    <div className="button" onClick={()=>{
-                        
-                      
-                        router.asPath === '/tienda' 
-                        ? 
-                        router.push(router.asPath+'/productos/'+props.product.id) 
-                        : 
-                        router.push(router.asPath+'/'+props.product.id)
-                        
-                    }}>
-
-                        <Button1
-                            bgColor={theme.colors.primaryA}
-                            minWidth="100%"
-                            minHeight="46px"
-                            text="Ver producto"
-
-                        />
+                    <div className="price">
+                        {
+                            props.product.attributes.discount_price !== "0"
+                            ?
+                            FormatCurrency(props.product.attributes.discount_price,'COP','es-CO')
+                            :
+                            FormatCurrency(props.product.attributes.sale_price,'COP','es-CO')
+                        }
                     </div>
 
                 </div>
 
-                <div className="container-name">
-                    <div className="name">
-                        {props.product.attributes.name}
-                    </div>
+                <div className="button" onClick={()=>{
+                    
+                    
+                    router.asPath === '/tienda' 
+                    ? 
+                    router.push(router.asPath+'/productos/'+props.product.id) 
+                    : 
+                    router.push(router.asPath+'/'+props.product.id)
+                    
+                }}>
+
+                    <Button1
+                        bgColor={theme.colors.primaryA}
+                        minWidth="100%"
+                        minHeight="46px"
+                        text="Ver producto"
+
+                    />
                 </div>
 
-                <div className="container-info-options">
-
-                    <div className="add-cart">
-                        <IconCartPlus width="30" height="30" fill={theme.colors.grayB} />
-                    </div>
-                    <div className="mercado-libre">
-                        <img width="33px" src={theme.data_domain+'/uploads/icon_ml_c2c95579cc.png'} alt="" />
-                    </div>
-                    <div className="whatsapp">
-                        <IconWhatsapp width="33" height="30" fill={theme.colors.grayB} />
-                    </div>
-                </div>
-
-
-    
             </div>
+
+            <div className="container-name">
+                <div className="name">
+                    {props.product.attributes.name}
+                </div>
+            </div>
+
+            <div className="container-info-options">
+
+                <div className="add-cart">
+                    <IconCartPlus width="30" height="30" fill={theme.colors.grayB} />
+                </div>
+                <div className="mercado-libre" onClick={()=>{
+                      window.open(props.product.attributes.links_marketplace.mercadolibre,'_blank');
+                      window.focus();
+                }}>
+                    <img loading="lazy" width="33px" src={theme.data_domain+'/uploads/icon_ml_c2c95579cc.png'} alt="" />
+                </div>
+                <div className="whatsapp" onClick={()=>{
+                    window.open(props.product.attributes.links_marketplace.whatsapp,'_blank');
+                    window.focus();
+                }}>
+                    <IconWhatsapp width="33" height="30" fill={theme.colors.grayB} />
+                </div>
+            </div>
+
+
+
+        </div>
     </StyleInfoProductMobile>
 }

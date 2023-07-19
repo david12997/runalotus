@@ -1,16 +1,22 @@
-import { WidgetFooter } from "@/widgets/common/w-footer";
 import { WidgetNav } from "@/widgets/common/w-nav";
-import { WidgetCategoriesProductIndex } from "@/widgets/index/w-categories-index";
-import { WidgetCategoriesTourismIndex } from "@/widgets/index/w-categories-tourism";
-import { WidgetIndexRoutes } from "@/widgets/index/w-routes-index";
-import { WidgetStoreIndex } from "@/widgets/index/w-store-index";
 import { WidgetWelcomeIndex } from "@/widgets/index/w-welcome-index";
-import { WidgetAnimationPayIndex} from "@/widgets/index/w-animation-pay";
+
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { theme } from "../../config";
 import { GetData } from "../services/get-data";
-import { useRouter } from "next/router";
+
+import dynamic from "next/dynamic";
+
+
+
+const DynamicWidgetStoreIndex = dynamic(()=>import('@/widgets/index/w-store-index').then((mod)=>mod.WidgetStoreIndex));
+const DynamicWidgetCategoriesProductIndex = dynamic(()=>import('@/widgets/index/w-categories-index').then((mod)=>mod.WidgetCategoriesProductIndex));
+const DynamicWidgetAnimationPayIndex = dynamic(()=>import('@/widgets/index/w-animation-pay').then((mod)=>mod.WidgetAnimationPayIndex));
+const DynamicWidgetIndexRoutes = dynamic(()=>import('@/widgets/index/w-routes-index').then((mod)=>mod.WidgetIndexRoutes));
+const DynamicWidgetCategoriesTourismIndex = dynamic(()=>import('@/widgets/index/w-categories-tourism').then((mod)=>mod.WidgetCategoriesTourismIndex));
+const DynamicWidgetFooter = dynamic(()=>import('@/widgets/common/w-footer').then((mod)=>mod.WidgetFooter));
+
 
 export type PropsIndexPage = {
 
@@ -18,27 +24,30 @@ export type PropsIndexPage = {
   context?:any
 }
 
+
+
 const Index: NextPage<PropsIndexPage> = (props) => {
 
-  const router = useRouter();
-
-  if(router.isFallback){
-    return <div>Loading...</div>
-  }
 
   return<>
     <Head>
-      <title>Runalotus Colombia | Turismo | Tienda de artesanias </title>
+      <meta charSet="UTF-8"/>
+      <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+      <meta name="description" content="Runalotus es una plataforma de turismo y comercio electrónico que conecta  artesanos  y fabricantes colombianos con personas interesadas en descubrir las maravillas de Colombia. "/>
+      <link rel="canonical" href="https://runalotus.com/es/tienda"/>
+      <title>Runalotus | Artesanos y Fabricantes | Tienda de artesanias y Joyeria | Herramientas turisticas | Colombia   </title>
     </Head>
 
     <WidgetNav data={[props.data.attributes,props.context]}/>
     <WidgetWelcomeIndex data={props.data}/>
-    <WidgetStoreIndex data={props.data}/>
-    <WidgetCategoriesProductIndex data={props.data}/>
-    <WidgetAnimationPayIndex data={props.data}/>
-    <WidgetIndexRoutes data={props.data}/>
-    <WidgetCategoriesTourismIndex data={props.data}/>
-    <WidgetFooter/>
+    <DynamicWidgetStoreIndex data={props.data}/>
+    <DynamicWidgetCategoriesProductIndex data={props.data}/>
+    <DynamicWidgetAnimationPayIndex data={props.data}/>
+    <DynamicWidgetIndexRoutes data={props.data}/>
+    <DynamicWidgetCategoriesTourismIndex data={props.data}/>
+    <DynamicWidgetFooter/>
 
   </>
 }

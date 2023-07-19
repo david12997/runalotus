@@ -1,12 +1,16 @@
 import { GetStaticProps, NextPage } from "next";
 import { WidgetNav } from "@/widgets/common/w-nav";
 import { WidgetWelcomeTourism } from "@/widgets/tourism/w-welcome";
-import { WidgetCategoriesTourism } from "@/widgets/tourism/w-categories";
-import { WidgetAnimationRoutes } from "@/widgets/tourism/w-animation-routes";
-import { WidgetFooter } from "@/widgets/common/w-footer";
+import BreadCrumbs from "../../components/common/breadCrumbs";
 import { theme } from "../../../config";
 import { GetData } from "../../services/get-data";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+import Head from "next/head";
+
+const DynamicWidgetCategoriesTourism = dynamic(() => import("@/widgets/tourism/w-categories").then((mod) => mod.WidgetCategoriesTourism));
+const DynamicWidgetAnimationRoutes = dynamic(() => import("@/widgets/tourism/w-animation-routes").then((mod) => mod.WidgetAnimationRoutes));
+const DynamicWidgetFooter = dynamic(() => import("@/widgets/common/w-footer").then((mod) => mod.WidgetFooter));
 
 export type PropsTourismPage = {
 
@@ -17,16 +21,24 @@ export type PropsTourismPage = {
 const TourismPage: NextPage<PropsTourismPage> = (props) =>{
 
   const router = useRouter();
-  if(router.isFallback){
-      return <div>Loading...</div>
-  }
+
 
   return<>
+    <Head>
+    <meta charSet="UTF-8"/>
+      <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+      <meta name="description" content="Descubre Colombia y sus maravillas, Paisajes, Lugares increibles y Culturas anestrales. Explora Colmbia turistica con lo mejor de runalotus turismo "/>
+      <link rel="canonical" href="https://runalotus.com/es/turismo"/>
+      <title>Turismo Colombia | Mapa turistico | Rutas turisticas | Colombia   </title>
+    </Head>
     <WidgetNav data={[props.data.attributes, props.context]}/>
+    <BreadCrumbs/>
     <WidgetWelcomeTourism data={props.data} />
-    <WidgetCategoriesTourism data={props.data}/>
-    <WidgetAnimationRoutes data={props.data}/>
-    <WidgetFooter/>
+    <DynamicWidgetCategoriesTourism data={props.data}/>
+    <DynamicWidgetAnimationRoutes data={props.data}/>
+    <DynamicWidgetFooter/>
   </>
 }
 

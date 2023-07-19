@@ -153,8 +153,22 @@ export default function InfoProductDesktop(props:PropsInfoProductDesktop ):JSX.E
 
             <div className="container-prices">
                 <div className="prices">
-                    <div className="discount">{FormatCurrency(props.product.attributes.sale_price,'COP','es-CO')}</div>
-                    <div className="price">{FormatCurrency(props.product.attributes.discount_price,'COP','es-CO')}</div>
+                    <div className="discount">
+                        {
+                            props.product.attributes.discount_price !== "0"
+                            &&
+                            FormatCurrency(props.product.attributes.sale_price,'COP','es-CO')
+                        }
+                    </div>
+                    <div className="price">
+                        {
+                            props.product.attributes.discount_price !== "0"
+                            ?
+                            FormatCurrency(props.product.attributes.discount_price,'COP','es-CO')
+                            :
+                            FormatCurrency(props.product.attributes.sale_price,'COP','es-CO')
+                        }
+                    </div>
                 </div>
             </div>
 
@@ -176,10 +190,16 @@ export default function InfoProductDesktop(props:PropsInfoProductDesktop ):JSX.E
                 <div className="add-cart">
                     <IconCartPlus width="37" height="37" fill={theme.colors.grayB} />
                 </div>
-                <div className="mercado-libre">
-                    <img width="37px" height="35" src={theme.data_domain+'/uploads/icon_ml_c2c95579cc.png'} alt="" />
+                <div style={{cursor:'pointer'}} className="mercado-libre" onClick={()=>{
+                    window.open(props.product.attributes.links_marketplace.mercadolibre,'_blank');
+                    window.focus();
+                }}>
+                    <img loading="lazy" width="37px" height="35" src={theme.data_domain+'/uploads/icon_ml_c2c95579cc.png'} alt="" />
                 </div>
-                <div className="whatsapp">
+                <div style={{cursor:'pointer'}} className="whatsapp" onClick={()=>{
+                    window.open(props.product.attributes.links_marketplace.whatsapp,'_blank');
+                    window.focus();
+                }}>
                     <IconWhatsapp width="34" height="34" fill={theme.colors.grayB} />
                 </div>
 

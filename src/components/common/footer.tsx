@@ -146,7 +146,7 @@ export default function Footer(props:PropsFooter):JSX.Element{
             </div>
 
             <div className="container-img">
-                <img  src={props.img} alt={props.altImg} />
+                <img loading="lazy"  src={props.img} alt={props.altImg} />
 
             </div>
            

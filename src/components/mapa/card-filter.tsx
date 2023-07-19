@@ -40,7 +40,7 @@ type PropsCardFilter={
     
     img:string,
     text:string,
-    key:number,
+    key?:number,
     font_size:string
 }
 
@@ -48,7 +48,7 @@ export default function CardFilter(props:PropsCardFilter):JSX.Element{
 
     return<StyleCardFilter font_size={props.font_size}>
 
-        <img src={theme.data_domain+props.img}/>
+        <img loading='lazy' src={theme.data_domain+props.img}/>
         <div>{props.text}</div>
     </StyleCardFilter>
 }

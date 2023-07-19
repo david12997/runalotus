@@ -19,7 +19,7 @@ const StyleMenuDesktop = styled.div`
             position: fixed;
             background: ${theme.colors.white};
             border-radius: 10px;
-            box-shadow: 0px 0px 3px rgba(0,0,0,0.5);
+            box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
 
             & > .type-menu{
                 padding: 3px;
@@ -46,6 +46,7 @@ const StyleMenuDesktop = styled.div`
                     margin-left: 10%;
                     height: 150px;
                     border:2px solid ${theme.colors.grayD};
+                    cursor:pointer;
 
                     & > .img{
                         display: flex;
@@ -84,9 +85,16 @@ type PropsMenuDesktop = {
 }
 
 export default function MenuDesktop(props:PropsMenuDesktop):JSX.Element {
+    
+    const data = props.categories.data || [];
+    const Sortcategories = [...data];
 
-
-
+    const index13 = data.findIndex((item: any) => item.id === 13);
+    if (index13 !== -1) {
+      Sortcategories.splice(index13, 1); // Remove the item with id 13 from the original position
+      Sortcategories.splice(1, 0, data[index13]); // Insert the item with id 13 in the second position
+    }
+    
     return<StyleMenuDesktop>
 
         <div className="menu-desktop">
@@ -105,7 +113,7 @@ export default function MenuDesktop(props:PropsMenuDesktop):JSX.Element {
             <div className="container-type-menu">
 
                 {
-                    props.categories.data.map((category:any,index:number)=>{
+                    Sortcategories.map((category:any,index:number)=>{
 
                         return<div key={index} 
                             className="card-categorie" 
@@ -113,7 +121,7 @@ export default function MenuDesktop(props:PropsMenuDesktop):JSX.Element {
                         >
 
                             <div className="img">
-                                <img src={ theme.data_domain+ category.attributes.media.data[0].attributes.url} alt="" />
+                                <img loading="lazy" src={ theme.data_domain+ category.attributes.media.data[0].attributes.url} alt="" />
                             </div>
                             <div className="text">
                                 {category.attributes.name}

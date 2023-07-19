@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";  
+import React from "react";  
 import styled from "styled-components";
 import { useLocation } from "../../../hooks/location";
 import { theme } from "../../../../config";
@@ -14,7 +14,7 @@ const StyleLocationNav = styled.div`
     width: 100%;
     height: 100%;
     background-color:rgba(0,0,0,0.5);
-    z-index: 99999;
+    z-index: 9999999;
     position:fixed;
     display:none;
     justify-content: center;
@@ -69,18 +69,21 @@ const StyleLocationNav = styled.div`
      & > .containerMap > .container-input{
 
         position: absolute;
-        z-index: 99999;
+        z-index: 9999999;
     }
 
     & > .containerMap > .btn-select-map{
 
         position: absolute;
-        z-index:99999;
+        z-index:9999999;
         width:100%;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top:300px;
+        margin-top:70vh;
+        @media (min-width: 800px){
+            margin-top:40%;
+        }
 
     }
 
@@ -98,16 +101,9 @@ export default function LocationNav(props:PropsLocationNav):JSX.Element{
 
     const dispatch:AppDispatch = useDispatch();
     const locationUser = useSelector((state:RootState)=>state.location);
-
     const LocationHook = useLocation(dispatch, locationUser);
 
-    useEffect(()=>{
-      
-        LocationHook.useEffectLocation;
-
-    },[]);
-
-    return<StyleLocationNav data-testid="location-component-test" ref={props.reference}>
+    return<StyleLocationNav id="location-nav-modal" data-testid="location-component-test" ref={props.reference}>
 
         <div className="containerMap">
             <div className="closeContainer" onClick={()=>props.locationToggle(props.reference,'none')}>
@@ -119,6 +115,22 @@ export default function LocationNav(props:PropsLocationNav):JSX.Element{
                     placeholder={props.placeholder}
                     id="input-autocomplete"
                     reference={LocationHook.inputAutoComplete}
+                    onFocus={()=>{
+                        
+                        if(LocationHook.buttonSaveLocation.current !== null && LocationHook.inputAutoComplete.current !== null && LocationHook.inputAutoComplete.current.value !== ""){
+                            LocationHook.buttonSaveLocation.current.style.background = theme.colors.secondaryA;
+                            LocationHook.buttonSaveLocation.current.style.color = theme.colors.white;
+                        }
+                    
+                    }}
+
+                    onBlur={()=>{
+
+                        if(LocationHook.buttonSaveLocation.current !== null  ){
+                            LocationHook.buttonSaveLocation.current.style.background = theme.colors.grayC;
+                            LocationHook.buttonSaveLocation.current.style.color = theme.colors.grayA;
+                        }
+                    }}
                 />
             </div>
 

@@ -11,6 +11,8 @@ import LanguageCurrency from "./lang-currency";
 import LocationNav from "./location";
 
 
+const LazyCart = React.lazy(()=>import('./cart'));
+
 export interface PropsNavStyle{
     area:string,
     context?:any
@@ -18,7 +20,6 @@ export interface PropsNavStyle{
 const NavStyle =  styled.nav<PropsNavStyle>`
 
     width:100%;
-    height:95px;
     grid-area:${(props)=>props.area};
     z-index:9999;
     position:fixed;
@@ -144,10 +145,16 @@ export default function Nav(props:PropsNav):JSX.Element{
                 FocusLinkMobile(linkRefMobile.current[index] as HTMLDivElement, index);
                 break;
             
-            }else if(router.asPath.includes('/tienda/productos')){
+            }else if(router.asPath.includes('/tienda/')){
 
                 FocusLinkDesktop(linkRefDesktop.current[2] as HTMLDivElement);
                 FocusLinkMobile(linkRefMobile.current[2] as HTMLDivElement, index);
+                break;
+
+            }else if(router.asPath.includes('/turismo/mapa')){
+
+                FocusLinkDesktop(linkRefDesktop.current[1] as HTMLDivElement);
+                FocusLinkMobile(linkRefMobile.current[1] as HTMLDivElement, index);
                 break;
 
             }else if(router.asPath === '/'){

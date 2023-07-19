@@ -24,7 +24,7 @@ const StyleWelcomeIndex =  styled.div`
             height:600px;
             width:160%;
             object-fit:cover;
-            object-position:80% 50%;
+            object-position:96% 50%;
             z-index:-1;
             position:absolute;
             @media(min-width:600px){
@@ -262,7 +262,7 @@ export default function WelcomeIndex(props:PropsWelcomeIndex):JSX.Element{
 
     return<StyleWelcomeIndex>
         <div className="bg-index">
-            <img className="bg"  src={props.bg} />
+            <img loading="lazy" className="bg"  src={props.bg} />
             
             <div className="container-texts">
                 <div className="text-discovery">
@@ -285,7 +285,7 @@ export default function WelcomeIndex(props:PropsWelcomeIndex):JSX.Element{
 
             <div className="container-animation">
                 
-                <img  className="hand" src={props.hand} />
+                <img loading="lazy" className="hand" src={props.hand} />
 
                 <div className="animation-index">
                     {props.animation}

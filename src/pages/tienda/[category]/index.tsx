@@ -5,6 +5,8 @@ import { theme } from "../../../../config";
 import { PropsAppStore } from "..";
 import { WidgetProductsApp } from "../../../widgets/tienda/w-products-store";
 import BreadCrumbs from "../../../components/common/breadCrumbs";
+import { ParsedUrlQuery } from "querystring";
+import Head from "next/head";
 
 
 
@@ -12,6 +14,15 @@ const StoreAppCategoryPage:NextPage<PropsAppStore> = (props) =>{
 
 
     return<>
+        <Head>
+            <meta charSet="UTF-8"/>
+            <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+            <meta name="description" content="Runalotus  plataforma de comercio electrónico  COMPRA online rápido y seguro en tu tienda de PRODUCTOS HECHOS EN COLOMBIA en línea, Compras online de Artesanias, Jarras y vasos, Joyas y piedras,  con envío a todo COLOMBIA "/>
+            <link rel="canonical" href="https://runalotus.com/es/tienda"/>
+            <title>Runalotus | Compras  online | Hecho en Colombia | Made in Colombia |Envío Gratis | Tienda de artesanias y Joyeria | </title>
+        </Head>
 
         <WidgetNav data={[props.data.attributes,props.context]} />
         <BreadCrumbs/>
@@ -26,35 +37,39 @@ const StoreAppCategoryPage:NextPage<PropsAppStore> = (props) =>{
     </>
 }
 
-export const getStaticPaths:GetStaticPaths = async () =>{
+export const getStaticPaths:GetStaticPaths = async (context) =>{
+
+    const paths:(string | {
+        params: ParsedUrlQuery;
+        locale?: string | undefined;
+    })[] =   [];
+
+    const categories:string[] =[
+        'productos',
+        'joyeria',
+        'ceramica',
+        'piedras',
+        'tejidos',
+        'jarras',
+        'sombreros',
+        'bolsos'
+
+    ];
+
+    for(let i = 0; i < categories.length; i++){
+        
+        context.locales?.map((item:string)=>{
+            paths.push({
+                params:{category:categories[i]},
+                locale:item
+            });
+        });
+    }
+
+
 
     return{
-        paths:[
-            {
-                params:{category:'productos'}
-            },
-            {
-                params:{category:'joyeria'}
-            },
-            {
-                params:{category:'ceramica'}
-            },
-            {
-                params:{category:'piedras'}
-            },
-            {
-                params:{category:'tejidos'}
-            },
-            {
-                params:{category:'jarras'}
-            },
-            {
-                params:{category:'sombreros'}
-            },
-            {
-                params:{category:'bolsos'}
-            },
-        ],
+        paths:paths,
         fallback:false
     }
 }
@@ -81,7 +96,7 @@ export const getStaticProps:GetStaticProps<PropsAppStore> = async (context) =>{
     
     const response = await GetData([
         'https://cms.aipus.co/api/subcategories?filters[category][id][$eq]=5&populate[0]=media', //return categories of runalotus
-        `https://cms.aipus.co/api/products?populate=*&filters[subcategories][id][$eq]=${id_category}&pagination[page]=1&pagination[pageSize]=4`, //return products of category
+        `https://cms.aipus.co/api/products?populate=*&filters[subcategories][id][$eq]=${id_category}&pagination[page]=1&pagination[pageSize]=6`, //return products of category
         `https://cms.aipus.co/api/pages/${lang}?populate[0]=components` //return components of store page
 
     ],theme.token_cms as string).then(data=>data);

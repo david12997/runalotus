@@ -62,6 +62,7 @@ const StylesCart = styled.div`
         margin-left:5%;
         display: flex;
         justify-content: center;
+        border-bottom: 1px solid ${theme.colors.grayC};
 
         & > .cart_body_empty > p{
             display: flex;
@@ -103,9 +104,11 @@ const StylesCart = styled.div`
 
             & > span > .product > .info-cart-product{
                 padding: 5px;
+                min-width:119px;
+                width:100%;
 
                 & > .name-product{
-                    max-width: 250px;
+                    max-width: 200px;
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
@@ -168,7 +171,7 @@ const StylesCart = styled.div`
 
                     & > .delete{
                         position: absolute;
-                        left: 96%;
+                        left: 90%;
                         top:58%;
                         cursor: pointer;
                     }
@@ -177,6 +180,23 @@ const StylesCart = styled.div`
             }
 
         }
+    }
+
+    & > .cart > .subtotal{
+        margin-top: 20px;
+        width:90%;
+        align-items: center;
+        height:45px;
+        display: flex;
+        padding:5px;
+        margin-left: 5%;
+        
+    }
+
+    & > .cart > .btn-agendar{
+        width:90%;
+        margin-left:5%;
+        
     }
 
 
@@ -196,6 +216,7 @@ type PropsCart = {
 export default function Cart(props:PropsCart):JSX.Element{
 
     const stateCart = useSelector((state:RootState)=>state.cart);
+    const stateLocation = useSelector((state:RootState)=>state.location);
     const dispatch:AppDispatch = useDispatch();
 
 
@@ -320,13 +341,54 @@ export default function Cart(props:PropsCart):JSX.Element{
                 }
 
             </div>
+            
             {
                 stateCart.quantity > 0
                 &&
                 <div className="subtotal">
-                    Subtotal: <strong style={{color:theme.colors.balck, fontSize:"18px"}}>{FormatCurrency(`${stateCart.subtotal}`,'COP','es-CO')}</strong>
+                    Subtotal:
+                     <strong style={{color:theme.colors.balck, fontSize:"18px"}}>
+                        {FormatCurrency(`${stateCart.subtotal}`,'COP','es-CO')}
+                    </strong>
                 </div>
             }
+
+            {
+                 stateCart.quantity > 0
+                 &&
+                <div className="btn-agendar">
+                    <Button1 
+                        text="Agendar pedido"
+                        minWidth="90%"
+                        minHeight="60px"
+                        bgColor={theme.colors.successA}
+                        click={()=>{
+                            const subtotal =  stateCart.subtotal.toString();
+                            const location = stateLocation.location.value;
+                            const data = stateCart.products.map((product:{quantity:number,product:any},index:number)=>{
+                                return{
+                                    quantity:product.quantity,
+                                    id:product.product.id,
+                                    name:product.product.attributes.name,
+                                    
+                                }
+                            });
+                            const message = "HOLA, QUIERO AGENDAR EL SIGUIENTE PEDIDO (** NO MODIFIQUES ESTE MENSAJE **) ";
+
+                            window.open(`https://api.whatsapp.com/send?phone=573172789710&text=${message};cart=true;subtotal=${subtotal};products=${JSON.stringify(data)};location=${location};type="catr-bot"`,'_blank');
+                        }}
+                    />
+                    
+                    <p style={{color:theme.colors.grayA,fontWeight:'400',fontSize:'16px',marginTop:"20px"}}>
+                        <img style={{position:"relative"}} width={"36px"} loading="lazy" src={theme.data_domain+'/uploads/efectivo_b3b19ee92b.webp'} /> 
+                            
+                        {` \u00A0 Agenda un pedido y `} <strong style={{color:theme.colors.successA}}>paga cuando recibas  tu compra</strong>
+                    </p>
+    
+                </div>
+            }
+
+            
 
             <br></br>
         </div>

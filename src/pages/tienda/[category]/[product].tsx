@@ -29,8 +29,19 @@ const StoreViewProductPage:NextPage<PropsViewProduct> = (props) =>{
         <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-        <meta name="description" content="Runalotus  plataforma de comercio electrónico  COMPRA online rápido y seguro en tu tienda de PRODUCTOS HECHOS EN COLOMBIA en línea, Compras online de Artesanias, Jarras y vasos, Joyas y piedras,  con envío a todo COLOMBIA "/>
+        <meta property="og:title" content={props.product.attributes.name}/>
+        <meta property="og:description" content={props.product.attributes.name}/>
+        <meta property="og:url" content="https://runalotus.com/es/tienda"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:image" content={theme.data_domain+props.product.attributes.media.data[0].attributes.url}/>
+        <meta property="og:image:width" content="1200"/>
+        <meta property="og:image:height" content="630"/>
+        <meta property="og:image:alt" content={props.product.attributes.name}/>
+
+        <meta property="og:site_name" content={props.product.attributes.name}/>
+        
         <link rel="canonical" href="https://runalotus.com/es/tienda"/>
+        
         <title> {props.product.attributes.name} | Compras  online | Hecho en Colombia | Made in Colombia |Envío Gratis | Tienda de artesanias y Joyeria | </title>
     </Head>
     <WidgetNav data={[props.data.attributes,props.context]}/>

@@ -201,7 +201,8 @@ const StyleViewMobile = styled.div`
         }
 
         & > .container-description{
-            margin-top: 5px;
+            padding-top: 27px;
+            margin-top: 150px;
             margin-bottom: 5px;
             width:90%;
             margin-left:5%;
@@ -432,12 +433,53 @@ export default function ViewMobile(props:PropsViewProduct):JSX.Element{
                         <strong style={{color:theme.colors.secondaryA}}>Mercado Pago</strong>
                         {` puedes comprar usando tu tarjeta de credito`}
                     </p>
+                    <p style={{color:theme.colors.grayA,fontWeight:'400',fontSize:'16px'}}>
+                                <img style={{position:"relative"}} width={"36px"} loading="lazy" src={theme.data_domain+'/uploads/efectivo_b3b19ee92b.webp'} /> 
+                                 
+                               {` \u00A0 Agenda un pedido y `} <strong style={{color:theme.colors.successA}}>paga cuando recibas  tu compra</strong>
+                            </p>
                     <Button1
                         minWidth="100%"
                         minHeight="70px"
                         text="Comprar ahora"
                         bgColor={theme.colors.secondaryA}
                         click={props.BuyProduct}
+                        
+                    />
+                    <Button1
+                        minWidth="100%"
+                        minHeight="70px"
+                        text="Agendar pedido"
+                        bgColor={theme.colors.successA}
+                        click={()=>{
+                                    
+                            let data:any;
+                            if(props.product.attributes.discount_price === "0" || props.product.attributes.discount_price === ""){
+
+                                data = {
+                                    id:props.product.id,
+                                    name:props.product.attributes.name,
+                                    price:props.product.attributes.sale_price,
+                                    quantity:props.quantity,
+
+                                }
+                                
+                            }else{
+
+                                data = {
+                                    id:props.product.id,
+                                    name:props.product.attributes.name,
+                                    price:props.product.attributes.discount_price,
+                                    quantity:props.quantity,
+
+                                }
+                            }
+
+                            const message= "Hola, quiero agendar un pedido  (** No modifiques este mensaje **)"
+                            window.open(`https://api.whatsapp.com/send?phone=573172789710&text=${message};cart=false;data=${JSON.stringify(data)};type=product-bot`,'_blank');
+                            window.focus();
+
+                        }}
                         
                     />
                 </div>

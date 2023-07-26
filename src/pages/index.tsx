@@ -34,10 +34,20 @@ const Index: NextPage<PropsIndexPage> = (props) => {
       <meta charSet="UTF-8"/>
       <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta name="facebook-domain-verification" content="rn36ib6ornm0vhd4n1ldrzzlw0q96s" />
+      <meta property="og:type" content="website"/>
+      <meta property="og:url" content="https://runalotus.com/"/>
+      <meta property="og:image" content="https://cms.aipus.co/uploads/fondo_runa_1_ee02d63487.png"/>
+      <meta property="og:image:width" content="1200"/>
+      <meta property="og:image:height" content="630"/>
+      <meta property="og:image:alt" content="Descubre Colombia y sus maravillas"/>
+      <meta property="og:title" content="Runalotus turismo y comercio electronico de productos hechos en Colombia"/>
+      <meta property="keywords" content="Artesanas,ecommerce, Colombia, Tienda "/>
+      <meta name="description" content="Runalotus Turismo y Artesanias Colombias "/>
+      <meta property="og:site_name" content="Runalotus turismo y comercio electronico de productos hechos en Colombia "/>
 
-      <meta name="description" content="Runalotus es una plataforma de turismo y comercio electrónico que conecta  artesanos  y fabricantes colombianos con personas interesadas en descubrir las maravillas de Colombia. "/>
-      <link rel="canonical" href="https://runalotus.com/es/tienda"/>
-      <title>Runalotus | Artesanos y Fabricantes | Tienda de artesanias y Joyeria | Herramientas turisticas | Colombia   </title>
+      <link rel="canonical" href="https://runalotus.com/"/>
+      <title>Runalotus | Turismo y Artesanias | | Colombia | Tienda de artesanias y Joyeria | Herramientas turisticas    </title>
     </Head>
 
     <WidgetNav data={[props.data.attributes,props.context]}/>

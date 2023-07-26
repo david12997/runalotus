@@ -255,7 +255,7 @@ export default function InfoProductDesktop(props:PropsInfoProductDesktop ):JSX.E
                     <img loading="lazy" width="37px" height="35" src={theme.data_domain+'/uploads/icon_ml_c2c95579cc.png'} alt="" />
                 </div>
                 <div style={{cursor:'pointer'}} className="whatsapp" onClick={()=>{
-                    window.open(props.product.attributes.links_marketplace.whatsapp,'_blank');
+                    window.open(`https://api.whatsapp.com/send?phone=573172789710&text=Hola, quiero mas información del producto ${props.product.attributes.name}`,'_blank');
                     window.focus();
                 }}>
                     <IconWhatsapp width="34" height="34" fill={theme.colors.grayB} />

@@ -24,10 +24,20 @@ const  StoreAppPage:NextPage<PropsAppStore> =(props) =>{
             <meta charSet="UTF-8"/>
             <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
             <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <meta property="og:url" content="https://runalotus.com/es/tienda"/>
+            <meta property="og:type" content="website"/>
+            <meta property="og:image" content="https://cms.aipus.co/uploads/tienda_runa_1_83e1c4ed2e.png"/>
+            <meta property="og:image:width" content="1200"/>
+            <meta property="og:image:height" content="630"/>
+            <meta property="og:image:alt" content="Tienda de artesanias y productos fabricados en Colombia"/>
+            <meta property="og:title" content="Runalotus  comercio electronico de productos fabricados en Colombia"/>
+            <meta property="keywords" content="Artesanias, ecommerce, Colombia, Tienda "/>
+            <meta name="description" content="Runalotus tienda de artesanias y productos fabricados en Colombia"/>
+            <meta property="og:site_name" content="Runalotu comercio electronico de productos fabricados en Colombia "/>
 
-            <meta name="description" content="Runalotus  plataforma de comercio electrónico  COMPRA online rápido y seguro en tu tienda de PRODUCTOS HECHOS EN COLOMBIA en línea, Compras online de Artesanias, Jarras y vasos, Joyas y piedras,  con envío a todo COLOMBIA "/>
+            
             <link rel="canonical" href="https://runalotus.com/es/tienda"/>
-            <title>Runalotus | Compras  online | Hecho en Colombia | Made in Colombia |Envío Gratis | Tienda de artesanias y Joyeria | </title>
+            <title>Runalotus Tienda | Compras  online | Hecho en Colombia | Made in Colombia | Envío Gratis | Tienda de artesanias y Joyeria | </title>
         </Head>
 
         <WidgetNav data={[props.data.attributes,props.context]} />

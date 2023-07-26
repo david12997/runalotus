@@ -53,7 +53,7 @@ export default function Filters(props:PropsFilters):JSX.Element{
           ...base,
           height: 48,
           minHeight: 48,
-          fontSize:16,
+          fontSize:15,
           fontWeight:700,
           width:184,
           marginLeft:5,
@@ -83,7 +83,7 @@ export default function Filters(props:PropsFilters):JSX.Element{
         });
         
         props.mapHook.setMarkers([]);
-        console.log(props.mapHook.cluster,'hidecluster');
+       // console.log(props.mapHook.cluster,'hidecluster');
 
     };
 
@@ -143,25 +143,28 @@ export default function Filters(props:PropsFilters):JSX.Element{
                     styles={customStylesTourismFilters}
                     onChange={(e)=>{
 
-
-                    
-
-
+                        Hideclusters();
+                        
                         let subcategory:number;
                         e?.value === "Montañas" ? subcategory = 31
                         : e?.value === "Lugares turisticos" ? subcategory = 8
+                        : e?.value === "Lagunas" ? subcategory = 35
+                        : e?.value === "Islas e islotes" ? subcategory = 34
+                        : e?.value === "Desiertos" ? subcategory = 36
+                        : e?.value === "Bosques" ? subcategory = 37
+                        : e?.value === "Nevados" ? subcategory = 38
+                        : e?.value === "Parques Naturales" ? subcategory = 42
+                        : e?.value === "Playas" ? subcategory = 32
+                        : e?.value === "Selvas" ? subcategory = 39
+                        : e?.value === "Volcanes" ? subcategory = 33
                         : subcategory = 8;
-                    
                         GetData(
                             [`https://cms.aipus.co/api/subcategories/${subcategory}?populate[0]=points.media`],
                             theme.token_cms as string
                         
                         ).then(res =>{
-                            
                         
-                            
                             Hideclusters();
-                            
                             setMontañas(res[0].data.attributes.points);
                             res[0].data.attributes.points.data.map((point:any,index:number)=>{
 
@@ -181,7 +184,7 @@ export default function Filters(props:PropsFilters):JSX.Element{
 
 
                             setTimeout(() => { 
-                                console.log(props.mapHook.cluster,'puntos turisticos');
+                               // console.log(props.mapHook.cluster,'puntos turisticos');
                                 if(props.mapHook.cluster !== null){
 
                                     Hideclusters();

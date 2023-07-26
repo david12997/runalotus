@@ -45,7 +45,7 @@ export const theme = {
     token_cms:process.env.NEXT_PUBLIC_TOKEN_CMS_AIPUS,
     key_google_maps:process.env.NEXT_PUBLIC_KEY_GOOGLE_MAPS,
     own_domain:"https://runalotus.com",
-    develop_domain:"https://localhost:3000",
+    develop_domain:"http://localhost:3000",
 
 
 }

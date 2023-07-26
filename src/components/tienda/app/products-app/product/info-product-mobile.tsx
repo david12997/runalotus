@@ -23,7 +23,7 @@ const StyleInfoProductMobile = styled.div`
 
         & > .myblock-top{
             position: absolute;
-            top:15px;
+            top:36px;
             z-index: 99;
             width: 86%;
             height: 23vh;
@@ -37,7 +37,7 @@ const StyleInfoProductMobile = styled.div`
             position: absolute;
             top:55%;
             z-index: 99;
-            width: 90%;
+            width: 87%;
             height: 23vh;
             background: transparent;
            
@@ -275,7 +275,7 @@ export default function InfoProductMobile(props:PropsInfoProductMobile):JSX.Elem
                     <img loading="lazy" width="33px" src={theme.data_domain+'/uploads/icon_ml_c2c95579cc.png'} alt="" />
                 </div>
                 <div className="whatsapp" onClick={()=>{
-                    window.open(props.product.attributes.links_marketplace.whatsapp,'_blank');
+                    window.open(`https://api.whatsapp.com/send?phone=573172789710&text=Hola, quiero mas información del producto ${props.product.attributes.name}`,'_blank');
                     window.focus();
                 }}>
                     <IconWhatsapp width="33" height="30" fill={theme.colors.grayB} />

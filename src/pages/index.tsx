@@ -58,7 +58,7 @@ export const  getStaticProps:GetStaticProps<PropsIndexPage> = async(context) =>{
   context.locale === 'es' ? lang = '1' : lang = '2';
 
   const data =  await GetData([`https://cms.aipus.co/api/pages/${lang}?populate[0]=components`],theme.token_cms as string).then(res=>res);
-
+ 
   return{
 
     props:{

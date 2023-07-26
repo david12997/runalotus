@@ -273,6 +273,7 @@ export default function NavbarBottom(props:PropsNavbarBottom):JSX.Element{
    
     const locationUser = useSelector((state:RootState)=>state.location);
     const currencyUser = useSelector((state:RootState)=>state.lang_currency.currency);
+    const stateCart = useSelector((state:RootState)=>state.cart);
 
 
 
@@ -313,7 +314,7 @@ export default function NavbarBottom(props:PropsNavbarBottom):JSX.Element{
 
             <div onClick={()=>props.elementToggle(props.referenceCart,'block')} className="carrito">
                 {props.icons.cart}
-                <div className="number">+9</div>
+                <div className="number">({stateCart.quantity})</div>
 
             </div>
 

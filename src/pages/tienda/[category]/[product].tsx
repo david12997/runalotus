@@ -8,7 +8,7 @@ import BreadCrumbs from "../../../components/common/breadCrumbs";
 import Head from "next/head";
 
 type PropsViewProduct = {
-    id_product:number,
+    id_product:number | string,
     product:{id:number, attributes:any},
     data:{id:number, attributes:any}
     context:any,
@@ -51,10 +51,11 @@ export const getStaticPaths:GetStaticPaths = async () =>{
 export const getStaticProps:GetStaticProps<PropsViewProduct> = async (context) =>{
 
     const {params} = context;
-    let id_product:number = 1;
+    let id_product:string = '1';
 
     if(params?.product){
-        id_product = parseInt(params.product as string);
+
+        id_product = params.product.toString().split('@')[1];
     }
 
     let lang:string; // lang 5 and 6 are store page in cms

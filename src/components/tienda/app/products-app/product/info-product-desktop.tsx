@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import FormatCurrency from "../../../../../services/format-currency";
 import { IconCartPlus, IconWhatsapp } from "../../../../../icons/icons";
 import { theme } from "../../../../../../config";
 import Button1 from "../../../../common/button-1";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store";
+import { deleteProductCart, setProducts, setQuantity } from "@/store/cart";
 
 const StyleInfoProductDesktop = styled.div`
     
@@ -87,6 +90,7 @@ const StyleInfoProductDesktop = styled.div`
                 margin-top:13%;
                 width: 90%;
                 margin-left: 5%;
+                cursor:pointer;
             }
             
             & > .container-info-product{
@@ -121,6 +125,7 @@ const StyleInfoProductDesktop = styled.div`
                 justify-content: space-around;
                 align-items: center;
                 display: flex;
+                cursor:pointer;
             }
 
 
@@ -139,6 +144,29 @@ type PropsInfoProductDesktop = {
 export default function InfoProductDesktop(props:PropsInfoProductDesktop ):JSX.Element {
 
     const router = useRouter();
+    const dispatch = useDispatch<AppDispatch>();
+    const stateCart = useSelector((state:RootState)=>state.cart);
+    const [cart,setCart] = useState<boolean>(false);
+
+
+    useEffect(()=>{
+
+    
+        stateCart.products.forEach((item:any,index:number)=>{
+            if(item.product.id === props.product.id){
+                setCart(true);
+            }
+
+            
+        });
+
+
+    
+
+
+    },[stateCart]);
+
+
 
     return<StyleInfoProductDesktop>
         <div className="info-product-desktop">
@@ -187,9 +215,39 @@ export default function InfoProductDesktop(props:PropsInfoProductDesktop ):JSX.E
 
             <div className="container-options-desktop">
 
-                <div className="add-cart">
-                    <IconCartPlus width="37" height="37" fill={theme.colors.grayB} />
-                </div>
+                <div id={`product-desktop-${props.product.id}`} className="add-cart" onClick={()=>{
+                    
+                    let exist:boolean = false;
+
+                    if(stateCart.products.length === 0){
+                        dispatch(setProducts([{quantity:1, product:props.product}]));
+                        dispatch(setQuantity(stateCart.quantity+1));
+                        setCart(true);
+                    }
+                    else{
+
+                        stateCart.products.forEach((item:any,index:number)=>{
+                            if(item.product.id === props.product.id){
+                                exist = true;
+                            }
+                        });
+
+                        if(!exist){
+                            dispatch(setProducts([{quantity:1, product:props.product}]));
+                            dispatch(setQuantity(stateCart.quantity+1))
+                            setCart(true);
+                        }else{
+
+                            dispatch(deleteProductCart(props.product.id));
+                            dispatch(setQuantity( stateCart.quantity > 0 ? stateCart.quantity-1 : 0));
+                            setCart(false);
+                        }
+                        
+                    }
+                }}>
+                    <IconCartPlus width="37" height="37" fill={cart ? theme.colors.successA : theme.colors.grayB } />
+                </div> 
+                
                 <div style={{cursor:'pointer'}} className="mercado-libre" onClick={()=>{
                     window.open(props.product.attributes.links_marketplace.mercadolibre,'_blank');
                     window.focus();
@@ -212,9 +270,9 @@ export default function InfoProductDesktop(props:PropsInfoProductDesktop ):JSX.E
                 
                 router.asPath === '/tienda' 
                 ? 
-                router.push(router.asPath+'/productos/'+props.product.id) 
+                router.push(`${router.asPath+'/productos/'+props.product.attributes.name+'@'+props.product.id}`.replace(/ /g,'-')) 
                 : 
-                router.push(router.asPath+'/'+props.product.id)
+                router.push(`${router.asPath+'/'+props.product.attributes.name+'@'+props.product.id}`.replace(/ /g,'-'))
 
             }}>
                 <Button1

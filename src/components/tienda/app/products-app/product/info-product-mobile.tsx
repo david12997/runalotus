@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { IconCartPlus, IconWhatsapp } from "../../../../../icons/icons";
 import { theme } from "../../../../../../config";
 import FormatCurrency from "../../../../../services/format-currency";
 import Button1 from "../../../../common/button-1";
 import { useRouter } from "next/router";
+import { AppDispatch, RootState } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteProductCart, setProducts, setQuantity } from "@/store/cart";
 
 const StyleInfoProductMobile = styled.div`
 
@@ -157,6 +160,19 @@ type PropsInfoProductMobile = {
 export default function InfoProductMobile(props:PropsInfoProductMobile):JSX.Element {
 
     const router = useRouter();
+    const dispatch:AppDispatch = useDispatch();
+    const stateCart = useSelector((state:RootState)=>state.cart);
+    const [cart,setCart] = useState<boolean>(false);
+
+    useEffect(()=>{
+
+        stateCart.products.forEach((item:any,index:number)=>{
+            if(item.product.id === props.product.id){
+                setCart(true);
+            }
+        });
+
+    },[stateCart]);
 
     return<StyleInfoProductMobile>
 
@@ -193,9 +209,10 @@ export default function InfoProductMobile(props:PropsInfoProductMobile):JSX.Elem
                     
                     router.asPath === '/tienda' 
                     ? 
-                    router.push(router.asPath+'/productos/'+props.product.id) 
+                    router.push(`${router.asPath+'/productos/'+props.product.attributes.name+'@'+props.product.id}`.replace(/ /g,'-')) 
                     : 
-                    router.push(router.asPath+'/'+props.product.id)
+                    router.push(`${router.asPath+'/'+props.product.attributes.name+'@'+props.product.id}`.replace(/ /g,'-'))
+    
                     
                 }}>
 
@@ -218,8 +235,38 @@ export default function InfoProductMobile(props:PropsInfoProductMobile):JSX.Elem
 
             <div className="container-info-options">
 
-                <div className="add-cart">
-                    <IconCartPlus width="30" height="30" fill={theme.colors.grayB} />
+                <div id={`product-mobile-${props.product.id}`} className="add-cart" onClick={()=>{
+                    
+                    let exist:boolean = false;
+
+                    if(stateCart.products.length === 0){
+                        dispatch(setProducts([{quantity:1, product:props.product}]));
+                        dispatch(setQuantity(stateCart.quantity+1));
+                        setCart(true);
+                    }
+                    else{
+
+                        stateCart.products.forEach((item:any,index:number)=>{
+                            if(item.product.id === props.product.id){
+                                exist = true;
+                            }
+                        });
+
+                        if(!exist){
+                            dispatch(setProducts([{quantity:1, product:props.product}]));
+                            dispatch(setQuantity(stateCart.quantity+1));
+                            setCart(true);
+                        }else{
+
+                            dispatch(deleteProductCart(props.product.id));
+                            dispatch(setQuantity( stateCart.quantity > 0 ? stateCart.quantity-1 : 0));
+                            setCart(false);
+                        }
+                        
+                    }
+                    
+                }}>
+                    <IconCartPlus width="30" height="30" fill={ cart ? theme.colors.successA : theme.colors.grayB } />
                 </div>
                 <div className="mercado-libre" onClick={()=>{
                       window.open(props.product.attributes.links_marketplace.mercadolibre,'_blank');

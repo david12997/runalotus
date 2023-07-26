@@ -153,7 +153,7 @@ const StyleViewMobile = styled.div`
                     height:16%;
                     box-shadow: inset 1px 1px 3px rgba(0,0,0,0.36);
                     border-radius:5px;
-                    background:${theme.colors.background};
+                    background: rgba(255, 255, 255, 0.6);
 
                     & > .title{
                        

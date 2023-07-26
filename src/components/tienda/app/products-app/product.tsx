@@ -7,6 +7,7 @@ import InfoProductDesktop from "./product/info-product-desktop";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
+import { useRouter } from "next/router";
 
 
 const StyleProductApp = styled.div`
@@ -133,6 +134,7 @@ type ProductAppProps = {
 export default function ProductApp(props:ProductAppProps): JSX.Element {
 
     //console.log(props.product);
+    const router = useRouter();
 
     return <StyleProductApp>
 
@@ -144,6 +146,14 @@ export default function ProductApp(props:ProductAppProps): JSX.Element {
                
                 <div className="img-product">
                     <Carousel 
+                        onClickItem={()=>{
+                            router.asPath === '/tienda' 
+                            ? 
+                            router.push(`${router.asPath+'/productos/'+props.product.attributes.name+'@'+props.product.id}`.replace(/ /g,'-')) 
+                            : 
+                            router.push(`${router.asPath+'/'+props.product.attributes.name+'@'+props.product.id}`.replace(/ /g,'-'))
+            
+                        }}
                         showIndicators
                         dynamicHeight={false}  
                         emulateTouch 

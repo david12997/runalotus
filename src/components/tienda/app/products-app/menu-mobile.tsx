@@ -70,9 +70,13 @@ export default function MenuMobile(props:PropsMenuMobile):JSX.Element {
     const Sortcategories = [...data];
 
     const index13 = data.findIndex((item: any) => item.id === 13);
+    const index1 = data.findIndex((item: any) => item.id === 1);
+    
     if (index13 !== -1) {
-      Sortcategories.splice(index13, 1); // Remove the item with id 13 from the original position
-      Sortcategories.splice(1, 0, data[index13]); // Insert the item with id 13 in the second position
+        Sortcategories.splice(0, 0, data[index1]); // Remove the item with id 13 from the original position
+        Sortcategories.splice(1, 0, data[index13]); // Insert the item with id 13 in the second position
+        Sortcategories.splice(7, 1); // Remove the item with id 13 from the original position
+        Sortcategories.splice(3, 1); // Remove the item with id 1 from the original position
     }
     
     return<StyleMenuMobile>

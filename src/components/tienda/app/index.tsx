@@ -59,7 +59,7 @@ export default function ProductsStore(props:PropsProductstore):JSX.Element {
 
         {props.menuMobile}
         {props.menuDesktop}
-        {(router.asPath === '/tienda') && props.promotions }
+        {(router.asPath === '/blocked') && props.promotions }
         {props.titleCategory}
         <span className="container-products">
 

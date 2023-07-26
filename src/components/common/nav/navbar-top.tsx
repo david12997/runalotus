@@ -287,6 +287,7 @@ export default function NavbarTop(props:PropsNavbarTop):JSX.Element{
 
     const locationUser = useSelector((state:RootState)=>state.location);
     const currencyUser = useSelector((state:RootState)=>state.lang_currency.currency);
+    const stateCart = useSelector((state:RootState)=>state.cart);
 
 
     return<StyleNavbarTop data-testid="navbar-top-component-test">
@@ -312,7 +313,7 @@ export default function NavbarTop(props:PropsNavbarTop):JSX.Element{
                 <div className="mobile__buttons">
                 <div onClick={()=>props.elementToggle(props.referenceCart,'block')} className="carrito">
                         {props.icons.cart}
-                        <div className="number">+9</div>
+                        <div className="number">({stateCart.quantity})</div>
 
                 </div>
                 <div className="bars" onClick={()=>props.elementToggle(props.referenceMenu,'block')}>

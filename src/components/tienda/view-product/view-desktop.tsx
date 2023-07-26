@@ -19,10 +19,12 @@ const StyleViewDesktop = styled.div`
             height:100%;
             position: absolute;
 
+
             & > .container-product, & > .container-info{
                 margin-left: 5%;
                 width:46%;
                 height:99%;
+
                
             }
 
@@ -143,6 +145,8 @@ const StyleViewDesktop = styled.div`
                     background-color:${theme.colors.white};
                     border-radius:10px;
                     border:1px solid ${theme.colors.grayD};
+                    overflow-y: scroll;
+                    overflow-x: hidden;
 
                     & > .container-price{
                         width:90%;
@@ -366,7 +370,9 @@ export default function ViewDesktop(props:PropsViewProduct):JSX.Element{
                     </div>
 
                     <div className="container-description">
-                        <Markdown>{props.product.attributes.description}</Markdown>
+                        <Markdown options={{forceBlock: true}} >
+                            {props.product.attributes.description}
+                        </Markdown>
 
                     </div>
                 </div>
@@ -471,12 +477,12 @@ export default function ViewDesktop(props:PropsViewProduct):JSX.Element{
 
                         }}>
                             <p style={{color:theme.colors.grayA,fontWeight:'400',fontSize:'16px',}}>
-                                <img style={{position:"absolute"}} width={"30px"} loading="lazy" src={theme.data_domain+'/uploads/icon_mercado_libre_eb4daa11bb.png'} /> 
-                                {`\u00A0 \u00A0 \u00A0 \u00A0 \u00A0Procesamos tus pagos y envios con tu `}<strong style={{color:theme.colors.warningA}}>cuenta de Mercado Libre</strong>
+                                <img style={{position:"relative"}} width={"30px"} loading="lazy" src={theme.data_domain+'/uploads/icon_mercado_libre_eb4daa11bb.png'} /> 
+                                {`\u00A0 \u00A0Procesamos tus pagos y envios con tu `}<strong style={{color:theme.colors.warningA}}>cuenta de Mercado Libre</strong>
                             </p>
                             <p style={{color:theme.colors.grayA,fontWeight:'400',fontSize:'16px',}}>
-                                <img style={{position:"absolute"}} width={"30px"} loading="lazy" src={theme.data_domain+'/uploads/icon_mercadopago_bf1c6deb75.png'} /> 
-                                {`\u00A0 \u00A0 \u00A0 \u00A0 \u00A0Con `} 
+                                <img style={{position:"relative"}} width={"30px"} loading="lazy" src={theme.data_domain+'/uploads/icon_mercadopago_bf1c6deb75.png'} /> 
+                                {` \u00A0 \u00A0Con `} 
                                 <strong style={{color:theme.colors.secondaryA}}>Mercado Pago</strong>
                                 {` puedes comprar usando tu tarjeta de credito`}
                             </p>
@@ -489,6 +495,8 @@ export default function ViewDesktop(props:PropsViewProduct):JSX.Element{
                                 
                             />
                         </div>
+                        <br/>
+                        <br/>
                     </div>
 
                 </div>

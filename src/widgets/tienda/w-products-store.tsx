@@ -29,13 +29,7 @@ export const WidgetProductsApp:NextPage<WidgetPropsAppStore> = (props) =>{
     const [page, setPage] = useState <number>(2);
     const [category, setCategory] = useState<number>(props.id_category);
 
-
-
-
-
-
-
-    console.log('products',products);
+    //console.log('products',products);
 
 
     const FetchMore = async (category:number,page:number,shallowRouting:boolean) => {
@@ -113,7 +107,7 @@ export const WidgetProductsApp:NextPage<WidgetPropsAppStore> = (props) =>{
 
             titleCategory={
                 <TitleCategory
-                    marginTop={router.pathname === '/tienda' ? '25px' : '69px'}
+                    marginTop={'69px'}
                     categories={props.categories}
                     products={products}
                     setProducts={(currentCategory,nameCategory)=>{
@@ -128,7 +122,7 @@ export const WidgetProductsApp:NextPage<WidgetPropsAppStore> = (props) =>{
                     }}
                 />
             }
-            promotions={<Promotions /> }
+            promotions={<Promotions  /> }
 
             infiniteScroll={
                 <InfiniteScroll

@@ -12,7 +12,7 @@ const StyleNavbarBottom = styled.div`
      & > .nav__container2{
 
         width:100%;
-        height:46px;
+        height:36px;
         box-shadow:0px 1px 1px rgba(0,0,0,0.2);
 
     }
@@ -43,13 +43,13 @@ const StyleNavbarBottom = styled.div`
                 align-items:center;
                 color:${theme.colors.primaryA};
                 font-weight:800;
-                font-size:18px;
+                font-size:17px;
             }
 
             img{
 
-                width:43px;
-                height:40px;
+                width:33px;
+                height:33px;
                 margin-top:1%;
                 
             }
@@ -126,8 +126,8 @@ const StyleNavbarBottom = styled.div`
             
             width:5%;
             cursor:pointer;
-            height:22px;
-            margin-top:8px;
+            height:18px;
+            margin-top:4px;
             display:flex;
             justify-content:center;
             padding:5px;
@@ -189,7 +189,7 @@ const StyleNavbarBottom = styled.div`
 
                     position:absolute;
                     top:1%;
-                    font-size:14px;
+                    font-size:12px;
                     font-weight:800;
                     left:36%;
                     color:${theme.colors.secondaryA};
@@ -236,7 +236,7 @@ const StyleNavbarBottom = styled.div`
 
         & > .nav__container2 > .logo > p{
 
-            font-size:23px;
+            font-size:19px;
         }
 
 
@@ -281,7 +281,7 @@ export default function NavbarBottom(props:PropsNavbarBottom):JSX.Element{
         <div className="nav__container2">
 
             <div className="logo">
-                <Image loading="lazy" width={50} height={60} alt="Logo runalotus" onClick={()=>router.push('/')} src={props.logo}/>
+                <Image loading="lazy" width={60} height={60} alt="Logo runalotus" onClick={()=>router.push('/')} src={props.logo}/>
                 <p onClick={()=>router.push('/')}>{props.name}</p>
                 
                 <div className="options-desktop">
@@ -308,7 +308,7 @@ export default function NavbarBottom(props:PropsNavbarBottom):JSX.Element{
             </div>
 
             <div className="search">
-                {props.search}
+               
 
             </div>
 

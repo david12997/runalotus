@@ -19,7 +19,7 @@ export const StyleSearchRoute = styled.div`
     & > .container-selects{
 
         width:98%;
-        height:98%;
+        height:80%;
         background:rgba(255,255,255,0.8);
         border-radius:8px;
         display:flex;
@@ -53,23 +53,23 @@ export const StyleSearchRoute = styled.div`
 
             position:relative;
             width:246px;
-            height:100px;
+            height:80px;
 
             @media(min-width:330px){
                 width:300px;
-                height:140px;
+                height:80px;
             }
 
             @media(min-width:630px){
                 width:400px;
-                height:150px;
+                height:100px;
             }
 
         }
 
         .select-location{
 
-         
+            position: relative;
 
             .icon-location{
 
@@ -84,6 +84,19 @@ export const StyleSearchRoute = styled.div`
                 align-items:center;
                 top: 14%;
                 left: 3%;
+            }
+
+            .text-location{
+                font-weight: bold;
+                font-size:18px;
+                padding-left:5px;
+                top:10px;
+                left:69px;
+                position: absolute;
+                @media(min-width:800px){
+                    font-size:20px;
+                }
+                
             }
 
         }
@@ -111,6 +124,18 @@ export const StyleSearchRoute = styled.div`
                 left: 3%;
             }
 
+            .text-climate{
+                font-weight: bold;
+                font-size:18px;
+                padding-left:5px;
+                top:10px;
+                left:69px;
+                position: absolute;
+                @media(min-width:800px){
+                    font-size:20px;
+                }
+            }
+
         }
     }
 
@@ -118,7 +143,6 @@ export const StyleSearchRoute = styled.div`
 
 export type PropsSearchRoute ={
 
-    selects:JSX.Element[],
     icons:JSX.Element[],
 
 }
@@ -132,7 +156,7 @@ export default function SearchRoute(props:PropsSearchRoute):JSX.Element{
                 <div className="icon-location">
                     {props.icons[0]}
                 </div>
-                {props.selects[0]}
+                <div className="text-location"> Lugares y paisajes increibles te esperan</div>
             </div>
             
             <div className="space"></div>
@@ -141,7 +165,7 @@ export default function SearchRoute(props:PropsSearchRoute):JSX.Element{
                 <div className="icon-climate">
                     {props.icons[1]}
                 </div>
-                {props.selects[1]}
+                <div className="text-climate">Encuentra todos los climas en un solo pais</div>
             </div>
            
 

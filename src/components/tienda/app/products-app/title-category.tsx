@@ -119,7 +119,20 @@ export default function TitleCategory(props:PropsTitleCategory):JSX.Element {
                 )}
                 styles={customStylesSelect}
                 onChange={(e)=>{
-                    
+                    const categoriesMobile = document.getElementsByClassName("categories-mobile-store");
+                    const categoriesDesktop = document.getElementsByClassName("categories-desktop-store");
+                    for(let i = 0; i < categoriesMobile.length; i++){
+                        
+                        if( parseInt(categoriesMobile[i].attributes[0].value) === e.id){
+                            categoriesMobile[i].setAttribute("style","border:3px solid "+theme.colors.secondaryA);
+                            categoriesDesktop[i].setAttribute("style","border:3px solid "+theme.colors.secondaryA);
+                        }else{
+                            categoriesMobile[i].setAttribute("style","border:1px solid "+theme.colors.grayD);
+                            categoriesDesktop[i].setAttribute("style","border:2px solid "+theme.colors.grayD);
+                        }
+                        
+                    }
+
                     props.setProducts(e.id,e.value,props.products.data);
                     
                 }}

@@ -8,6 +8,7 @@ import { persistor, wrapper } from '../store';
 import { PersistGate } from 'redux-persist/integration/react';
 import Layout from '../layout';
 import PermissionLocation from '../components/common/permission-location';
+import Script from 'next/script';
 
 
 
@@ -19,7 +20,7 @@ function App({ Component, ...rest }: AppProps) {
   return<Provider store={store} >
 
     <PersistGate loading={null} persistor={persistor}>
-
+      <Script src='https://sdk.mercadopago.com/js/v2'></Script>
       <Layout page={router.asPath}>
         <span id='permission-location'>
           <PermissionLocation locale={router.locale as string} />

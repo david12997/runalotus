@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Button1 from "../../common/button-1";
 import { theme } from "../../../../config";
@@ -305,8 +305,30 @@ type PropsViewProduct ={
 }
 export default function ViewMobile(props:PropsViewProduct):JSX.Element{
 
+    useEffect(()=>{
+
+        // @ts-ignore
+        const mp = new MercadoPago('TEST-79d1bcf4-763e-45d1-aa17-494e1e6c5701',{
+            locale:'es-CO'
+        });
+
+
+        console.log(mp);
+       mp.checkout({
+            preference: {
+                id: '565287926-06311d5b-896f-41b9-b6dd-093da5033a24'
+            },
+            render: {
+                container: '#wallet_container', // Indica dónde se mostrará el botón de pago
+                label: 'Pagar', // Cambia el texto del botón de pago (opcional)
+            }
+       })
+        
+
+    },[]);
+
     return<StyleViewMobile>
-                <div className="container-product-mobile">
+        <div className="container-product-mobile">
 
             <div className="container-name">
                 <h4>{props.product.attributes.name}</h4>
@@ -483,6 +505,7 @@ export default function ViewMobile(props:PropsViewProduct):JSX.Element{
                         
                     />
                 </div>
+                <div id="wallet_container"></div>
             </div>
 
             <div className="container-description">

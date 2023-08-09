@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 import FormatCurrency from "@/services/format-currency";
 import { deleteProductCart, setQuantity, setQuantityProduct } from "@/store/cart";
+import { useRouter } from "next/router";
 
 const StylesCart = styled.div`
 
@@ -218,6 +219,7 @@ export default function Cart(props:PropsCart):JSX.Element{
     const stateCart = useSelector((state:RootState)=>state.cart);
     const stateLocation = useSelector((state:RootState)=>state.location);
     const dispatch:AppDispatch = useDispatch();
+    const router = useRouter();
 
 
     return<StylesCart>
@@ -246,6 +248,7 @@ export default function Cart(props:PropsCart):JSX.Element{
                             text={props.cart_empty.btn_text}
                             minWidth="90%"
                             minHeight="60px"
+                            click={()=>router.push('/tienda')}
                         />
                     </div>
                     :

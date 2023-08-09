@@ -12,7 +12,7 @@ const StyleNavbarTop = styled.div`
     & > .nav__container1{
 
         width:100%;
-        height:34px;
+        height:27px;
 
     }
 
@@ -47,7 +47,7 @@ const StyleNavbarTop = styled.div`
             display:flex;
             justify-content:center;
             align-items:center;
-            top:15px;
+            top:10px;
             position:relative;
             margin:0px;
             padding:0px;
@@ -66,10 +66,10 @@ const StyleNavbarTop = styled.div`
             position:absolute;
             top:0%;
             left:28%;
-            font-size:12px;
+            font-size:10px;
             font-weight:600;
-            padding:3px;
-            height:10px;
+            padding:2px;
+            height:8px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -140,6 +140,12 @@ const StyleNavbarTop = styled.div`
     }
 
     @media(min-width:800px){
+        & > .nav__container1{
+
+            width:100%;
+            height:26px;
+
+        }
 
         & > .nav__container1 > .mobile{
 
@@ -152,12 +158,12 @@ const StyleNavbarTop = styled.div`
             justify-content:end;
             width:90%;
             margin-left:10%;
-            height:100%;
+            height:20px;
 
             .container-links{
 
                 width:75%;
-                height:100%;
+                height:26px;
                 color:white;
                 display:flex;
                 justify-content:space-around;
@@ -172,9 +178,11 @@ const StyleNavbarTop = styled.div`
                 .link{
 
                     width:160px;
+                    height: 26px;
                     display:flex;
                     justify-content:center;
                     align-items:center;
+                    padding:6px;
                     
                     :hover{
                         background:${theme.colors.white};
@@ -194,7 +202,7 @@ const StyleNavbarTop = styled.div`
                         color:${theme.colors.white};
                         text-decoration:none;
                         font-weight:600;
-                        font-size:18px;
+                        font-size:16px;
                         display:flex;
                         justify-content:center;
                         align-items:center;
@@ -215,6 +223,7 @@ const StyleNavbarTop = styled.div`
                 .link_selected{
 
                     width:160px;
+                    height: 26px;
                     display:flex;
                     justify-content:center;
                     align-items:center;
@@ -223,13 +232,14 @@ const StyleNavbarTop = styled.div`
 
 
                     a{
-
+                      
                         color:${theme.colors.primaryA};
                         text-decoration:none;
                         font-weight:600;
-                        font-size:18px;
+                        font-size:16px;
                         display:flex;
                         justify-content:center;
+                        
                         align-items:center;
 
                         p > svg > path{

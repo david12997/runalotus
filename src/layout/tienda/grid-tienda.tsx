@@ -8,7 +8,7 @@ const GridStyleTienda = () =>{
                             "products products products products"
         ;
         grid-template-columns:1fr 1fr 1fr 1fr;
-        grid-template-rows:80px  30px calc(100vh - 116px);
+        grid-template-rows:56px  30px calc(100vh - 100px);
     
     `
 

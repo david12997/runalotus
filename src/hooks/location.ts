@@ -98,6 +98,7 @@ export const useLocation = (dispatch:any, locationGlobalState:any) =>{
             
             //current html element button save
             const btnSave =buttonSaveLocation.current as HTMLDivElement;
+
             
             //autocomplete instance google maps
             autocomplete = new google.maps.places.Autocomplete(input,options);
@@ -105,7 +106,11 @@ export const useLocation = (dispatch:any, locationGlobalState:any) =>{
     
             //autocomplete event place_changed 
             autocomplete.addListener('place_changed',()=>{
-              
+                
+                //enable button save
+                btnSave.style.background = theme.colors.secondaryA;
+                btnSave.style.color = theme.colors.white;
+
                 const place = autocomplete.getPlace();
 
                 if(place.geometry !== undefined ){

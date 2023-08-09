@@ -148,19 +148,19 @@ export default function Nav(props:PropsNav):JSX.Element{
             }else if(router.asPath.includes('/tienda/')){
 
                 FocusLinkDesktop(linkRefDesktop.current[2] as HTMLDivElement);
-                FocusLinkMobile(linkRefMobile.current[2] as HTMLDivElement, index);
+                FocusLinkMobile(linkRefMobile.current[2] as HTMLDivElement, 2);
                 break;
 
             }else if(router.asPath.includes('/turismo/mapa')){
 
                 FocusLinkDesktop(linkRefDesktop.current[1] as HTMLDivElement);
-                FocusLinkMobile(linkRefMobile.current[1] as HTMLDivElement, index);
+                FocusLinkMobile(linkRefMobile.current[1] as HTMLDivElement, 1);
                 break;
 
             }else if(router.asPath === '/'){
             
                 FocusLinkDesktop(linkRefDesktop.current[0] as HTMLDivElement);
-                FocusLinkMobile(linkRefMobile.current[0] as HTMLDivElement, index);
+                FocusLinkMobile(linkRefMobile.current[0] as HTMLDivElement, 0);
                 break;
             }
         }

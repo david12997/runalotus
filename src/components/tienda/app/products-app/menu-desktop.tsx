@@ -15,29 +15,29 @@ const StyleMenuDesktop = styled.div`
             margin-top: 0px;
             display: block;
             width: 16%;
-            height: 85%;
+            height: 90%;
             position: fixed;
             background: ${theme.colors.white};
             border-radius: 10px;
             box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
 
-            & > .type-menu{
-                padding: 3px;
+            & > .title-category{
+                font-size: 18px;
+                color: ${theme.colors.grayB};
                 width: 100%;
-                height: 60px;
+                height: 40px;
                 display: flex;
-                justify-content: space-around;
+                justify-content: center;
                 align-items: center;
-                cursor: pointer;
-
             }
+
 
             & > .container-type-menu{
                 width: 100%;
                 height: 84%;
                 overflow-y: scroll;
 
-                & > .card-categorie{
+                & > .card-categories{
 
                     border-radius: 10px;
                     margin-top: 20px;
@@ -104,15 +104,9 @@ export default function MenuDesktop(props:PropsMenuDesktop):JSX.Element {
 
         <div className="menu-desktop">
 
-            <div className="type-menu">
-
-                <div className="categories">
-                    <IconCategories width="25" height="25" fill={theme.colors.primaryA} /> 
-                </div>
-                <div className="filters">
-                    <IconFilters width="28" height="28" fill={theme.colors.primaryA}/>
-                </div>
-
+            <div className="title-category">
+                <IconCategories fill={theme.colors.grayB} width="16" height="16" />
+                <span style={{marginLeft:"10px"}}>Categorias</span>
             </div>
 
             <div className="container-type-menu">
@@ -121,8 +115,16 @@ export default function MenuDesktop(props:PropsMenuDesktop):JSX.Element {
                     Sortcategories.map((category:any,index:number)=>{
 
                         return<div key={index} 
-                            className="card-categorie" 
-                            onClick={()=>props.setProducts(category.id,category.attributes.name.toLowerCase(),props.products.data)}
+                            data-id={category.id}
+                            id={`category-desktop-${category.id}`}
+                            className="card-categories categories-desktop-store" 
+                            onClick={()=>{
+                                Sortcategories.forEach((item:any)=>{
+                                    document.getElementById(`category-desktop-${item.id}`)?.style.setProperty('border','2px solid '+theme.colors.grayD);
+                                })
+                                document.getElementById(`category-desktop-${category.id}`)?.style.setProperty('border','3px solid '+theme.colors.secondaryA);
+                                props.setProducts(category.id,category.attributes.name.toLowerCase(),props.products.data)
+                            }}
                         >
 
                             <div className="img">

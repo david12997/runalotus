@@ -1,9 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { theme } from "../../../../config";
-import FormatCurrency from "../../../services/format-currency";
-import Markdown from "markdown-to-jsx";
-import Button1 from "../../common/button-1";
 import ViewMobile from "./view-mobile";
 import ViewDesktop from "./view-desktop";
 
@@ -14,7 +10,7 @@ const StyleViewProduct = styled.div`
     width:100%;
     height:100%;
     position:relative;
-    margin-top: -5px;
+    margin-top: -2px;
 
 
 `;
@@ -39,7 +35,6 @@ export default function ViewProduct(props:PropsViewProduct):JSX.Element {
     };
 
     return <StyleViewProduct>
-
 
         <ViewMobile 
             BuyProduct={BuyProduct}

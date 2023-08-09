@@ -139,11 +139,7 @@ export default function ProductApp(props:ProductAppProps): JSX.Element {
     return <StyleProductApp>
 
         <span className="container-app">
-
-           
             <div className="product">
-    
-               
                 <div className="img-product">
                     <Carousel 
                         onClickItem={()=>{
@@ -171,10 +167,7 @@ export default function ProductApp(props:ProductAppProps): JSX.Element {
                         }
                         
                     </Carousel>
-                    
                 </div>
-
-
             </div>
     
             <InfoProductMobile product={props.product} />

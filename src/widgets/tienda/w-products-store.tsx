@@ -12,6 +12,7 @@ import React, {  useEffect, useState } from "react";
 import { GetData } from "../../services/get-data";
 import { theme } from "../../../config";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 
 type WidgetPropsAppStore ={
@@ -28,14 +29,12 @@ export const WidgetProductsApp:NextPage<WidgetPropsAppStore> = (props) =>{
     const [products, setProducts] = useState<any[]>([...props.products.data]);
     const [page, setPage] = useState <number>(2);
     const [category, setCategory] = useState<number>(props.id_category);
-
-    //console.log('products',products);
-
+    const [hasMoreInfinity, setHasMoreInfinity] = useState<boolean>();
 
     const FetchMore = async (category:number,page:number,shallowRouting:boolean) => {
 
         const response = await GetData (
-            [`https://cms.aipus.co/api/products?populate=*&filters[subcategories][id][$eq]=${category}&pagination[page]=${page}&pagination[pageSize]=6`], 
+            [`https://cms.aipus.co/api/products?populate=*&filters[subcategories][id][$eq]=${category}&pagination[page]=${page}&pagination[pageSize]=9`], 
             theme.token_cms as string
         )
             
@@ -50,19 +49,24 @@ export const WidgetProductsApp:NextPage<WidgetPropsAppStore> = (props) =>{
             setPage(page+1);
             setCategory(category);
         }
-
-
+       
+        if(response[0].data.length === 0){
+            setHasMoreInfinity(false);
+            setTimeout(() => setHasMoreInfinity(false), 1200);
+            
+        }
         
     }
 
     useEffect(()=>{
 
+        setHasMoreInfinity(true);
         setProducts(products);
         setPage(page);
         setCategory(category);
 
 
-    },[products,page,category])
+    },[products])
 
 
     return<>
@@ -129,8 +133,35 @@ export const WidgetProductsApp:NextPage<WidgetPropsAppStore> = (props) =>{
 
                     dataLength={products.length}
                     next={()=> FetchMore(category,page,false)}
-                    hasMore={true}
-                    loader={<h4 className="loader-app-products">Loading...</h4>}
+                    hasMore={hasMoreInfinity as boolean}
+                    endMessage={
+                        <div style={{textAlign: 'center',padding:"5px"}}>      
+                            
+                            <Image
+                                src={theme.data_domain+"/uploads/empty_box_63499fe01a.webp"}
+                                alt="empty box products"
+                                width={250}
+                                height={250}
+                            />
+                            <p style={{color:theme.colors.grayA,fontSize:'17px'}}>Ups! no hay más productos en esta categoria</p>
+                            <p onClick={()=>router.push('/tienda/')} style={{color:theme.colors.secondaryA,fontWeight:'800',cursor:'pointer'}}>Ver más productos</p>
+                            <br/>
+                        </div>
+                    }
+                    loader={
+                        <div className="" style={{textAlign: 'center',padding:"5px",marginTop:'10px',paddingTop:'15px'}}>
+                            <Image
+                                src={theme.data_domain+"/uploads/loading_a81759c690.webp"}
+                                alt="loading products"
+                                width={250}
+                                height={250}
+                            />
+                             <p style={{color:theme.colors.grayA,fontSize:'17px'}}>Cargando productos...</p>
+                             <br/>
+                             <br/>
+
+                        </div>
+                    }
                     className="infinite-scroll-container"
                     style={{marginTop:'-20px'}}
                     

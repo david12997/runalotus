@@ -14,7 +14,7 @@ const StyleBreadCrumbs = styled.div<PropsBreadCrumbs>`
 
     width:100%;
     height: 25px;
-    margin-top: 80px;
+    margin-top:60px;
     z-index: 999;
     grid-area: navigation;
     display: flex;
@@ -68,12 +68,12 @@ export default function BreadCrumbs():JSX.Element{
                 let currentScroll:number = document.documentElement.scrollTop;
                 if(maxScroll < currentScroll){
     
-                    elementRef.current?.style.setProperty('margin-top',`45px`);
+                    elementRef.current?.style.setProperty('margin-top',`34px`);
                     maxScroll = currentScroll;
                     
                 }else{
                     
-                    elementRef.current?.style.setProperty('margin-top',`80px`);
+                    elementRef.current?.style.setProperty('margin-top',`60px`);
                     maxScroll = currentScroll;
                     
                 }

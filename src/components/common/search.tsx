@@ -19,7 +19,7 @@ const StyleSeacrh = styled.span`
         margin-left:10%;
         border:1px solid ${theme.colors.grayB};
         width:80%;
-        height:28px;
+        height:23px;
         border-radius:3px;
         background:${theme.colors.background};
         color:${theme.colors.grayB};
@@ -42,7 +42,7 @@ export default function Search(props:PropsSearch):JSX.Element{
 
         <input type="text" placeholder={ props.placeholder !== undefined ? ` ${props.placeholder}` : ' Buscar ...'}></input>
         <div className="icon">
-            {<IconSearch width="20" height="20" fill={theme.colors.grayB}/>}
+            {<IconSearch width="18" height="18" fill={theme.colors.grayB}/>}
         </div>
     
     </StyleSeacrh>

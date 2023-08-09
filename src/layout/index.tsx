@@ -25,7 +25,28 @@ const StyleLayout =  styled.span<PropsStyleLayout>`
     ${(props)=>{
 
         //layout dynamic routes store categories
-        const categories:string[] = [ 'productos','joyeria','ceramica','piedras','tejidos','jarras','sombreros','bolsos'];
+        const categories:string[] = [ 
+            'productos',
+            'joyeria',
+            'ceramica',
+            'piedras',
+            'tejidos',
+            'jarras',
+            'sombreros',
+            'bolsos',
+            'vasos',
+            'copas',
+            'artesanias',
+            'calzado',
+            'accesorios',
+            'ropa',
+            'muebles',
+            'decoracion',
+            'hogar',
+            'cocina',
+            'otros'
+        ];
+
         for(let i:number = 0;i < categories.length;i++){    
 
             if(props.page === '/tienda/'+categories[i])return css`${GridStyleTienda()}`

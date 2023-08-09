@@ -46,17 +46,17 @@ export const WidgetNav:NextPage<PropsWidgetNav> = (props)=>{
   const iconsNav = {
 
     bars: <IconBars width="21" height="21" fill={ theme.colors.white} />,
-    cart: <IconCart width="25" height="25" fill={theme.colors.white} />,
+    cart: <IconCart width="22" height="22" fill={theme.colors.white} />,
     dollar: <IconDollar width="19" height="19" fill={theme.colors.white} />,
     language: <IconLanguage width="23" height="23" fill={theme.colors.white} />,
     location: <IconLocation width="15" height="15" fill={theme.colors.white} />,
     pay: <IconPay width="20" height="20" fill={theme.colors.white} />,
-    store: <IconStore width="20" height="20" fill={theme.colors.white} />,
+    store: <IconStore width="18" height="18" fill={theme.colors.white} />,
     tracker: <IconTracker width="20" height="20" fill={theme.colors.white} />,
     truck: <IconTruck width="20" height="20" fill={theme.colors.white} />,
     user: <IconUser width="20" height="20" fill={theme.colors.white} />,
-    world: <Iconworld width="20" height="20" fill={theme.colors.white} />,
-    colombia:<IconColombia width="28" height="18" />,
+    world: <Iconworld width="17" height="17" fill={theme.colors.white} />,
+    colombia:<IconColombia width="25" height="15" />,
     rocket:<IconLogin width="20" height="20" fill={theme.colors.white} />
 
   };

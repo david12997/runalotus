@@ -90,7 +90,14 @@ export default function MenuMobile(props:PropsMenuMobile):JSX.Element {
                     const nameCategory = category.attributes.name;
 
                     return<span key={index}>
-                        <div className="option-menu" onClick={()=>props.setProducts(category.id,category.attributes.name.toLowerCase(),props.products.data)}>
+                        <div data-id={category.id} id={`category-mobile-${category.id}`} className="option-menu categories-mobile-store" onClick={()=>{
+                              Sortcategories.forEach((item:any)=>{
+                                document.getElementById(`category-mobile-${item.id}`)?.style.setProperty('border','1px solid '+theme.colors.grayD);
+                            });
+                            document.getElementById(`category-mobile-${category.id}`)?.style.setProperty('border','3px solid '+theme.colors.secondaryA);
+                            props.setProducts(category.id,category.attributes.name.toLowerCase(),props.products.data)
+                        
+                        }}>
                 
                             <div className="icon">
                                 <img loading="lazy" src={theme.data_domain+iconFilter} alt="" />

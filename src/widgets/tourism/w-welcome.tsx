@@ -23,20 +23,7 @@ export const WidgetWelcomeTourism:NextPage<PropsTourismPage> =(props) =>{
     
       ];
     
-      const SelectsSearchRoute: JSX.Element[] = [
-    
-        <Select 
-            label={dataWidget.filters.location.label} 
-            options={['Cundinamarca', 'Boyacá', 'Meta', 'Amazonas', 'San Andres y Providencia']} 
-            message={dataWidget.filters.location.desc} />,
-        
-        <Select 
-            label={dataWidget.filters.weather.label}
-            options={['Frio', 'Templado', 'Calido', 'Humedo']} 
-            message={dataWidget.filters.weather.desc} />
-    
-      ];
-    
+
 
     return<>
     
@@ -54,7 +41,7 @@ export const WidgetWelcomeTourism:NextPage<PropsTourismPage> =(props) =>{
             searchRouter={
                 <SearchRoute
                     icons={iconsSearchRoute}
-                    selects={SelectsSearchRoute}
+                   
                 />
             }
         />
